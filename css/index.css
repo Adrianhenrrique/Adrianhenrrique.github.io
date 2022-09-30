@@ -15,7 +15,7 @@ a{
     align-items: center;
     color: white;
     font-size: 20px;
-    font-family: "Fira Code";
+    font-family: "Fira Code", monospace;
     font-weight: 500;
     text-decoration: none;
     margin-right: 30px;
@@ -30,7 +30,7 @@ a:before {
 }
 
 #button{
-   display: inline-block;
+    display: inline-block;
     background-color: #FFD54E;
     height: 60px;
     line-height: 60px;
@@ -40,7 +40,7 @@ a:before {
     margin-left: 20px;
     margin-top: 10px;
     margin-bottom: 10px;
-    transition: transform 100mssudo dnf install git-all;
+    transition: transform 100ms;
 }
 
 #button:hover {
@@ -53,4 +53,64 @@ a:before {
     margin-top: 10px;
     margin-bottom: 10px;
     left: left;
+}
+
+.button3, .button4 {
+    display: inline-block;
+    background-color: #FFD54E;
+    padding: 17px 20px 17px 20px;
+    box-shadow: 5px 5px 0px #000;
+    transition: transform 100ms;
+    margin-top: 38px;
+
+}
+
+.button3 {
+    margin-right: 0px;
+    margin-left: 171px;
+    margin-bottom: 399px;
+}
+
+.button4 {
+    margin-left: 112px;
+}
+.tittle {
+    display: block;
+    background-color: #3A4042;
+    box-shadow: 5px 5px 0px #000;
+    width: 627px;
+    margin-left: 91px;
+    padding-bottom: 44px;
+}
+
+h1 {
+    font-family: "Press Start 2P";
+    font-weight: 400;
+    font-size: 40px;
+    color: #FFD54E;
+    text-shadow: 5px 5px 0px #000;
+    margin-left: 18px;
+}
+
+h2 {
+    font-family: "Press Start 2P";
+    font-size: 30px;
+    color: #fff;
+    text-shadow: 5px 5px 0px #000;
+    margin-left: 40px;
+    margin-top: 28px;
+    margin-left: 40px;
+}
+
+.button3:hover, .button4:hover {
+    transform: scale(1.05);
+}
+
+.banner {
+    border-bottom: 10px solid #000;
+    background-color: aquamarine;
+}
+
+.space_banner {
+    width: 110px;
 }
