@@ -1,39 +1,5 @@
-header {
-    display: flex;
-    justify-content: space-between;
-    background-color: #30323D;
-    border-bottom: 10px solid #000;
-}
-
-nav {
-    text-align: right;
-    display: block;
-}
-
-a{
-    display: inline-flex;
-    align-items: center;
-    color: white;
-    font-size: 20px;
-    font-family: "Fira Code", monospace;
-    font-weight: 500;
-    text-decoration: none;
-    margin-right: 30px;
-}
-
-a:before {
-    content: "";
-    background-color: #FFD54E;
-    width: 10px;
-    height: 10px;
-    margin-right: 10px; 
-}
-
-#icon {
+ #icon {
     display: justify;
-    margin-left: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px 20px;
     left: left;
 }
-
