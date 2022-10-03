@@ -1,0 +1,72 @@
+.progress-react {
+    height: 31px;
+    margin-left: -1px;
+    margin-top: -1px;
+    padding-right: 1px;
+    background-color: #5C80BD;
+    background-size: 10%;
+    width: 10%;
+}
+
+.progress-js {
+    height: 31px;
+    margin-left: -1px;
+    margin-top: -1px;
+    padding-right: 1px;
+    background: #5C80BD;
+    width: 40%;
+}
+
+.progress-css {
+    height: 31px;
+    margin-left: -1px;
+    margin-top: -1px;
+    padding-right: 1px;
+    background-color: #5C80BD;
+    width: 20%;
+}
+
+.progress-html {
+    height: 31px;
+    margin-left: -1px;
+    margin-top: -1px;
+    padding-right: 1px;
+    background-color: #5C80BD;
+    width: 50%;
+}
+
+.progress-node {
+    height: 31px;
+    margin-left: -1px;
+    margin-top: -1px;
+    padding-right: 1px;
+    background-color: #5C80BD;
+    width: 60%;
+}
+
+.progress-api {
+    height: 31px;
+    margin-left: -1px;
+    margin-top: -1px;
+    padding-right: 1px;
+    background-color: #5C80BD;
+    width: 10%;
+}
+
+.progress-tdd {
+    height: 31px;
+    margin-left: -1px;
+    margin-top: -1px;
+    padding-right: 1px;
+    background-color: #5C80BD;
+    width: 20%;
+}
+
+.progress-ux {
+    height: 31px;
+    margin-left: -1px;
+    margin-top: -1px;
+    padding-right: 1px;
+    background-color: #5C80BD;
+    width: 50%;
+}
