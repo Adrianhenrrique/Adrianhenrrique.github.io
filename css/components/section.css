@@ -4,3 +4,11 @@
     background-color: #FFD54E;
     justify-content: center;
 }
+
+.section.-project {
+    border-top: none;
+    border-bottom: 10px solid #F25A70;
+    background-color: #000;
+    justify-content: center;
+    padding-top: 50px;
+}

@@ -1,0 +1,37 @@
+.list-project {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.section.-project .main-title.-secund {
+    margin-top: 0px;
+}
+
+.box-project.-one{
+    width: 280px;
+    height: 280px;
+    padding: 0px;
+    background-color: #4C5B84;
+    box-shadow: 10px 10px 0px #fff;
+    margin-left: 156px;
+    margin-right: 156px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-project.-due {
+    width: 280px;
+    height: 280px;
+    padding: 0px;
+    background-color: #7C5E99;
+    box-shadow: 10px 10px 0px #fff;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
