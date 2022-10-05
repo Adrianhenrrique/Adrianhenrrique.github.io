@@ -30,3 +30,9 @@
 .text-format {
     padding: 50px 80px;
 }
+
+.section.-Contatos {
+    background-color: #3A4042;
+    border: 0px;
+    border-top: 10px solid #000;
+}
