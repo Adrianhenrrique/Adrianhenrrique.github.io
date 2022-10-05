@@ -30,6 +30,7 @@
         <link rel="stylesheet" href="./css/components/projects.css">
         <link rel="stylesheet" href="./css/components/time-line.css">
         <link rel="stylesheet" href="./css/components/main-form.css">
+        <link rel="stylesheet" href="./css/components/main-footer.css">
 
     </head>
     <body>
@@ -188,20 +189,29 @@
             <section class="section -Contatos">
                 <h1 class="main-title -secund">Contatos</h1>
 
-                <form action="" class="main-form">
+                <form action="https://api.staticforms.xyz/submit" method="post" class="main-form">
+                    <input type="hidden" name="accessKey" value="8588632c-a3bf-4686-adf1-494997aef5a7">
+                    <input type="hidden" name="redirectTo" value="https://adrianhenrrique.github.io">
+
                     <label for="inputName" class="subtitle -secund">Nome</label>
-                    <input type="text" name="name" class="text" id="inputName">
+                    <input type="text" name="name" class="text" id="inputName" required maxlength="25" minlength="2">
 
                     
-                    <label for="inputEmail" class="subtitle -secund">Email</label>
-                    <input type="email" name="email" class="text" id="inputEmail">
+                    <label for="inputEmail" class="subtitle -secund" >Email</label>
+                    <input type="email" name="email" class="text" id="inputEmail" required maxlength="50">
 
                     <label for="inputMsg" class="subtitle -secund">Mensagen</label>
-                    <textarea name="msg" class="text -msg" id="inputMsg" cols="30" rows="10"></textarea>
+                    <textarea name="message" class="text -msg" id="inputMsg" cols="30" rows="10" required maxlength="200"></textarea>
 
                     <button class="button">Enviar</button>
                 </form>
 
             </section>
+
+            <footer class="main-footer">
+                <img src="./assets/img/twitter 1.png" alt="logo twitter" class="img">
+                <img src="./assets/img/youtube 1.png" alt="logo youtube" class="img2">
+                <img src="./assets/img/discord 1.png" alt="logo discord" class="img">
+            </footer>
     </body>
 </html>
