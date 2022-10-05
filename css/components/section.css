@@ -12,3 +12,21 @@
     justify-content: center;
     padding-top: 50px;
 }
+
+.section.-about {
+    background-color: #7C5E99;
+
+}
+
+.section.-about .text {
+    font-family: 'Fira Code';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 30px;
+    line-height: 39px;
+    color: #fff;
+}
+
+.text-format {
+    padding: 50px 80px;
+}

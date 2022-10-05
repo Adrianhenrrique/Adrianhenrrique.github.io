@@ -14,3 +14,19 @@
 .button:hover {
      transform: scale(1.05);
 }
+
+.button.-arowL {
+    height: 50px;
+    width: 50px;
+    margin: 0px;
+    margin-top: 84px;
+    padding: 7px;
+}
+
+.button.-arowR {
+    height: 50px;
+    width: 50px;
+    margin: 0px;
+    margin-top: 84px;
+    padding: 7px;
+}
