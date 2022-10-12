@@ -44,3 +44,10 @@ label{
     width: 40%;
     margin: 0% 30%;
 }
+
+
+.main-subtitle {
+    color: #fff;
+    font: normal 11px arial;
+    text-align: center;
+}
