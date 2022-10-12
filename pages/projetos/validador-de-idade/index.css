@@ -1,0 +1,44 @@
+body {
+    background-color: cornflowerblue;
+}
+h1 {
+    color: #fff;
+    font: normal 50px arial;
+}
+
+label{
+    font: normal 20px arial;
+}
+
+.btn {
+    font-size: 15px;
+}
+
+.main-title {
+    text-align: center;
+}
+
+.main-resul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-resul p{
+    font-family: Arial;
+    font-size: 22px;
+}
+
+.img-resul {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: none;
+}
+
+.main-box {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 20px;
+}

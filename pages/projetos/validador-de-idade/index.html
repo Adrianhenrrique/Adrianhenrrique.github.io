@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="index.css">
+
+    <title>Valiador de idade</title>
+</head>
+<body>
+    <h1 class="main-title"><b>Verificador de idader</b></h1>
+    <div class="main-box">
+        <label for="ano">Ano de nacimento : </label>
+        <input type="text" name="ano" id="ano" class="ano">
+        <p>
+            <label for="">Sexo :</label>
+
+            <label for="masculino">
+                <input class="sexo" type="radio" name="c" id="" value="Masculino" checked>Masculino
+            </label>
+            <label for="feminino">
+                <input class="sexo" type="radio" name="c" id="" value="Feminino">Feminino
+            </label>
+        </p> 
+        <div>
+            <input type="button" value="Verificar" class="btn" onclick="verificar()">
+        </div>
+        <div class="main-resul">
+            <p class="resultado_text">Prencha o campo a cima para ver o resultado</p>
+            <img class="img-resul" src="img/bebe_0-3.png" alt="Resultado da idade">
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
