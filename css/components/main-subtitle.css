@@ -1,8 +1,8 @@
-.main-title {
+.main-subtitle {
     font-family: 'Merriweather Sans';
     font-style: normal;
-    font-weight: 700;
-    font-size: 23px;
-    line-height: 29px;
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 16px;
     color: #837E9F;
 }

@@ -1,5 +1,52 @@
- #icon {
-    display: justify;
-    margin: 10px 20px;
-    left: left;
+body {
+    background-color: #22212C;
+}
+
+.bg {
+    display: flex;
+    align-content: flex-start;
+}
+
+.box.profile {
+    margin-top: 40px;
+    margin-left: 40px;
+    text-align: center;
+}
+
+.box.profile .icon{
+    height: 128px;
+    width: 128px;
+    border: 2px solid #00FF00;
+    border-radius: 100px;
+    margin: 32px 110px 30px 110px;
+}
+
+.box.profile h1 {
+    margin-bottom: 10px;
+}
+
+.box.profile h2 {
+    margin-bottom: 49px;
+}
+
+
+.box.project {
+    width: 100%;
+    height: 86px;
+    text-align: center;
+    margin: 40px 40px 0px 0px;
+}
+
+.box.project div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.box.project h1 {
+    margin: 30px 0px 30px 30px;
+    justify-content: center;
+}
+
+.box.project h2 {
+    margin: 34px 30px 34px 0px;
 }

@@ -1,7 +1,7 @@
 body {
     font-family: "Fira Code", monospace;
 }
-body, h1, h2, h3, div{
+body, h1, h2, h3, div header{
     margin: 0px;
     padding: 0px;
 }
@@ -10,3 +10,7 @@ button {
     border: none;
     font-family: inherit;
 } 
+
+a {
+    text-decoration: none;
+}
