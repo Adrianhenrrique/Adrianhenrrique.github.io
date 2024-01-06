@@ -227,6 +227,14 @@ footer div a {
     color: #FFF;
 }
 
+.social-media:nth-child(2):hover {
+    color: #388fe0;
+}
+
+.social-media:nth-child(3):hover {
+    color: #dd0ff0;
+}
+
 @media (max-width: 900px) {
     .content.header {
         margin-bottom: 100px;
