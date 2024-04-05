@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    height: 100vh;
+    background-color: #0C0C0D;
+    padding: 15px 0 25px 0;
+}
+
+header {
+    /* display: flex;
+    justify-content: space-between; */
+
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.backPage {
+    grid-area: 1 / 1 / 6 / 2;
+
+    display: flex;
+    align-items: center;
+
+    margin-left: 50px;
+    transition: transforma 1s ease-in-out;
+    transition: color 1s ease-in-out;
+}
+
+.backPage:hover > h2 {
+    color: #B292FF;
+}
+
+.backPage > img {
+    height: 35px;
+    width: 35px;
+
+    margin-right: 7px;
+}
+
+.backPage > h2 {
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+
+    width: 200px;
+}
+
+.navBar {
+    grid-area: 1 / 5 / 2 / 8;
+    background-color: rgba(33, 31, 35, 0.35);
+    border-radius: 12px;
+
+    padding: 10px 15px;
+}
+
+.navBar > ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+    gap: 20px;
+}
+
+.navBar > ul > li > a {
+    font-size: 20px;
+}
+
+.navBar > ul > li {
+    transition: transforma 1s ease-in-out;
+    cursor: pointer;
+}
+
+.navBar > ul > li:hover, .backPage:hover{
+    transform: scale(1.04);
+}
