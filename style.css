@@ -1,0 +1,462 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    box-sizing: border-box;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    font-family: "Raleway", 'Courier New', Courier, monospace;
+    border: none;
+    color: #B292FF;
+}
+
+a {
+    color: #B292FF;
+}
+
+body {
+    height: 100vh;
+    background-color: #0C0C0D;
+
+    padding: 15px 0 25px 0;
+    display: grid;
+    align-items: center;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+}
+
+.navBar {
+    background-color: rgba(33, 31, 35, 0.35);
+    border-radius: 12px;
+
+    padding: 10px 15px;
+}
+
+.navBar > ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+    gap: 20px;
+}
+
+.navBar > ul > li > a {
+    font-size: 20px;
+}
+
+.navBar > ul > li {
+    transition: transforma 1s ease-in-out;
+    cursor: pointer;
+}
+
+.navBar > ul > li:hover{
+    transform: scale(1.04);
+}
+
+.profile {
+    display: grid;
+    grid-template-areas: "left right";
+
+    padding: 150px auto 0 auto;
+    align-items: center;
+
+    margin-top: 230px;
+}
+
+.profile > .left{
+    grid: left;
+
+    margin-left: 75px;
+}
+
+.profile > .left > h1 {
+    font-size: 75px;
+    color: white;
+    font-weight: 600;
+}
+
+.profile > .left > p {
+    font-size: 24px;
+    color: #6F6F6F;
+    font-weight: 400;
+
+    width: 621px;
+    margin: 45px 0;
+}
+
+.profile > .left > footer {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+}
+
+.profile > .left > footer > .bnt {
+    background-color: white;
+    color: #000;
+    font-size: 17px;
+    font-weight: 700;
+    padding: 10px 15px;
+    border-radius: 7px;
+
+    cursor: pointer;
+    transition: transforma 1s ease-in-out;
+}
+
+.profile > .left > footer > a {
+    font-size: 16px;
+    cursor: pointer;
+    transition: transforma 2s ease-in-out;
+}
+
+.profile > .left > footer > .bnt:hover , .profile > .left > footer > a:hover{
+    transform: scale(1.04);
+}
+
+.profile > .right {
+    grid: right;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.profile > .right > img {
+    border-radius: 122px 54px 188px 73px;
+    -webkit-border-radius: 122px 54px 188px 73px;
+    -moz-border-radius: 122px 54px 188px 73px;
+
+    width: 500px;
+    height: 500px;
+
+    margin-right: 75px;
+}
+
+.skills {
+    padding: 250px 105px 0 105px;
+}
+
+.skills > .title {
+    color: #c8c8c8;
+    font-size: 60px;
+    font-weight: 400;
+}
+
+.skills > .content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+
+.skills > .content > .title {
+    color: #C8C8C8;
+}
+
+.skills > .content > .cards {
+    margin: 150px 0 0 0;
+    width: 350px;
+    flex: 1 0 350px;
+}
+
+.skills > .content > .cards {
+    border: 1px solid #232323;
+    border-radius: 9px;
+    display: inline-block;
+    padding: 25px;
+
+}
+
+.skills > .content > .cards > .card > .content > h2 , .skills > .content > .cards > .card > .content > ul > li {
+    font-size: 16px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.skills > .content > .cards > .card > .content > .list {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    margin-top: 15px;
+}
+
+.fold {
+    margin: 350px 70px 15px 70px;
+
+    background-color: rgba(33, 31, 35, 0.35);
+    border-radius: 50px;
+
+    padding: 10px 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fold > ul {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+@media screen and (min-width: 2560px) {
+    .navBar > ul {
+        gap: 30px;
+    }
+
+    .navBar > ul > li > a {
+        font-size: 36px;
+    }
+
+    .navBar > ul > li > img {
+        height: 36px;
+    }
+
+    .profile > .right > img {
+        width: 650px;
+        height: 650px;
+        padding: 0 70px 0 0;
+        margin: 0 80px 0 0;
+    }
+
+    .profile > .left > h1 {
+        font-size: 125px;
+    }
+    
+    .profile > .left > p {
+        font-size: 50px;
+        width: 1321px;
+        margin: 25px 0;
+    }
+
+    .profile > .left > footer {
+        margin-top: 90px;
+    }
+
+    .profile > .left > footer > .bnt {
+        font-size: 35px;
+    }
+    
+    .profile > .left > footer > a {
+        font-size: 34px;
+    }
+
+    .skills > .title {
+        font-size: 95px;
+        font-weight: 900;
+    }
+
+    .skills > .content > .cards > .card > .content > h2 {
+        font-size: 26px;
+        color: #fff;
+        font-weight: 600;
+    }
+    
+    .skills > .content > .cards > .card > .content > ul > li {
+        font-size: 26px;
+        color: #fff;
+        font-weight: 400;
+    }
+
+    .skills > .content > .cards > .card > .content > ul > img {
+        width: 50px;
+    }
+
+    .fold > ul {
+        align-items: center;
+        gap: 30px;
+        justify-content: center;
+    }
+
+    .fold > ul > li {
+        font-size: 45px;
+    }
+
+    .fold > ul > li > img {
+        width: 40px;
+    }
+}
+
+@media screen and (min-width: 1201px) {
+    .skills > .content > .cards:nth-child(4) {
+        margin: 0 0 0 0;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .profile > .right > img {
+        width: 350px;
+        height: 350px;
+        padding: 0 20px 0 0;
+    }
+
+    .profile > .left > h1 {
+        font-size: 55px;
+    }
+    
+    .profile > .left > p {
+        font-size: 20px;
+        width: 521px;
+        margin: 25px 0;
+    }
+    
+    .profile > .left > footer > .bnt {
+        font-size: 15px;
+    }
+    
+    .profile > .left > footer > a {
+        font-size: 14px;
+    }
+
+    .skills > .content > .cards:nth-child(3), .skills > .content > .cards:nth-child(4) {
+        margin: 0 0 0 0;
+    }
+
+    .fold {
+        margin: 150px 70px 15px 70px
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .profile > .right > img {
+        width: 300px;
+        height: 300px;
+        padding: 0 20px 0 0;
+    }
+
+    .profile > .left > h1 {
+        font-size: 50px;
+    }
+    
+    .profile > .left > p {
+        font-size: 18px;
+        width: 456px;
+    }
+    
+    .profile > .left > footer > .bnt {
+        font-size: 14px;
+    }
+    
+    .profile > .left > footer > a {
+        font-size: 13px;
+    }
+
+    .skills > .title {
+        font-size: 45px;
+        font-weight: 700;
+    }
+}
+
+@media screen and (max-width: 912px) {
+    .skills > .content > .cards:nth-child(2){
+        margin: 0 0 0 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .profile {
+        display: flex;
+        flex-direction: column-reverse;
+        margin-top: 130px;
+    }
+
+    .profile > .left {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile > .left > footer {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .profile > .right > img {
+        margin: 0;
+        padding: 0;
+
+        width: 350px;
+        height: 350px;
+
+        margin-bottom: 25px;
+    }
+
+    .profile > .left > h1 {
+        font-size: 55px;
+    }
+    
+    .profile > .left > p {
+        font-size: 22px;
+        width: 456px;
+    }
+
+    .profile > .left > footer > .bnt {
+        font-size: 19px;
+        margin-top: 25px;
+    }
+    
+    .profile > .left > footer > a {
+        font-size: 18px;
+    }
+
+    .skills > .content > .cards:nth-child(2){
+        margin: 0 0 0 0;
+    }
+
+    .skills > .content > .cards:nth-child(1){
+        margin: 70px 0 0 0;
+    }
+
+    .skills > .title {
+        font-size: 35px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .navBar {
+        position: fixed;
+        bottom: 18px;
+        left: 37px;
+        right: 37px;
+
+        background-color: rgba(33, 31, 35, 1);
+    }
+
+    .navBar > ul > li > a {
+        font-size: 16px;
+    }
+
+    .profile {
+        margin-top: 100px;
+    }
+
+    .profile > .left > h1 {
+        font-size: 35px;
+    }
+    
+    .profile > .left > p {
+        font-size: 18px;
+        padding: 0 25px;
+    }
+
+    .profile > .left > footer > .bnt {
+        font-size: 16px;
+        margin-top: 25px;
+    }
+    
+    .profile > .left > footer > a {
+        font-size: 17px;
+    }
+
+    .profile > .right > img {
+        width: 250px;
+        height: 250px;
+    }
+
+    .skills {
+        padding: 180px 40px 0 40px;
+    }
+}
