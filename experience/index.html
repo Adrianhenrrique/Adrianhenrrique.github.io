@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <a href="javascript:history.back()" class="backPage">
+        <a href="javascript:history.back()" class="backPage"  onmouseover="changeImage()" onmouseout="restoreImage()">
             <img src="../src/arrow-left.svg" alt="Voltar para pagina anterior">
             <h2>Página anterior</h2>
         </a>
@@ -43,5 +43,17 @@
                 </li>
             </ul>
     </header>
+
+    <script>
+        // Função para mudar a imagem quando o mouse passar sobre ela
+        function changeImage() {
+            document.querySelector(".backPage > img").src = "../src/arrow-left-pink.svg";
+        }
+    
+        // Função para restaurar a imagem original quando o mouse sair dela
+        function restoreImage() {
+            document.querySelector(".backPage > img").src = "../src/arrow-left.svg";
+        }
+    </script>
 </body>
 </html>

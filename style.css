@@ -59,8 +59,16 @@ header {
 
 .profile > .left{
     grid: left;
-
     margin-left: 75px;
+}
+
+.profile > .left > .floatWhite {
+    position: absolute;
+    left: 1px;
+    top: 350px;
+    z-index: -4;
+    width: 70%;
+    height: 100%;
 }
 
 .profile > .left > h1 {
@@ -173,7 +181,7 @@ header {
 }
 
 .fold {
-    margin: 350px 70px 15px 70px;
+    margin: 350px 70px 150px 70px;
 
     background-color: rgba(33, 31, 35, 0.35);
     border-radius: 50px;
@@ -188,6 +196,14 @@ header {
     display: flex;
     gap: 20px;
     align-items: center;
+}
+
+.directs {
+    font-size: 10px;
+    text-align: center;
+    color: #535353;
+
+    margin-bottom: 100px;
 }
 
 @media screen and (min-width: 2560px) {
@@ -392,6 +408,10 @@ header {
 
     .navBar > ul > li > a {
         font-size: 16px;
+    }
+
+    .navBar > ul > li:nth-child(3), .navBar > ul > li:nth-child(4), .navBar > ul > li:nth-child(5) {
+        display: none;
     }
 
     .profile {
