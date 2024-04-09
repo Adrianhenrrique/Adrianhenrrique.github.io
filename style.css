@@ -94,14 +94,17 @@ header {
 
 .profile > .left > footer > .bnt {
     background-color: white;
-    color: #000;
-    font-size: 17px;
-    font-weight: 700;
     padding: 10px 15px;
     border-radius: 7px;
 
     cursor: pointer;
     transition: transforma 1s ease-in-out;
+}
+
+.profile > .left > footer > .bnt > a {
+    color: #000;
+    font-size: 17px;
+    font-weight: 700;
 }
 
 .profile > .left > footer > a {
