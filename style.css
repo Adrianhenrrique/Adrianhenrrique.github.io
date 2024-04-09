@@ -107,6 +107,16 @@ header {
     font-weight: 700;
 }
 
+.profile > .left > footer > .bnt > a[download]::after {
+    content: attr(download);
+    display: none;
+}
+.profile > .left > footer > .bnt > a[download]:hover::after {
+    display: inline;
+    color: transparent;
+    content: " ";
+}
+
 .profile > .left > footer > a {
     font-size: 16px;
     cursor: pointer;
