@@ -1,9 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     height: 100vh;
     background-color: #0C0C0D;
     padding: 15px 0 25px 0;
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 header {
@@ -19,10 +28,8 @@ header {
 
 .backPage {
     grid-area: 1 / 1 / 6 / 2;
-
     display: flex;
     align-items: center;
-
     margin-left: 50px;
     transition: transforma 1s ease-in-out;
     transition: color 1s ease-in-out;
@@ -35,7 +42,6 @@ header {
 .backPage > img {
     height: 35px;
     width: 35px;
-
     margin-right: 7px;
 }
 
@@ -73,6 +79,272 @@ header {
     cursor: pointer;
 }
 
+.descript {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    margin: 150px 0 100px 0;
+}
+
+.descript > .title {
+    font-family: Raleway;
+    font-size: 24px;
+    font-weight: 400;
+    color: #999191;
+
+    text-align: center;
+    width: 800px;
+
+    margin-bottom: 30px;
+}
+
+.descript > .bnt  {
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 7px;
+
+    cursor: pointer;
+    transition: transforma 1s ease-in-out;
+
+    width: 150px;
+}
+
+.descript > .bnt > a  {
+    color: #000;
+    font-size: 17px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.descript > .title > b {
+    color: #fff;
+}
+
 .navBar > ul > li:hover, .backPage:hover{
     transform: scale(1.04);
+}
+
+.experiencia {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.card {
+    background-color: #131313;
+    border-radius: 80px;
+    display: flex;
+    justify-content: space-between;
+
+    padding: 50px;
+}
+
+.card > .left > .title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+}
+
+.card > .left > .subtitle {
+    font-size: 22px;
+    font-weight: 400;
+    color: #B292FF;
+    margin-bottom: 10px;
+}
+
+.card > .left > .descript {
+    color: #6F6F6F;
+    display: inline;
+    align-items: center;
+}
+
+.card > .right {
+    margin-left: 100px;
+}
+
+.card > .right > .title {
+    color: #B292FF;
+    font-size: 20px;
+}
+
+.card > .right > .descript {
+    width: 817px;
+    margin: 25px 0 0 0;
+    text-align: start;
+    color: #6F6F6F;
+
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.card > .right > .descript  b {
+    color: #fff;
+}
+
+.fold {
+    margin: 350px 70px 150px 70px;
+
+    background-color: rgba(33, 31, 35, 0.35);
+    border-radius: 50px;
+
+    padding: 10px 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 600px;
+}
+
+.fold > ul {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.directs {
+    font-size: 10px;
+    text-align: center;
+    color: #535353;
+}
+
+@media screen and (min-width: 1201px) {
+    .navBar {
+        grid-area: 1 / 3 / 2 / 9;
+    }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 1023px) {
+    .navBar {
+        grid-area: 1 / 3 / 2 / 9;
+    }
+
+    .navBar > ul > li > a {
+        font-size: 18px;
+    }
+
+    .descript >.title  {
+        font-size: 17px;
+        width: 520px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .navBar {
+    grid-area: 1 / 3 / 2 / 9;
+    }
+
+    .navBar > ul > li > a {
+        font-size: 18px;
+    }
+    .navBar > ul > li > a {
+        font-size: 18px;
+    }
+
+    .descript >.title  {
+        font-size: 17px;
+        width: 520px;
+    }
+
+    .card {
+        flex-direction: column;
+    }
+    .card > .right {
+        margin: 0;
+    }
+
+    .card > .left {
+        margin: 0 0 25px 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .backPage,
+    .navBar > ul > li:nth-child(n+3){
+        display: none;
+    }
+
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navBar {
+        position: fixed;
+        bottom: 25px;
+    }
+
+    .descript >.title  {
+        font-size: 17px;
+        width: 520px;
+    }
+
+    .card > .right > .descript {
+        width: 417px;
+    }
+
+    .fold {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 480px) and (min-width: 80px) {
+    .backPage,
+    .navBar > ul > li:nth-child(n+3){
+        display: none;
+    }
+
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navBar {
+        position: fixed;
+        bottom: 25px;
+    }
+
+    .descript >.title  {
+        font-size: 15px;
+        width: 320px;
+    }
+
+    .descript {
+        margin: 80px 0 60px 0;
+    }
+
+    .card > .right > .descript {
+        width: 317px;
+        font-size: 14px;
+    }
+
+    .card {
+        padding: 15px;
+        border-radius: 16px;
+    }
+
+    .card > .left > .title {
+        font-size: 16px;
+    }
+    
+    .card > .left > .subtitle {
+        font-size: 16px;
+    }
+    
+    .card > .left > .descript {
+        font-size: 16px;
+    }
+    
+    .card > .right > .title {
+        color: #B292FF;
+        font-size: 20px;
+    }
+
+
+    .fold {
+        margin: 250px 0 150px 0;
+    }
 }
