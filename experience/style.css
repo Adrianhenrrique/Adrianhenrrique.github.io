@@ -1,350 +1,414 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap');
 
-* {
-    box-sizing: border-box;
+:root {
+    --primary: #8f6cff;
+    --primary-light: #B292FF;
+    --bg: #101014;
+    --glass-bg: rgba(30, 30, 45, 0.7); /* Aumentei um pouco a opacidade para melhor contraste */
+    --text-main: #f0f0f5;
+    --text-secondary: #b0b0c5;
+    --text-muted: #7a7a9c; /* Para detalhes como data/local */
+    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    --border: 1.5px solid rgba(255,255,255,0.07);
+    --radius: 16px;
+    --radius-large: 24px; /* Para cards maiores */
+    --transition: 0.3s cubic-bezier(.4,0,.2,1);
+    --primary-rgb: 143, 108, 255; /* Para sombras coloridas dinâmicas */
 }
 
-body {
-    height: 100vh;
-    background-color: #0C0C0D;
-    padding: 15px 0 25px 0;
+html, body {
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    background: linear-gradient(145deg, #202035 0%, #161625 100%);
+    color: var(--text-main);
     margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+a {
+    color: var(--primary-light);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+a:hover {
+    color: var(--primary);
 }
 
 header {
-    /* display: flex;
-    justify-content: space-between; */
-
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: 1fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+    display: flex;
+    justify-content: space-between; /* Alinha botão de voltar e navbar */
+    align-items: center;
+    padding: 24px 32px; /* Padding geral do header */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: calc(100% - 64px); /* Para compensar o padding */
+    margin: 0 auto; /* Centraliza */
+    max-width: 1200px; /* Limita a largura do header */
 }
 
-.backPage {
-    grid-area: 1 / 1 / 6 / 2;
+.back-button {
     display: flex;
     align-items: center;
-    margin-left: 50px;
-    transition: transforma 1s ease-in-out;
-    transition: color 1s ease-in-out;
-}
-
-.backPage:hover > h2 {
-    color: #B292FF;
-}
-
-.backPage > img {
-    height: 35px;
-    width: 35px;
-    margin-right: 7px;
-}
-
-.backPage > h2 {
-    font-size: 16px;
-    font-weight: 400;
-    color: #fff;
-
-    width: 200px;
-}
-
-.navBar {
-    grid-area: 1 / 5 / 2 / 8;
-    background-color: rgba(33, 31, 35, 0.35);
-    border-radius: 12px;
-
-    padding: 10px 15px;
-}
-
-.navBar > ul{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-
-    gap: 20px;
-}
-
-.navBar > ul > li > a {
-    font-size: 20px;
-}
-
-.navBar > ul > li {
-    transition: transforma 1s ease-in-out;
-    cursor: pointer;
-}
-
-.descript {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-
-    margin: 150px 0 100px 0;
-}
-
-.descript > .title {
-    font-family: Raleway;
-    font-size: 24px;
-    font-weight: 400;
-    color: #999191;
-
-    text-align: center;
-    width: 800px;
-
-    margin-bottom: 30px;
-}
-
-.descript > .bnt  {
-    background-color: white;
-    padding: 10px 15px;
-    border-radius: 7px;
-
-    cursor: pointer;
-    transition: transforma 1s ease-in-out;
-
-    width: 150px;
-}
-
-.descript > .bnt > a  {
-    color: #000;
-    font-size: 17px;
-    font-weight: 700;
-    text-decoration: none;
-}
-
-.descript > .title > b {
-    color: #fff;
-}
-
-.navBar > ul > li:hover, .backPage:hover{
-    transform: scale(1.04);
-}
-
-.experiencia {
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-}
-
-.card {
-    background-color: #131313;
-    border-radius: 80px;
-    display: flex;
-    justify-content: space-between;
-
-    padding: 50px;
-}
-
-.card > .left > .title {
-    font-size: 28px;
+    gap: 8px;
+    font-size: 1rem;
     font-weight: 600;
-    color: #fff;
-    margin-bottom: 6px;
+    color: var(--text-secondary);
+    padding: 8px 12px;
+    border-radius: var(--radius);
+    transition: background-color var(--transition), color var(--transition);
+}
+.back-button .arrow-icon {
+    width: 24px;
+    height: 24px;
+    content: url('../src/arrow-left.svg'); /* Imagem padrão */
+    transition: content var(--transition);
+}
+.back-button:hover {
+    background-color: rgba(var(--primary-rgb), 0.1);
+    color: var(--primary-light);
+}
+.back-button:hover .arrow-icon {
+    content: url('../src/arrow-left-pink.svg'); /* Imagem no hover */
 }
 
-.card > .left > .subtitle {
-    font-size: 22px;
-    font-weight: 400;
-    color: #B292FF;
-    margin-bottom: 10px;
+.navbar { /* Estilo da navbar principal reaproveitado */
+    padding: 12px 24px;
+    border-radius: var(--radius);
 }
-
-.card > .left > .descript {
-    color: #6F6F6F;
-    display: inline;
+.navbar ul {
+    display: flex;
+    gap: 24px;
     align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.navbar .brand-link { /* Para o nome principal no menu */
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--text-main);
+}
+.navbar .active-link { /* Para o link ativo da página atual */
+    color: var(--primary-light);
+    font-weight: 700;
+}
+.navbar li img {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    filter: brightness(0.85);
+    transition: filter var(--transition), transform var(--transition);
+}
+.navbar li a:hover img {
+    filter: brightness(1.15);
+    transform: scale(1.1);
 }
 
-.card > .right {
-    margin-left: 100px;
+main {
+    padding: 40px 32px; /* Espaçamento interno do conteúdo principal */
+    max-width: 1100px;
+    margin: 0 auto; /* Centraliza o conteúdo principal */
 }
 
-.card > .right > .title {
-    color: #B292FF;
-    font-size: 20px;
+.intro-description {
+    text-align: center;
+    margin-bottom: 60px; /* Espaço abaixo da introdução */
 }
-
-.card > .right > .descript {
-    width: 817px;
-    margin: 25px 0 0 0;
-    text-align: start;
-    color: #6F6F6F;
-
-    font-size: 20px;
+.page-title {
+    font-size: 1.7rem;
     font-weight: 400;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 30px;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.page-title strong {
+    color: var(--text-main);
+    font-weight: 700;
 }
 
-.card > .right > .descript  b {
-    color: #fff;
+.btn-primary, .btn-secondary { /* Estilos de botão reaproveitados e ajustados */
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: all var(--transition);
+    border: 2px solid transparent;
+    outline: none;
+    cursor: pointer;
+    background: var(--primary);
+    color: #101014;
+    letter-spacing: 0.3px;
+}
+.btn-primary:hover, .btn-primary:focus {
+    background: var(--primary-light);
+    box-shadow: 0 5px 18px rgba(var(--primary-rgb), 0.4);
+    transform: translateY(-2px);
+}
+.btn-secondary {
+    background: transparent;
+    color: var(--primary-light);
+    border-color: var(--primary-light);
+    font-size: 0.9rem; /* Botões secundários menores */
+    padding: 10px 20px;
+}
+.btn-secondary:hover, .btn-secondary:focus {
+    background: var(--primary-light);
+    color: #101014;
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.3);
+    transform: translateY(-2px);
 }
 
-.fold {
-    margin: 350px 70px 150px 70px;
+.experience-section {
+    display: flex;
+    flex-direction: column;
+    gap: 40px; /* Espaço entre os cards de experiência */
+}
 
-    background-color: rgba(33, 31, 35, 0.35);
-    border-radius: 50px;
+.experience-card {
+    padding: 32px 40px; /* Padding interno do card */
+    border-radius: var(--radius-large);
+    display: flex;
+    gap: 32px; /* Espaço entre a coluna da esquerda (data) e direita (descrição) */
+}
+.card-left {
+    flex: 0 0 220px; /* Largura fixa para a coluna da esquerda */
+    color: var(--text-muted);
+}
+.job-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 4px;
+}
+.contract-type {
+    font-size: 1.1rem;
+    color: var(--primary-light);
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+.job-details {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+.date-separator {
+    width: 10px;
+    height: 10px;
+    vertical-align: middle;
+    margin: 0 4px;
+    filter: opacity(0.5);
+}
 
-    padding: 10px 35px;
+.card-right {
+    flex: 1 1 auto; /* Coluna da direita ocupa o restante */
+}
+.project-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-light);
+    margin-bottom: 16px;
+}
+.project-description p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1em;
+}
+.project-description p:last-child {
+    margin-bottom: 0;
+}
+.project-description strong {
+    color: var(--text-main);
+    font-weight: 600;
+}
+.project-links {
+    margin-top: 24px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.footer-main { /* Estilo do footer reaproveitado */
+    margin: 90px 20px 0 20px;
+    padding: 28px 20px 0 20px;
+    border-radius: 28px 28px 0 0;
+    text-align: center;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.footer-social {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-
-    width: 600px;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
 }
-
-.fold > ul {
+.footer-social span {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.footer-social ul {
     display: flex;
     gap: 20px;
     align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.footer-social li img {
+    width: 28px;
+    height: 28px;
+    filter: grayscale(0.3) brightness(0.85);
+    transition: filter var(--transition), transform var(--transition);
+}
+.footer-social li a:hover img {
+    filter: grayscale(0) brightness(1.15);
+    transform: scale(1.15);
+}
+.copyright {
+    font-size: 0.95rem;
+    color: #8888a0;
+    padding-bottom: 10px;
+    letter-spacing: 0.3px;
 }
 
-.directs {
-    font-size: 10px;
-    text-align: center;
-    color: #535353;
+.glass {
+    background: var(--glass-bg);
+    box-shadow: var(--shadow);
+    border: var(--border);
+    backdrop-filter: blur(10px);
 }
 
-@media screen and (min-width: 1201px) {
-    .navBar {
-        grid-area: 1 / 3 / 2 / 9;
-    }
+/* Animation for scroll entrance */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
+}
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-@media screen and (max-width: 1200px) and (min-width: 1023px) {
-    .navBar {
-        grid-area: 1 / 3 / 2 / 9;
+/* --- Media Queries --- */
+@media screen and (max-width: 992px) {
+    header {
+        padding: 20px 24px;
+        width: calc(100% - 48px);
     }
-
-    .navBar > ul > li > a {
-        font-size: 18px;
+    .experience-card {
+        flex-direction: column; /* Cards empilham em telas menores */
+        padding: 24px;
     }
-
-    .descript >.title  {
-        font-size: 17px;
-        width: 520px;
+    .card-left {
+        flex-basis: auto; /* Permite que a largura seja automática */
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--border);
     }
-}
-
-@media screen and (max-width: 1024px) {
-    .navBar {
-    grid-area: 1 / 3 / 2 / 9;
+    .navbar { /* Navbar fica fixa no mobile, como no design original */
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: auto; /* Largura baseada no conteúdo */
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
     }
-
-    .navBar > ul > li > a {
-        font-size: 18px;
+    header > .navbar { /* Remove a navbar do fluxo normal do header no mobile */
+        display: none;
     }
-    .navBar > ul > li > a {
-        font-size: 18px;
-    }
-
-    .descript >.title  {
-        font-size: 17px;
-        width: 520px;
-    }
-
-    .card {
+    /* Para exibir a navbar do header no mobile, você precisaria de uma segunda instância dela fora do header,
+       ou mover a navbar existente com JS para o final do body em telas menores.
+       A solução mais simples para o CSS fornecido é ter uma navbar separada para mobile se o design for fixo no rodapé.
+       Mantendo a navbar do header e ajustando: */
+    header {
         flex-direction: column;
+        gap: 16px;
     }
-    .card > .right {
-        margin: 0;
+    header .navbar { /* Se for manter a navbar do header */
+        padding: 10px 16px;
+        width: auto;
     }
-
-    .card > .left {
-        margin: 0 0 25px 0;
+     /* Se a navbar é para ser fixa no rodapé em mobile, como no seu CSS original: */
+    body > .navbar { /* Este seletor aplicaria se a navbar fosse movida para fora do header */
+        display: none; /* Esconde por padrão */
+    }
+     @media screen and (max-width: 768px) {
+        body > .navbar { /* Mostra a navbar fixa no mobile */
+            display: block; /* Ou flex, dependendo do conteúdo */
+            position: fixed;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
+        header > .navbar { /* Esconde a navbar do topo */
+            display: none;
+        }
+        .back-button span { /* Esconde o texto do botão voltar */
+            display: none;
+        }
+        .back-button {
+            padding: 8px; /* Botão menor, só ícone */
+        }
     }
 }
 
 @media screen and (max-width: 768px) {
-    .backPage,
-    .navBar > ul > li:nth-child(n+3){
-        display: none;
+    main {
+        padding: 24px 16px;
     }
-
-    header {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .page-title {
+        font-size: 1.4rem;
+        max-width: 100%;
     }
-
-    .navBar {
-        position: fixed;
-        bottom: 25px;
+    .btn-primary, .btn-secondary {
+        font-size: 0.9rem;
+        padding: 10px 20px;
     }
-
-    .descript >.title  {
-        font-size: 17px;
-        width: 520px;
+    .project-description p {
+        font-size: 0.95rem;
     }
-
-    .card > .right > .descript {
-        width: 417px;
+    .navbar ul { /* Para a navbar fixa no rodapé */
+        gap: 16px;
     }
-
-    .fold {
-        width: 300px;
+    .navbar ul li:nth-child(n+3) { /* Esconde os ícones sociais na navbar mobile se for a mesma */
+        /* display: none; */ /* Descomente se quiser esconder */
+    }
+    .footer-main {
+        margin: 60px 10px 0 10px;
+        padding: 20px 10px 0 10px;
+        border-radius: 20px 20px 0 0;
     }
 }
 
-@media screen and (max-width: 480px) and (min-width: 80px) {
-    .backPage,
-    .navBar > ul > li:nth-child(n+3){
-        display: none;
+@media screen and (max-width: 480px) {
+    :root {
+        font-size: 14.5px; /* Ajuste fino da fonte base */
     }
-
-    header {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .page-title {
+        font-size: 1.25rem;
     }
-
-    .navBar {
-        position: fixed;
-        bottom: 25px;
+    .job-title {
+        font-size: 1.4rem;
     }
-
-    .descript >.title  {
-        font-size: 15px;
-        width: 320px;
+    .project-title {
+        font-size: 1.15rem;
     }
-
-    .descript {
-        margin: 80px 0 60px 0;
+    .experience-card {
+        padding: 20px 16px;
     }
-
-    .card > .right > .descript {
-        width: 317px;
-        font-size: 14px;
-    }
-
-    .card {
-        padding: 15px;
-        border-radius: 16px;
-    }
-
-    .card > .left > .title {
-        font-size: 16px;
-    }
-    
-    .card > .left > .subtitle {
-        font-size: 16px;
-    }
-    
-    .card > .left > .descript {
-        font-size: 16px;
-    }
-    
-    .card > .right > .title {
-        color: #B292FF;
-        font-size: 20px;
-    }
-
-
-    .fold {
-        margin: 250px 0 150px 0;
-    }
+    /* Navbar fixa no rodapé já deve estar configurada pela media query anterior */
 }

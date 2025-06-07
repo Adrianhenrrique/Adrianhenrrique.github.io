@@ -6,113 +6,97 @@
     <title>Adrian Henrique | Experiências</title>
 
     <link rel="stylesheet" href="../reset.css">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <a href="javascript:history.back()" class="backPage"  onmouseover="changeImage()" onmouseout="restoreImage()">
-            <img src="../src/arrow-left.svg" alt="Voltar para pagina anterior">
-            <h2>Página anterior</h2>
+        <a href="javascript:history.back()" class="back-button">
+            <img src="../src/arrow-left.svg" alt="Voltar para página anterior" class="arrow-icon">
+            <span>Página anterior</span>
         </a>
-        <nav class="navBar">
+        <nav class="navbar glass">
             <ul>
+                <li><a href="../" class="brand-link">Adrian Henrique</a></li>
+                <li><a href="./" class="active-link">Experiência</a></li>
                 <li>
-                    <a href="../">
-                    Adrian Henrique
+                    <a href="https://github.com/Adrianhenrrique" target="_blank" aria-label="GitHub">
+                        <img src="../src/github.svg" alt="GitHub">
                     </a>
                 </li>
                 <li>
-                    <a href="./"   style="color: white;">
-                        experiência
+                    <a href="https://www.linkedin.com/in/adrian-henrique/" target="_blank" aria-label="LinkedIn">
+                        <img src="../src/linkedin.svg" alt="LinkedIn">
                     </a>
                 </li>
                 <li>
-                    <a href="https://github.com/Adrianhenrrique" target="_blank">
-                        <img src="../src/github.svg" alt="icon do GitHub">
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.linkedin.com/in/adrian-henrique/" target="_blank">
-                        <img src="../src/linkedin.svg" alt="Icon Do Linkedin">
-                    </a>
-                </li>
-                <li>
-                    <a href="mailto:adrianhenriquejjs290@gmail.com" target="_blank">
-                        <img src="../src/email.svg" alt="Icon do Email">
+                    <a href="mailto:adrianhenriquejjs290@gmail.com" target="_blank" aria-label="E-mail">
+                        <img src="../src/email.svg" alt="Email">
                     </a>
                 </li>
             </ul>
+        </nav>
     </header>
 
     <main>
-        <section class="descript">
-            <h1 class="title">
-                < Aqui você poderá me conhecer um pouco mais e ver toda a minha experiência como <b>Engenheiro de Software Front-End.</b>  />
+        <section class="intro-description animate-on-scroll">
+            <h1 class="page-title">
+                &lt; Aqui você poderá me conhecer um pouco mais e ver toda a minha experiência como <strong>Engenheiro de Software Front-End</strong>. /&gt;
             </h1>
-            <button class="bnt"> <a href="../src/Currico-Adrina-Henrique.pdf" download> Download CV </a></button>
+            <a href="../src/Currico-Adrina-Henrique.pdf" class="btn-primary" download>📄 Download CV</a>
         </section>
-        <section class="experiencia">
-            <div class="card">
-                <div class="left">
-                    <h2 class="title">Free Lancer</h2>
-                    <p class="subtitle">Contrato</p>
-                    <p class="descript">
-                        Dez 2023‎ <img src="../src/cicle.svg" alt="">‎  Fev 2024 <br>
-                        taquaquecetuba, SP - Brasil
+
+        <section class="experience-section animate-on-scroll">
+            <div class="experience-card glass">
+                <div class="card-left">
+                    <h2 class="job-title">Freelancer</h2>
+                    <p class="contract-type">Contrato</p>
+                    <p class="job-details">
+                        Dez 2023 <img src="../src/cicle.svg" alt="divisor de data" class="date-separator"> Fev 2024 <br>
+                        Itaquaquecetuba, SP - Brasil
                     </p>
                 </div>
-                <div class="right">
-                    <h2 class="title">F&G Assistencia domiciliar</h2>
-                    <p class="descript">A F&G Assistência Domiciliar é uma empresa que oferece serviços de assistência domiciliar para idosos e pessoas com necessidades especiais. Eles procuravam uma solução digital para facilitar a gestão de pacientes, agendamentos de visitas e comunicação com suas equipes de cuidadores <br><br>
-                        O principal objetivo do projeto era desenvolver uma plataforma web que pudesse servir como uma vitrine digital para a F&G Assistência Domiciliar, Hospitalar e Empresarial. Além disso, o objetivo era fornecer informações detalhadas sobre os serviços oferecidos em cada uma dessas áreas, destacando os procedimentos realizados, como curativos, e oferecendo aos visitantes a possibilidade de agendar acompanhamentos <br><br>
-                        Essa plataforma não apenas visava promover os serviços da empresa, mas também facilitar o acesso às informações relevantes para os clientes em potencial, proporcionando uma experiência intuitiva e informativa. <br><br>
-                        <b>Tecnologias Utilizadas:</b> <br>
-
-                        Linguagens: HTML, CSS, JavaScript <br>
-                        Frameworks: React.js (para o frontend) <br><br>
-                        <a href="http://https://www.fgassistenciadomiciliar.com.br/" target="_blank" rel="noopener noreferrer">Link do projeto (Em produção)</a>
-                        <a href="https://github.com/Adrianhenrrique/FEG-ASSISTENCIA-DOMICILIAR" target="_blank" rel="noopener noreferrer">Link do projeto (GitHub)</a>
-                    </p>
+                <div class="card-right">
+                    <h3 class="project-title">F&G Assistência Domiciliar</h3>
+                    <div class="project-description">
+                        <p>A F&G Assistência Domiciliar é uma empresa que oferece serviços de assistência domiciliar para idosos e pessoas com necessidades especiais. Eles procuravam uma solução digital para facilitar a gestão de pacientes, agendamentos de visitas e comunicação com suas equipes de cuidadores.</p>
+                        <p>O principal objetivo do projeto era desenvolver uma plataforma web que pudesse servir como uma vitrine digital para a F&G Assistência Domiciliar, Hospitalar e Empresarial. Além disso, o objetivo era fornecer informações detalhadas sobre os serviços oferecidos em cada uma dessas áreas, destacando os procedimentos realizados, como curativos, e oferecendo aos visitantes a possibilidade de agendar acompanhamentos.</p>
+                        <p>Essa plataforma não apenas visava promover os serviços da empresa, mas também facilitar o acesso às informações relevantes para os clientes em potencial, proporcionando uma experiência intuitiva e informativa.</p>
+                        <p><strong>Tecnologias Utilizadas:</strong> <br>
+                        HTML, CSS, JavaScript, React.js (frontend)</p>
+                        <div class="project-links">
+                            <a href="http://https://www.fgassistenciadomiciliar.com.br/" target="_blank" rel="noopener noreferrer" class="btn-secondary">Ver Projeto (Produção)</a>
+                            <a href="https://github.com/Adrianhenrrique/FEG-ASSISTENCIA-DOMICILIAR" target="_blank" rel="noopener noreferrer" class="btn-secondary">Ver no GitHub</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
+            <!-- Adicione mais cards de experiência aqui -->
         </section>
     </main>
 
-    <footer class="fold">
-        <h3 style="color: #B4B4B4; font-size: 26px; font-weight: 400;">Me siga</h3>
-        
-        <ul>
-            <li>
-                <a href="https://github.com/Adrianhenrrique" target="_blank">
-                    <img src="../src/github.svg" alt="icon do GitHub">
-                </a>
-            </li>
-            <li>
-                <a href="https://www.linkedin.com/in/adrian-henrique/" target="_blank">
-                    <img src="../src/linkedin.svg" alt="Icon Do Linkedin">
-                </a>
-            </li>
-            <li>
-                <a href="mailto:adrianhenriquejjs290@gmail.com" target="_blank">
-                    <img src="../src/email.svg" alt="Icon do Email">
-                </a>
-            </li>
-        </ul>
+    <footer class="footer-main glass">
+        <div class="footer-social">
+            <span>Me siga</span>
+            <ul>
+                <li>
+                    <a href="https://github.com/Adrianhenrrique" target="_blank" aria-label="GitHub">
+                        <img src="../src/github.svg" alt="GitHub">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/in/adrian-henrique/" target="_blank" aria-label="LinkedIn">
+                        <img src="../src/linkedin.svg" alt="LinkedIn">
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:adrianhenriquejjs290@gmail.com" target="_blank" aria-label="E-mail">
+                        <img src="../src/email.svg" alt="Email">
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <p class="copyright">&copy; Adrian Henrique 2024</p>
     </footer>
-    <h2 class="directs">@adrian henrique 2024</h2>
-    <a href="" style="margin-top: 150px; padding: 0px 0 150px 0 ;"> ‎ </a>
-
-    <script>
-        // Função para mudar a imagem quando o mouse passar sobre ela
-        function changeImage() {
-            document.querySelector(".backPage > img").src = "../src/arrow-left-pink.svg";
-        }
-    
-        // Função para restaurar a imagem original quando o mouse sair dela
-        function restoreImage() {
-            document.querySelector(".backPage > img").src = "../src/arrow-left.svg";
-        }
-    </script>
+    <script src="../main.js"></script> <!-- Assumindo que o main.js da raiz tem a lógica de scroll -->
 </body>
 </html>
