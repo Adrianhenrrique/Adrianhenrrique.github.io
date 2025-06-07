@@ -3,47 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adrian Henrique</title>
+    <title>Adrian Henrique - Desenvolvedor Front-End</title>
 
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
 
-    <meta name="description" content="Olá, Me chamo Adrian sou desenvovedor Jr. com poucas experiencia, venha conheçer uns dos meus projetos">
+    <meta name="description" content="Olá, me chamo Adrian, sou desenvolvedor Jr. com experiência em Front-End. Venha conhecer alguns dos meus projetos!">
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
-    <metaname="google" content="nositelinkssearchbox">
+    <meta name="google" content="nositelinkssearchbox">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- <meta http-equiv="refresh" content="5; url=https://website.com"> -->
-    <meta src="url" alt="Olá, Me chamo Adrian sou desenvovedor Jr. com poucas experiencia, venha conheçer uns dos meus projetos">
-
 </head>
 <body>
     <header>
-        <nav class="navBar">
+        <nav class="navbar glass">
             <ul>
                 <li>
-                    <a href="./"  style="color: white;">
-                    Adrian Henrique
+                    <a href="./" class="brand">Adrian Henrique</a>
+                </li>
+                <li><a href="./experience">Experiência</a></li>
+                <li>
+                    <a href="https://github.com/Adrianhenrrique" target="_blank" aria-label="GitHub">
+                        <img src="./src/github.svg" alt="GitHub" />
                     </a>
                 </li>
                 <li>
-                    <a href="./experience">
-                        experiência
+                    <a href="https://www.linkedin.com/in/adrian-henrique/" target="_blank" aria-label="LinkedIn">
+                        <img src="./src/linkedin.svg" alt="LinkedIn" />
                     </a>
                 </li>
                 <li>
-                    <a href="https://github.com/Adrianhenrrique" target="_blank">
-                        <img src="./src/github.svg" alt="icon do GitHub">
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.linkedin.com/in/adrian-henrique/" target="_blank">
-                        <img src="./src/linkedin.svg" alt="Icon Do Linkedin">
-                    </a>
-                </li>
-                <li>
-                    <a href="mailto:adrianhenriquejjs290@gmail.com" target="_blank">
-                        <img src="./src/email.svg" alt="Icon do Email">
+                    <a href="mailto:adrianhenriquejjs290@gmail.com" target="_blank" aria-label="E-mail">
+                        <img src="./src/email.svg" alt="Email" />
                     </a>
                 </li>
             </ul>
@@ -51,101 +42,70 @@
     </header>
 
     <main>
-        <section class="profile">
-            <div class="left">
+        <section class="profile animate-on-scroll">
+            <div class="profile-left">
                 <h1>Olá, sou Adrian</h1>
                 <p>
-                    Durante estes <strong style="color: white;">6 meses</strong> como <strong style="color: white;">Engenheiro de Software Front-End</strong>. Minha função estendeu-se além da codificação para uma comunicação eficaz com vários departamentos, para definir novos recursos.
+                    Nestes <strong>6 meses</strong> como <strong>Engenheiro de Software Front-End</strong>, fui além da codificação e atuei em colaboração com diversos departamentos para definir e entregar novas soluções digitais.
                 </p>
-                <footer>
-                    <button class="bnt"> <a href="./src/Currico-Adrina-Henrique.pdf" download> Download CV </a></button>
-                    <a href="./experience" class="subtitle">Minhas Experiencias</a>
-                </footer>
+                <div class="profile-actions">
+                    <a href="./src/Currico-Adrina-Henrique.pdf" class="btn-primary" download>📄 Download CV</a>
+                    <a href="./experience" class="btn-secondary">Minhas Experiências</a>
+                </div>
             </div>
-            <div class="right">
-                <img src="./src/profile.jpeg" alt="Um porgramador em foto de perfil">
+            <div class="profile-right">
+                <div class="photo-glass">
+                    <img src="./src/profile.jpeg" alt="Foto de perfil de Adrian Henrique, programador" loading="lazy">
+                </div>
             </div>
         </section>
 
-        <section class="skills">
-            <h1 class="title">Estas são as <br>
-                tecnologias que tenho usado</h1>
-
-            <div class="content">
-                <div class="cards" style="grid-area: 1 / 1 / 2 / 4;">
-                    <div class="card">
-                        <div class="content">
-                            <h2>Publicação de apps na loja</h2>
-                            <ul class="list">
-                                <img src="./src/playstore.svg" alt="icon da play store">
-                                <li class="playstore">Play Store</li>
-                            </ul>
-                        </div>
-                    </div>
+        <section class="skills animate-on-scroll">
+            <h2 class="skills-title">Tecnologias que mais utilizo</h2>
+            <div class="skills-grid">
+                <div class="skill-card glass">
+                    <img src="./src/playstore.svg" alt="Play Store" />
+                    <span>Publicação de apps<br><strong>Play Store</strong></span>
                 </div>
-
-                <div class="cards" style="grid-area: 1 / 4 / 2 / 7;">
-                    <div class="card">
-                        <div class="content">
-                            <h2>Front-end engineer project</h2>
-                            <ul class="list">
-                                <img src="./src/react.svg" alt="icon do React">
-                                <li class="React">React</li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="skill-card glass">
+                    <img src="./src/react.svg" alt="React" />
+                    <span>Projetos Front-End<br><strong>React</strong></span>
                 </div>
-
-                <div class="cards" style="grid-area: 1 / 7 / 2 / 10;">
-                    <div class="card">
-                        <div class="content">
-                            <h2>linguagem</h2>
-                            <ul class="list">
-                                <img src="./src/javascript.svg" alt="icon do JavaScript">
-                                <li class="JavaScript">JavaScript</li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="skill-card glass">
+                    <img src="./src/javascript.svg" alt="JavaScript" />
+                    <span>Linguagem<br><strong>JavaScript</strong></span>
                 </div>
-
-                <div class="cards" style="grid-area: 1 / 10 / 2 / 13;">
-                    <div class="card">
-                        <div class="content">
-                            <h2>Back-End</h2>
-                            <ul class="list">
-                                <img src="./src/nodeJs.svg" alt="icon do Node.js">
-                                <li class="nodeJS">Node.js</li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="skill-card glass">
+                    <img src="./src/nodeJs.svg" alt="Node.js" />
+                    <span>Back-End<br><strong>Node.js</strong></span>
                 </div>
-
             </div>
         </section>
     </main>
 
-    <footer class="fold">
-        <h3 style="color: #B4B4B4; font-size: 26px; font-weight: 400;">Me siga</h3>
-        
-        <ul>
-            <li>
-                <a href="https://github.com/Adrianhenrrique" target="_blank">
-                    <img src="./src/github.svg" alt="icon do GitHub">
-                </a>
-            </li>
-            <li>
-                <a href="https://www.linkedin.com/in/adrian-henrique/" target="_blank">
-                    <img src="./src/linkedin.svg" alt="Icon Do Linkedin">
-                </a>
-            </li>
-            <li>
-                <a href="mailto:adrianhenriquejjs290@gmail.com" target="_blank">
-                    <img src="./src/email.svg" alt="Icon do Email">
-                </a>
-            </li>
-        </ul>
+    <footer class="footer-main glass">
+        <div class="footer-social">
+            <span>Me siga</span>
+            <ul>
+                <li>
+                    <a href="https://github.com/Adrianhenrrique" target="_blank" aria-label="GitHub">
+                        <img src="./src/github.svg" alt="GitHub" />
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/in/adrian-henrique/" target="_blank" aria-label="LinkedIn">
+                        <img src="./src/linkedin.svg" alt="LinkedIn" />
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:adrianhenriquejjs290@gmail.com" target="_blank" aria-label="E-mail">
+                        <img src="./src/email.svg" alt="Email" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <p class="copyright">&copy; Adrian Henrique 2024</p>
     </footer>
-    <h2 class="directs">@adrian henrique 2024</h2>
-    <a href="" style="margin-top: 150px; padding: 0px 0 150px 0 ;"> ‎ </a>
+    <script src="main.js"></script>
 </body>
 </html>
