@@ -1,5 +1,5 @@
 {
-  "version": "1.4.0",
-  "build": "20261123-loghub-importacao-planilha-v1-4",
-  "description": "Importacao direta do Excel no Importar Caixas"
+  "version": "1.5.0",
+  "build": "20261123-loghub-exportacao-lotes-v1-5",
+  "description": "CSV em lotes de ate 4500 registros + planilha de conferencia XLSX sem perda de RG"
 }
