@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Separador de números</title>
+<style>
+  :root {
+    --chao: #EEF0F2;
+    --papel: #FFFFFF;
+    --tinta: #16202A;
+    --apagado: #5B6672;
+    --linha: #C9CFD6;
+    --fita: #F2B705;
+    --fita-tinta: #1A1400;
+    --ok: #1F7A4D;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --chao: #12171C;
+      --papel: #1B2229;
+      --tinta: #E8ECEF;
+      --apagado: #9AA5B0;
+      --linha: #313C47;
+      --ok: #5FD39A;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --chao: #12171C;
+    --papel: #1B2229;
+    --tinta: #E8ECEF;
+    --apagado: #9AA5B0;
+    --linha: #313C47;
+    --ok: #5FD39A;
+  }
+
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0;
+    background: var(--chao);
+    color: var(--tinta);
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  /* fita de demarcação de piso: o único enfeite da página */
+  .fita {
+    height: 10px;
+    background: repeating-linear-gradient(-45deg, var(--fita) 0 14px, #16202A 14px 28px);
+  }
+
+  main {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 28px 20px 40px;
+  }
+  h1 {
+    font-size: 1.75rem;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0 0 6px;
+  }
+  .sub { margin: 0 0 24px; color: var(--apagado); max-width: 60ch; }
+
+  .bancada {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: stretch;
+  }
+  @media (max-width: 720px) {
+    .bancada { grid-template-columns: 1fr; }
+  }
+
+  .lado {
+    background: var(--papel);
+    border: 1px solid var(--linha);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding: 12px 14px 0;
+  }
+  .topo label { font-weight: 600; }
+  .conta { color: var(--apagado); font-size: 0.875rem; font-variant-numeric: tabular-nums; text-align: right; }
+
+  textarea {
+    flex: 1;
+    width: 100%;
+    min-height: 300px;
+    margin: 0;
+    padding: 12px 14px;
+    border: 0;
+    background: transparent;
+    color: var(--tinta);
+    font-family: Consolas, "Cascadia Mono", Menlo, "DejaVu Sans Mono", monospace;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    resize: vertical;
+  }
+  textarea::placeholder { color: var(--apagado); opacity: 0.8; }
+  #saida { word-break: break-all; }
+  @media (max-width: 720px) { textarea { min-height: 200px; } }
+
+  .rodape {
+    display: flex;
+    gap: 10px;
+    padding: 12px 14px;
+    border-top: 1px solid var(--linha);
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  button {
+    font: inherit;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 10px 16px;
+    cursor: pointer;
+    border: 1px solid var(--linha);
+    background: transparent;
+    color: var(--tinta);
+  }
+  button.principal {
+    background: var(--fita);
+    border-color: var(--fita);
+    color: var(--fita-tinta);
+    min-width: 132px;
+  }
+  button:disabled { opacity: 0.45; cursor: not-allowed; }
+  button:focus-visible, textarea:focus-visible, input:focus-visible {
+    outline: 3px solid var(--fita);
+    outline-offset: 2px;
+  }
+  textarea:focus-visible { outline-offset: -3px; border-radius: 6px; }
+  .aviso { color: var(--ok); font-size: 0.875rem; font-weight: 600; }
+
+  fieldset {
+    margin: 16px 0 0;
+    padding: 14px;
+    border: 1px solid var(--linha);
+    border-radius: 6px;
+    background: var(--papel);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 26px;
+  }
+  legend { padding: 0 6px; font-weight: 600; }
+  .opcao { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+  .opcao input { width: 18px; height: 18px; accent-color: var(--fita); margin: 0; }
+  .opcao code {
+    font-family: Consolas, "Cascadia Mono", Menlo, monospace;
+    font-size: 0.875rem;
+    color: var(--apagado);
+  }
+</style>
+<meta name="logihub-build" content="20261123-loghub-v1"><link rel="stylesheet" href="../../assets/tools.css"></head>
+<body data-logihub-page="tool" data-loghub-style="sep"><nav id="loghub-nav" aria-label="Ferramentas LogHub">
+<a class="hub-home" href="../../index.html">← LogHub · Início</a><div class="hub-links">
+<a href="../cargoquery/index.html" >CargoQuery</a>
+<a href="../separador/index.html" aria-current="page">Separador</a>
+<a href="../importar-caixas/index.html" >Importar Caixas</a>
+</div></nav>
+<div class="fita" aria-hidden="true"></div>
+<main>
+  <h1>Separador de números</h1>
+  <p class="sub">Cole os números do jeito que vierem (um por linha, com espaço, copiados do Excel). A lista sai pronta com vírgula entre cada um.</p>
+
+  <div class="bancada">
+    <section class="lado">
+      <div class="topo">
+        <label for="entrada">Seus números</label>
+        <span class="conta" id="contaEntrada"></span>
+      </div>
+      <textarea id="entrada" spellcheck="false" autocomplete="off" placeholder="1002345
+1002346
+1002399"></textarea>
+      <div class="rodape">
+        <button type="button" id="limpar">Limpar</button>
+      </div>
+    </section>
+
+    <section class="lado">
+      <div class="topo">
+        <label for="saida">Pronto para consultar</label>
+        <span class="conta" id="contaSaida"></span>
+      </div>
+      <textarea id="saida" readonly spellcheck="false" placeholder="O resultado aparece aqui enquanto você cola."></textarea>
+      <div class="rodape">
+        <button type="button" class="principal" id="copiar" disabled>Copiar lista</button>
+        <span class="aviso" id="aviso" role="status" aria-live="polite"></span>
+      </div>
+    </section>
+  </div>
+
+  <fieldset>
+    <legend>Formato da lista</legend>
+    <label class="opcao"><input type="checkbox" id="optEspaco"> Espaço depois da vírgula <code>1, 2, 3</code></label>
+    <label class="opcao"><input type="checkbox" id="optAspas"> Entre aspas simples <code>'1','2','3'</code></label>
+    <label class="opcao"><input type="checkbox" id="optParenteses"> Entre parênteses <code>(1,2,3)</code></label>
+    <label class="opcao"><input type="checkbox" id="optRepetidos"> Tirar repetidos</label>
+  </fieldset>
+</main>
+
+<script>
+(function () {
+  var entrada = document.getElementById('entrada');
+  var saida = document.getElementById('saida');
+  var contaEntrada = document.getElementById('contaEntrada');
+  var contaSaida = document.getElementById('contaSaida');
+  var copiar = document.getElementById('copiar');
+  var limpar = document.getElementById('limpar');
+  var aviso = document.getElementById('aviso');
+  var opcoes = ['optEspaco', 'optAspas', 'optParenteses', 'optRepetidos'];
+  var CHAVE = 'separador-numeros-opcoes';
+  var avisoTimer = null;
+
+  function lerOpcoes() {
+    try {
+      var salvo = JSON.parse(localStorage.getItem(CHAVE) || '{}');
+      opcoes.forEach(function (id) {
+        if (typeof salvo[id] === 'boolean') document.getElementById(id).checked = salvo[id];
+      });
+    } catch (e) { /* sem armazenamento: segue com o padrão */ }
+  }
+  function salvarOpcoes() {
+    try {
+      var estado = {};
+      opcoes.forEach(function (id) { estado[id] = document.getElementById(id).checked; });
+      localStorage.setItem(CHAVE, JSON.stringify(estado));
+    } catch (e) { /* ignora */ }
+  }
+  function marcado(id) { return document.getElementById(id).checked; }
+  function plural(n, um, varios) { return n + ' ' + (n === 1 ? um : varios); }
+
+  function converter() {
+    // separa por quebra de linha, espaço, tab, vírgula, ponto e vírgula ou barra vertical
+    var itens = entrada.value
+      .split(/[\s,;|]+/)
+      .map(function (t) { return t.replace(/^['"]+|['"]+$/g, ''); })
+      .filter(function (t) { return t.length > 0; });
+
+    var total = itens.length;
+    var removidos = 0;
+
+    if (marcado('optRepetidos')) {
+      var vistos = Object.create(null);
+      itens = itens.filter(function (t) {
+        if (vistos[t]) return false;
+        vistos[t] = true;
+        return true;
+      });
+      removidos = total - itens.length;
+    }
+
+    if (marcado('optAspas')) {
+      itens = itens.map(function (t) { return "'" + t + "'"; });
+    }
+
+    var texto = itens.join(marcado('optEspaco') ? ', ' : ',');
+    if (texto && marcado('optParenteses')) texto = '(' + texto + ')';
+
+    saida.value = texto;
+    copiar.disabled = !texto;
+    contaEntrada.textContent = total ? plural(total, 'número', 'números') : '';
+    contaSaida.textContent = !total ? '' :
+      plural(itens.length, 'na lista', 'na lista') +
+      (removidos ? ', ' + plural(removidos, 'repetido tirado', 'repetidos tirados') : '');
+  }
+
+  function avisar(msg) {
+    aviso.textContent = msg;
+    clearTimeout(avisoTimer);
+    avisoTimer = setTimeout(function () { aviso.textContent = ''; }, 2500);
+  }
+
+  function copiarLista() {
+    var texto = saida.value;
+    if (!texto) return;
+    function reserva() {
+      saida.focus();
+      saida.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      avisar(ok ? 'Lista copiada' : 'Lista selecionada: aperte Ctrl+C');
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(texto).then(function () { avisar('Lista copiada'); }, reserva);
+    } else {
+      reserva();
+    }
+  }
+
+  entrada.addEventListener('input', converter);
+  copiar.addEventListener('click', copiarLista);
+  limpar.addEventListener('click', function () {
+    entrada.value = '';
+    converter();
+    entrada.focus();
+  });
+  saida.addEventListener('focus', function () { saida.select(); });
+  opcoes.forEach(function (id) {
+    document.getElementById(id).addEventListener('change', function () {
+      salvarOpcoes();
+      converter();
+    });
+  });
+
+  lerOpcoes();
+  converter();
+})();
+</script>
+<script src="../../assets/updater.js" defer></script></body>
+</html>

@@ -1,0 +1,24 @@
+
+body[data-loghub-style]{background:radial-gradient(ellipse 70% 35% at 50% -10%,rgba(47,111,188,.21),transparent 80%),#080d1a!important;color:#edf2ff;min-height:100vh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+body[data-loghub-style] :is(button,input,textarea){font-family:inherit}body[data-loghub-style] :is(button,a,input,textarea):focus-visible{outline:2px solid #65d6ec;outline-offset:2px}
+body[data-loghub-style] button{border-radius:9px;font-weight:650;transition:background .16s,border-color .16s,transform .16s}body[data-loghub-style] button:hover:not(:disabled){transform:translateY(-1px)}
+body[data-loghub-style] textarea{background:#0b1526;color:#e8f2ff;border-radius:11px}body[data-loghub-style] textarea::placeholder{color:#849ab9;opacity:.78}
+body[data-loghub-style] :is(.card,.lado,fieldset){background:linear-gradient(145deg,#17243a,#111b2e)!important;border:1px solid #293c58!important;border-radius:16px;box-shadow:0 15px 42px #0002}
+body[data-loghub-style] :is(h1,h2){letter-spacing:-.5px;color:#eff5ff}body[data-loghub-style] :is(.hint,.sub,.conta){color:#9badc7}body[data-loghub-style] main{max-width:1190px;margin:0 auto}
+body[data-loghub-style="separador"] .fita{height:5px;background:linear-gradient(90deg,#5fbeec,#2f8acb,#83e1df)}
+body[data-loghub-style="separador"] main{padding-top:38px}body[data-loghub-style="separador"] h1{font-size:clamp(25px,3vw,36px);margin-bottom:9px}
+body[data-loghub-style="separador"] .sub{max-width:700px;line-height:1.7}body[data-loghub-style="separador"] .lado{overflow:hidden}
+body[data-loghub-style="separador"] .topo{padding:17px 18px 5px}body[data-loghub-style="separador"] .lado textarea{background:#0b1526;min-height:300px;margin:10px 13px 12px;width:calc(100% - 26px);border:1px solid #2e4461;padding:16px}
+body[data-loghub-style="separador"] .rodape{border-color:#293d59}body[data-loghub-style="separador"] fieldset{padding:18px 22px}body[data-loghub-style="separador"] legend{color:#bcd9f7}
+body[data-loghub-style="separador"] button.principal{background:#5abef0;border-color:#5abef0;color:#082238}
+body[data-loghub-style="separador"] .opcao code{color:#a2bad6}
+body[data-loghub-style="importar"] header{background:#11253e;border-bottom:1px solid #2b4161;padding:22px 24px}
+body[data-loghub-style="importar"] header p{color:#b8cee3;opacity:1}
+body[data-loghub-style="importar"] .card h2{font-size:16px}body[data-loghub-style="importar"] label{color:#aec3dc}
+body[data-loghub-style="importar"] input{background:#0e1a2d;border:1px solid #38516f;color:#ecf4ff}
+body[data-loghub-style="importar"] textarea{border:1px solid #324b69}body[data-loghub-style="importar"] button{background:#1b314d;color:#e2effe;border:1px solid #3c5b7a}
+body[data-loghub-style="importar"] button.pri{background:#217dbb;border-color:#217dbb}
+body[data-loghub-style="importar"] .tbl{border:1px solid #35506f}body[data-loghub-style="importar"] table th{background:#1d3553;color:#eaf2ff}body[data-loghub-style="importar"] table td{background:#132238;border-bottom:1px solid #2b415c;color:#d8e7f8}
+body[data-loghub-style="importar"] tr.dup td{background:#483b21;color:#fff0b1}body[data-loghub-style="importar"] td.bad{background:#5c2b36!important;color:#ffd6dc!important}
+body[data-loghub-style="importar"] .status.ok{color:#7ce1b2}body[data-loghub-style="importar"] .status.err{color:#ff9ea5}
+@media(max-width:720px){body[data-loghub-style] main{padding:18px 14px}body[data-loghub-style="separador"] .lado textarea{min-height:180px}}

@@ -1,0 +1,6 @@
+
+#logihub-nav{box-sizing:border-box;min-height:55px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:9px 22px;background:#0b1728;border-bottom:1px solid #294263;color:#dbebff;font:600 12px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif}
+#logihub-nav *{box-sizing:border-box}#logihub-nav a{color:#cadbf0;text-decoration:none;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;font:inherit;padding:8px 10px;border-radius:8px}
+#logihub-nav a:hover{color:#fff;background:#233b57}#logihub-nav a:focus-visible{outline:2px solid #9bdeff;outline-offset:2px}#logihub-nav .hub-home{color:#92dfff;font-size:13px;font-weight:800}
+#logihub-nav .hub-links{display:flex;align-items:center;gap:3px;flex-wrap:wrap}#logihub-nav a[aria-current="page"]{color:#96d2ff;background:#1b3450;border:1px solid #345676}
+@media(max-width:680px){#logihub-nav{padding:7px 12px;gap:3px}#logihub-nav .hub-links{gap:0}#logihub-nav a{padding:7px;font-size:11px}#logihub-nav .hub-home{font-size:12px}}

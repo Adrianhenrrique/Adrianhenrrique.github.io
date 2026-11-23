@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gerador de CSV – Importar Caixas</title>
+<style>
+  :root{--bg:#f4f6f9;--card:#fff;--txt:#1d2433;--mut:#6b7385;--pri:#0b6bcb;--ok:#18864b;--err:#c62828;--warn:#b26a00;--bd:#dde2ea}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--txt);font-size:14px}
+  header{background:#12325a;color:#fff;padding:14px 22px}
+  header h1{margin:0;font-size:18px}
+  header p{margin:4px 0 0;opacity:.8;font-size:13px}
+  main{max-width:1200px;margin:0 auto;padding:18px;display:grid;gap:16px}
+  .card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:16px}
+  .card h2{margin:0 0 12px;font-size:15px}
+  .row{display:flex;flex-wrap:wrap;gap:12px}
+  label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--mut);font-weight:600}
+  input,textarea{font:inherit;padding:8px 10px;border:1px solid var(--bd);border-radius:6px;color:var(--txt)}
+  input{width:170px}
+  input.req{border-color:#9bb8dc}
+  textarea{width:100%;min-height:140px;font-family:Consolas,monospace;font-size:12px;resize:vertical}
+  .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  button{font:inherit;font-weight:600;padding:9px 16px;border-radius:6px;border:1px solid var(--bd);background:#fff;cursor:pointer}
+  button.pri{background:var(--pri);border-color:var(--pri);color:#fff}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  .status{margin-top:10px;font-weight:600}
+  .status.ok{color:var(--ok)} .status.err{color:var(--err)} .status.warn{color:var(--warn)}
+  .tbl{overflow:auto;max-height:420px;border:1px solid var(--bd);border-radius:6px}
+  table{border-collapse:collapse;width:100%;font-size:12px}
+  th,td{padding:5px 8px;border-bottom:1px solid #eef0f4;white-space:nowrap;text-align:left}
+  th{position:sticky;top:0;background:#eef3fa;z-index:1}
+  td.bad{background:#fde8e8;color:var(--err);font-weight:600}
+  tr.dup td{background:#fff6e0}
+  .hint{color:var(--mut);font-size:12px;margin-top:6px}
+  ul.msgs{margin:8px 0 0;padding-left:18px;color:var(--err)}
+  ul.msgs li.w{color:var(--warn)}
+</style>
+<meta name="logihub-build" content="20261123-loghub-v1"><link rel="stylesheet" href="../../assets/tools.css"></head>
+<body data-logihub-page="tool" data-loghub-style="importar"><nav id="loghub-nav" aria-label="Ferramentas LogHub">
+<a class="hub-home" href="../../index.html">← LogHub · Início</a><div class="hub-links">
+<a href="../cargoquery/index.html" >CargoQuery</a>
+<a href="../separador/index.html" >Separador</a>
+<a href="../importar-caixas/index.html" aria-current="page">Importar Caixas</a>
+</div></nav>
+<header>
+  <h1>Gerador de CSV – Importar Caixas</h1>
+  <p>Cole as linhas copiadas da planilha → confira → baixe o CSV pronto para importar no sistema.</p>
+</header>
+<main>
+  <section class="card">
+    <h2>1. Dados fixos (valem para todas as linhas)</h2>
+    <div class="row">
+      <label>Filial *<input id="filial" class="req" placeholder="ex: 0001"></label>
+      <label>Expedição (opcional)<input id="expedicao"></label>
+      <label>Pedido (opcional)<input id="pedido"></label>
+      <label>UdC (opcional)<input id="udc"></label>
+    </div>
+    <div class="hint">A Filial fica salva neste computador para a próxima vez. Quantidade = 1 e Status = ENTRADA são preenchidos automaticamente.</div>
+  </section>
+
+  <section class="card">
+    <h2>2. Cole aqui os dados da planilha (Ctrl+V)</h2>
+    <textarea id="entrada" placeholder="Item	Lote	RG Pallet	RG Caixa	Peso Pad.	Peso Liq.	Peso Bru.	Pes. Min.	Pes. Max.
+00156	LOTE00001	000000000000000301	000000000000000101	11	10,082	10,32	9	11"></textarea>
+    <div class="hint">Pode colar com ou sem a linha de cabeçalho. Vírgula vira ponto automaticamente nos pesos.</div>
+    <div class="btns">
+      <button class="pri" id="baixar" disabled>⬇ Baixar CSV</button>
+      <button id="copiar" disabled>Copiar CSV</button>
+      <button id="limpar">Limpar</button>
+    </div>
+    <div id="status" class="status"></div>
+    <ul id="msgs" class="msgs"></ul>
+  </section>
+
+  <section class="card">
+    <h2>3. Pré-visualização (<span id="qtd">0</span> caixas)</h2>
+    <div class="tbl"><table id="prev"></table></div>
+  </section>
+</main>
+
+<script>
+// Cabeçalho exatamente como no modelo do sistema (UTF-8, separador ;, tudo entre aspas)
+const HEADER = ["Filial","Expedição","Pedido","Nr Pallet","Produto","Lote","Rg Caixa","Peso Líquido","Peso Bruto","UdC","Quantidade de Caixas","Status da Caixa"];
+const REQUIRED = ["Filial","Nr Pallet","Produto","Lote","Rg Caixa","Peso Líquido","Peso Bruto"];
+
+// Mapeamento das colunas da planilha de origem (posição padrão caso não venha cabeçalho)
+const SRC = {
+  item:    {names:["item","produto","cod","codigo"], pos:0},
+  lote:    {names:["lote"], pos:1},
+  pallet:  {names:["rg pallet","nr pallet","pallet"], pos:2},
+  caixa:   {names:["rg caixa","caixa"], pos:3},
+  liq:     {names:["peso liq.","peso liq","peso liquido","peso líquido"], pos:5},
+  bru:     {names:["peso bru.","peso bru","peso bruto"], pos:6},
+};
+
+const $ = id => document.getElementById(id);
+const norm = s => String(s||"").trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+let csvAtual = "";
+
+try { const f = localStorage.getItem("importarCaixas.filial"); if (f) $("filial").value = f; } catch(e){}
+
+function pesoParaPonto(v){
+  let s = String(v||"").trim().replace(/\s/g,"");
+  if (!s) return "";
+  if (s.includes(",")) s = s.replace(/\./g,"").replace(",", ".");   // 1.234,5 -> 1234.5 | 10,082 -> 10.082
+  return s;
+}
+const pesoValido = s => /^\d+(\.\d+)?$/.test(s);
+const q = v => '"' + String(v).replace(/"/g,'""') + '"';
+
+function detectarColunas(cab){
+  const idx = {};
+  const cn = cab.map(norm);
+  for (const [k,def] of Object.entries(SRC)){
+    let i = cn.findIndex(c => def.names.includes(c));
+    idx[k] = i >= 0 ? i : def.pos;
+  }
+  return idx;
+}
+
+function processar(){
+  const texto = $("entrada").value.replace(/\r/g,"");
+  let linhas = texto.split("\n").filter(l => l.trim() !== "");
+  const filial = $("filial").value.trim();
+  const fixos = {exp:$("expedicao").value.trim(), ped:$("pedido").value.trim(), udc:$("udc").value.trim()};
+  try { localStorage.setItem("importarCaixas.filial", filial); } catch(e){}
+
+  const msgs = [];
+  let idx = detectarColunas([]);
+  if (linhas.length && /item|lote|rg caixa/i.test(linhas[0]) && !/^\d/.test(linhas[0].trim())){
+    idx = detectarColunas(linhas[0].split("\t"));
+    linhas = linhas.slice(1);
+  }
+
+  const registros = [];
+  const vistos = new Map();
+  let erros = 0, dups = 0;
+
+  linhas.forEach((l, n) => {
+    const c = l.split("\t").map(x => x.trim());
+    const r = {
+      "Filial": filial, "Expedição": fixos.exp, "Pedido": fixos.ped,
+      "Nr Pallet": c[idx.pallet]||"", "Produto": c[idx.item]||"", "Lote": c[idx.lote]||"",
+      "Rg Caixa": c[idx.caixa]||"",
+      "Peso Líquido": pesoParaPonto(c[idx.liq]), "Peso Bruto": pesoParaPonto(c[idx.bru]),
+      "UdC": fixos.udc, "Quantidade de Caixas": "1", "Status da Caixa": "ENTRADA",
+      _bad: new Set(), _dup: false, _linha: n+1
+    };
+    for (const k of REQUIRED){ if (!r[k]) r._bad.add(k); }
+    for (const k of ["Peso Líquido","Peso Bruto"]){ if (r[k] && !pesoValido(r[k])) r._bad.add(k); }
+    if (r["Peso Líquido"] && r["Peso Bruto"] && pesoValido(r["Peso Líquido"]) && pesoValido(r["Peso Bruto"])
+        && parseFloat(r["Peso Líquido"]) > parseFloat(r["Peso Bruto"])){
+      msgs.push({w:true, t:`Linha ${n+1}: peso líquido maior que o bruto (confira).`});
+    }
+    if (r["Rg Caixa"]){
+      if (vistos.has(r["Rg Caixa"])){ r._dup = true; registros[vistos.get(r["Rg Caixa"])]._dup = true; dups++; }
+      else vistos.set(r["Rg Caixa"], registros.length);
+    }
+    const semFilial = r._bad.has("Filial");
+    const outros = [...r._bad].filter(k => k !== "Filial");
+    if (outros.length){ erros++; msgs.push({t:`Linha ${n+1}: problema em ${outros.join(", ")}.`}); }
+    if (semFilial || outros.length) r._erro = true;
+    registros.push(r);
+  });
+
+  if (registros.length && !filial) msgs.unshift({t:"Preencha a Filial (obrigatória)."});
+  if (dups) msgs.push({w:true, t:`${dups} RG Caixa repetido(s) – linhas destacadas em amarelo.`});
+
+  // Pré-visualização
+  const prev = $("prev");
+  prev.innerHTML = "<tr><th>#</th>" + HEADER.map(h=>`<th>${h}</th>`).join("") + "</tr>" +
+    registros.map((r,i)=>`<tr class="${r._dup?'dup':''}"><td>${i+1}</td>` +
+      HEADER.map(h=>`<td class="${r._bad.has(h)?'bad':''}">${esc(r[h])||(r._bad.has(h)?'(vazio)':'')}</td>`).join("") + "</tr>").join("");
+  $("qtd").textContent = registros.length;
+
+  const ok = registros.length > 0 && filial && erros === 0;
+  csvAtual = ok ? [HEADER.map(q).join(";"), ...registros.map(r => HEADER.map(h => q(r[h])).join(";"))].join("\n") + "\n" : "";
+  $("baixar").disabled = !ok; $("copiar").disabled = !ok;
+
+  const st = $("status");
+  if (!registros.length){ st.className="status"; st.textContent=""; }
+  else if (ok){ st.className = "status " + (dups?"warn":"ok"); st.textContent = `✔ ${registros.length} caixa(s) prontas para exportar.`; }
+  else { st.className="status err"; st.textContent = "✖ Corrija os itens abaixo antes de exportar."; }
+  $("msgs").innerHTML = msgs.map(m=>`<li class="${m.w?'w':''}">${esc(m.t)}</li>`).join("");
+}
+
+function esc(s){ return String(s??"").replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+function nomeArquivo(){
+  const d = new Date(), p = n => String(n).padStart(2,"0");
+  return `ImportarCaixas_${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}.csv`;
+}
+
+$("baixar").onclick = () => {
+  if (!csvAtual) return;
+  const blob = new Blob([csvAtual], {type:"text/csv;charset=utf-8"}); // UTF-8 sem BOM, igual ao modelo
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = nomeArquivo();
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+};
+$("copiar").onclick = async () => {
+  try { await navigator.clipboard.writeText(csvAtual); $("status").textContent = "✔ CSV copiado."; }
+  catch(e){ $("status").textContent = "Não foi possível copiar – use o botão Baixar."; }
+};
+$("limpar").onclick = () => { $("entrada").value = ""; processar(); $("entrada").focus(); };
+
+["entrada","filial","expedicao","pedido","udc"].forEach(id => $(id).addEventListener("input", processar));
+processar();
+</script>
+<script src="../../assets/updater.js" defer></script></body>
+</html>
