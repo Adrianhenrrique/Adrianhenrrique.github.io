@@ -1,24 +1,134 @@
+/* LogHub Auto Update 1.2 — silencioso, sem perda de dados e sem loops. */
+(() => {
+  'use strict';
+  if (!/^https?:$/.test(location.protocol)) return;
 
-(function(){
-'use strict';
-if(!/^https?:$/.test(location.protocol))return;
-const marker=document.querySelector('meta[name="logihub-build"]'),build=marker?.content;
-if(!build)return;
-const script=[...document.scripts].find(s=>/\/assets\/updater\.js(?:\?.*)?$/.test(s.src));
-const root=script?new URL('../',script.src):new URL('./',location.href);
-let edited=false,notified=false,firstSha=null;
-if(document.body.dataset.logihubPage==='tool') ['input','change','paste','drop'].forEach(t=>document.addEventListener(t,e=>{if(t==='drop'||e.target?.closest?.('input,textarea,select,[contenteditable],.droparea'))edited=true},true));
-function reload(ver){const url=new URL(location.href);url.searchParams.set('v',String(ver).slice(0,16));location.replace(url.toString())}
-function update(ver){
-if(notified)return;notified=true;
-if(!edited){try{if(sessionStorage.getItem('loghub-last-reload')!==ver){sessionStorage.setItem('loghub-last-reload',ver);reload(ver);return}}catch(e){}}
-const bar=document.createElement('div');bar.setAttribute('role','status');bar.style.cssText='position:sticky;top:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:12px 18px;background:#173350;border-bottom:1px solid #467ca7;color:#eaf5ff;font:600 13px system-ui,sans-serif';
-const msg=document.createElement('span');msg.textContent=edited?'Nova versão disponível! Salve ou copie os dados antes de atualizar.':'Nova versão disponível!';
-const btn=document.createElement('button');btn.type='button';btn.textContent='Atualizar agora';btn.style.cssText='background:#a7ddff;color:#09203b;border:0;padding:8px 13px;border-radius:7px;cursor:pointer;font-weight:700';btn.onclick=()=>reload(ver);
-bar.append(msg,btn);document.body.prepend(bar)}
-async function check(){
-try{const u=new URL('version.json',root);u.searchParams.set('t',Date.now());const r=await fetch(u,{cache:'no-store'});if(r.ok){const v=await r.json();if(v.build&&v.build!==build){update(v.build);return}}}catch(e){}
-try{const u=new URL('https://api.github.com/repos/Adrianhenrrique/Adrianhenrrique.github.io/commits');u.searchParams.set('path','LogHub');u.searchParams.set('per_page','1');const r=await fetch(u,{cache:'no-store'});if(!r.ok)return;const data=await r.json(),sha=data?.[0]?.sha;if(!sha)return;if(firstSha&&sha!==firstSha)update(sha);firstSha??=sha}catch(e){}
-}
-setTimeout(check,1400);setInterval(check,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)check()});
+  const build = document.querySelector('meta[name="logihub-build"]')?.content;
+  const script = document.currentScript || [...document.scripts].find(s => /\/assets\/updater\.js(?:\?.*)?$/.test(s.src));
+  if (!build || !script?.src) return;
+
+  const root = new URL('../', script.src);
+  const toolPage = document.body?.dataset.logihubPage === 'tool';
+  const storageKey = 'loghub:auto-update:' + location.pathname;
+  const ownUpdateParam = '_lh';
+  const POLL_MS = 120000;
+  const IDLE_MS = 75000;
+  const GITHUB_DEPLOY_GRACE_MS = 150000;
+
+  let lastInteraction = 0;
+  let didEdit = false;
+  let checking = false;
+  let pendingRelease = null;
+  let initialCommit = null;
+  let nextCommit = null;
+  let commitFirstSeen = 0;
+
+  // Marque atividades reais, mas não interrompa o trabalho do usuário.
+  if (toolPage) {
+    for (const event of ['input', 'change', 'paste', 'drop']) {
+      document.addEventListener(event, e => {
+        if (event === 'drop' || e.target?.closest?.('input,textarea,select,[contenteditable],.droparea')) {
+          didEdit = true;
+          lastInteraction = Date.now();
+        }
+      }, true);
+    }
+  }
+
+  function workInProgress() {
+    if (!toolPage) return false;
+    // Os campos de entrada são o trabalho; saídas readonly não impedem atualização.
+    return [...document.querySelectorAll('textarea:not([readonly]), input[type="file"]')]
+      .some(el => el.type === 'file' ? !!el.files?.length : !!el.value.trim());
+  }
+
+  function safeToRefresh() {
+    return !document.hidden && !workInProgress() &&
+      (!toolPage || !didEdit || Date.now() - lastInteraction >= IDLE_MS);
+  }
+
+  function alreadyTried(release) {
+    // Proteção mesmo em navegadores onde sessionStorage é bloqueado.
+    if (new URL(location.href).searchParams.get(ownUpdateParam) === release) return true;
+    try { return sessionStorage.getItem(storageKey) === release; }
+    catch (_) { return false; }
+  }
+
+  function requestRefresh(release) {
+    if (!release || alreadyTried(release)) return;
+    if (!safeToRefresh()) { pendingRelease = release; return; }
+
+    try { sessionStorage.setItem(storageKey, release); }
+    catch (_) { /* O parâmetro da URL também protege contra loops. */ }
+
+    const nextUrl = new URL(location.href);
+    nextUrl.searchParams.set(ownUpdateParam, release);
+    // Troca a página sem criar outro item no histórico nem mostrar aviso.
+    location.replace(nextUrl.href);
+  }
+
+  function retryWhenSafe() {
+    if (pendingRelease && safeToRefresh()) {
+      const release = pendingRelease;
+      pendingRelease = null;
+      requestRefresh(release);
+    }
+  }
+
+  async function checkManifest() {
+    try {
+      const url = new URL('version.json', root);
+      url.searchParams.set('_', Date.now());
+      const response = await fetch(url.href, {cache: 'no-store'});
+      if (!response.ok) return false;
+      const manifest = await response.json();
+      if (!manifest?.build || manifest.build === build) return false;
+      requestRefresh(String(manifest.build));
+      return true;
+    } catch (_) { return false; }
+  }
+
+  async function checkRepository() {
+    // O SHA detecta futuros commits no GitHub, mesmo sem edição de version.json.
+    try {
+      const url = new URL('https://api.github.com/repos/Adrianhenrrique/Adrianhenrrique.github.io/commits');
+      url.searchParams.set('path', 'LogHub');
+      url.searchParams.set('per_page', '1');
+      const response = await fetch(url.href, {cache: 'no-store'});
+      if (!response.ok) return;
+      const data = await response.json();
+      const sha = data?.[0]?.sha;
+      if (!sha) return;
+      if (!initialCommit) { initialCommit = sha; return; }
+      if (sha !== initialCommit) {
+        if (nextCommit !== sha) {
+          nextCommit = sha;
+          commitFirstSeen = Date.now();
+        }
+        // Um commit pode chegar antes de o GitHub Pages terminar a publicação.
+        if (Date.now() - commitFirstSeen >= GITHUB_DEPLOY_GRACE_MS) {
+          requestRefresh('commit-' + sha.slice(0, 12));
+        }
+      }
+    } catch (_) { /* API indisponível: version.json continua funcionando. */ }
+  }
+
+  async function check() {
+    if (checking || document.hidden) return;
+    checking = true;
+    try {
+      const hasNewBuild = await checkManifest();
+      if (!hasNewBuild) await checkRepository();
+    } finally {
+      checking = false;
+      retryWhenSafe();
+    }
+  }
+
+  setTimeout(check, 2000);
+  setInterval(check, POLL_MS);
+  setInterval(retryWhenSafe, 30000);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) { retryWhenSafe(); check(); }
+  });
 })();

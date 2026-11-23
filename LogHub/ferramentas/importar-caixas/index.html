@@ -36,7 +36,7 @@
   ul.msgs{margin:8px 0 0;padding-left:18px;color:var(--err)}
   ul.msgs li.w{color:var(--warn)}
 </style>
-<meta name="logihub-build" content="20261123-loghub-ui-v1-1"><link rel="stylesheet" href="../../assets/tools.css"></head>
+<meta name="logihub-build" content="20261123-loghub-autoupdate-v1-2"><link rel="stylesheet" href="../../assets/tools.css"></head>
 <body data-logihub-page="tool" data-loghub-style="importar"><nav id="loghub-nav" aria-label="Navegação do LogHub">
   <div class="hub-nav-inner">
     <div class="hub-identity">
@@ -218,5 +218,5 @@ $("limpar").onclick = () => { $("entrada").value = ""; processar(); $("entrada")
 ["entrada","filial","expedicao","pedido","udc"].forEach(id => $(id).addEventListener("input", processar));
 processar();
 </script>
-<script src="../../assets/updater.js" defer></script></body>
+<script src="../../assets/updater.js?v=1-2" defer></script></body>
 </html>
