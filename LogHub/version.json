@@ -1,5 +1,5 @@
 {
-  "version": "1.5.0",
-  "build": "20261123-loghub-exportacao-lotes-v1-5",
-  "description": "CSV em lotes de ate 4500 registros + planilha de conferencia XLSX sem perda de RG"
+  "version": "1.6.0",
+  "build": "20261123-loghub-ajuda-contextual-v1-6",
+  "description": "Assistente de ajuda contextual local em CargoQuery, Separador e Importar Caixas"
 }
