@@ -1,300 +1,146 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adrian Henrique | Dev Full Stack & Bots Discord</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0e0e">
+  <meta name="description" content="Adrian Henrique — desenvolvedor de soluções web, Android e automações com olhar prático para a logística. Conheça o LogHub e outros projetos.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Adrian Henrique — Tecnologia que resolve">
+  <meta property="og:description" content="Desenvolvimento, automação e logística. Projetos criados para transformar tarefas repetitivas em fluxos mais simples.">
+  <meta property="og:url" content="https://adrianhenrrique.github.io/">
+  <link rel="canonical" href="https://adrianhenrrique.github.io/">
+  <link rel="icon" type="image/svg+xml" href="assets/ah-mark.svg">
+  <link rel="stylesheet" href="assets/portfolio.css?v=20261123-1">
+  <title>Adrian Henrique — Tecnologia que resolve</title>
 </head>
 <body>
-    <header>
-        <div class="container header-content">
-            <img src="https://i.ibb.co/sJy4d43P/compressed-fotor-202506109936.webp" alt="Adrian Henrique" class="avatar floating">
-            <h1>Adrian Henrique</h1>
-            <p class="tagline">Desenvolvedor Full Stack & DiscordJS</p>
-            <div class="social-links">
-                <a href="https://github.com/Adrianhenrrique/ThunderBotWeb" title="GitHub" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://discord.com/users/442367738720157697" title="Discord" target="_blank"><i class="fab fa-discord"></i></a>
-                <!-- <a href="https://www.linkedin.com/in/adrian-henrique/" title="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a> -->
-                <a href="https://www.instagram.com/adrian.santos002/" title="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-            </div>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+  <div class="site-shell" id="topo">
+    <header class="site-header" id="site-header">
+      <div class="header-inner container">
+        <a class="brand" href="#topo" aria-label="Adrian Henrique — voltar ao início">
+          <span class="brand-symbol">A<span>H</span><i>.</i></span>
+          <span class="brand-text">ADRIAN<br>HENRIQUE</span>
+        </a>
+        <nav class="desktop-nav" aria-label="Navegação principal">
+          <a href="#sobre">Sobre</a>
+          <a href="#projetos">Projetos</a>
+          <a href="#competencias">Competências</a>
+          <a href="#contato">Contato</a>
+        </nav>
+        <div class="header-actions">
+          <a class="header-cta" href="/LogHub/" aria-label="Acessar o LogHub">Explorar LogHub <span aria-hidden="true">↗</span></a>
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menu">
+            <span></span><span></span>
+          </button>
         </div>
+      </div>
+      <nav class="mobile-nav" id="mobile-menu" aria-label="Navegação mobile" hidden>
+        <a href="#sobre">Sobre</a><a href="#projetos">Projetos</a><a href="#competencias">Competências</a><a href="#contato">Contato</a><a href="/LogHub/">Abrir LogHub ↗</a>
+      </nav>
     </header>
-    
-    <section id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>Sobre Mim</h2>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Desenvolvedor especializado em criar experiências digitais únicas através de bots para Discord, sistemas web personalizados e interfaces modernas. Minha abordagem combina performance, automação inteligente e design cuidadoso para entregar produtos que realmente fazem a diferença.</p>
-                    <p>Com 1 ano e 6 meses de imersão em tecnologias como JavaScript, Node.js e frameworks modernos, transformo ideias em soluções robustas para servidores de Discord, empresas ambiciosas e projetos inovadores.</p>
-                    <div class="tech-stack">
-                        <span class="tech-item">JavaScript</span>
-                        <span class="tech-item">Node.js</span>
-                        <span class="tech-item">React</span>
-                        <span class="tech-item">MongoDB</span>
-                        <span class="tech-item">Discord.js</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <h3 style="margin-bottom: 20px; color: var(--cyan);">Minha Filosofia</h3>
-                    <p style="color: var(--gray); margin-bottom: 15px;">🚀 <strong>Performance é prioridade:</strong> Código otimizado que não sacrifica velocidade por features.</p>
-                    <p style="color: var(--gray); margin-bottom: 15px;">🔧 <strong>Automação inteligente:</strong> Sistemas que trabalham para você, não o contrário.</p>
-                    <p style="color: var(--gray);">🎨 <strong>Experiência imersiva:</strong> Interfaces que cativam e funcionam perfeitamente em qualquer dispositivo.</p>
-                </div>
-            </div>
+
+    <main id="conteudo">
+      <section class="hero container" aria-labelledby="hero-title">
+        <div class="hero-left">
+          <div class="hero-overline"><span class="status-dot" aria-hidden="true"></span> DESENVOLVIMENTO <span class="overline-divider">/</span> AUTOMAÇÃO <span class="overline-divider">/</span> LOGÍSTICA</div>
+          <h1 id="hero-title">TECNOLOGIA<br>QUE <em>RESOLVE</em><span class="period">.</span></h1>
+          <p class="hero-description">Sou <strong>Adrian Henrique</strong>. Desenvolvo ferramentas, sistemas e automações para transformar processos complicados em tarefas mais simples, rápidas e inteligentes.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#projetos">Conheça meus projetos <span aria-hidden="true">↗</span></a>
+            <a class="button button-quiet" href="#sobre">Mais sobre mim <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-bottom"><span>PORTFÓLIO <b>2026</b></span><span class="hero-rule"></span><span>CRIAR • MELHORAR • SIMPLIFICAR</span></div>
         </div>
-    </section>
-    
-    <section id="skills" style="background: radial-gradient(circle at center, rgba(15, 23, 42, 0.8), var(--darker));">
-        <div class="container">
-            <div class="section-title">
-                <h2>Habilidades Técnicas</h2>
+        <div class="hero-right" aria-label="Ilustração de um fluxo digital de trabalho">
+          <div class="ambient-ring ring-one" aria-hidden="true"></div><div class="ambient-ring ring-two" aria-hidden="true"></div>
+          <div class="process-window">
+            <div class="process-top"><span class="window-left"><span class="window-dot lime"></span><span class="window-dot muted"></span><span class="window-dot muted"></span></span><span>PROCESS / 001</span><span class="terminal-signal">● ONLINE</span></div>
+            <div class="process-heading"><span class="process-mini-label">PROCESSO EM FOCO</span><strong>Menos etapas.<br><span>Mais resultado.</span></strong></div>
+            <div class="process-steps">
+              <div class="process-step"><span class="step-number">01</span><span class="step-text">ENTRADA DE DADOS<small>Planilhas • Textos • Arquivos</small></span><span class="step-check">✓</span></div>
+              <div class="process-step"><span class="step-number">02</span><span class="step-text">TRATAMENTO AUTOMÁTICO<small>Organização • Validação</small></span><span class="step-check">✓</span></div>
+              <div class="process-step focus"><span class="step-number">03</span><span class="step-text">RESULTADO PRONTO<small>Consulta • Exportação</small></span><span class="step-arrow">↗</span></div>
             </div>
-            <div class="skills-grid">
-                <div class="card skill-category">
-                    <h3><i class="fab fa-discord" style="color: var(--secondary);"></i> Bots Discord</h3>
-                    <ul>
-                        <li>Slash Commands, Moderação Avançada, Sistemas de Logs</li>
-                        <li>Economia Persistente (MongoDB/SQLite)</li>
-                        <li>Painéis Web Integrados com Dashboard</li>
-                        <li>Sistemas de Tickets Multi-categoria</li>
-                        <li>Jogos e Minigames Customizados</li>
-                    </ul>
-                </div>
-                <div class="card skill-category">
-                    <h3><i class="fas fa-code" style="color: var(--cyan);"></i> Frontend</h3>
-                    <ul>
-                        <li>React, Next.js, TailwindCSS</li>
-                        <li>Animações CSS/JS Performáticas</li>
-                        <li>Design Responsivo e Mobile-First</li>
-                        <li>SEO Avançado e Otimização Core Web Vitals</li>
-                    </ul>
-                </div>
-                <div class="card skill-category">
-                    <h3><i class="fas fa-server" style="color: var(--primary);"></i> Backend</h3>
-                    <ul>
-                        <li>Node.js, Express, NestJS</li>
-                        <li>APIs REST e GraphQL</li>
-                        <li>Autenticação JWT e OAuth2</li>
-                        <li>WebSockets e Comunicação em Tempo Real</li>
-                    </ul>
-                </div>
-                <div class="card skill-category">
-                    <h3><i class="fas fa-tools" style="color: var(--success);"></i> Ferramentas</h3>
-                    <ul>
-                        <li>Git e Controle de Versão</li>
-                        <li>Docker e Deploy em Cloud</li>
-                        <li>Integração com APIs (Stripe, OpenAI, etc.)</li>
-                        <li>CI/CD e Automação de Deploy</li>
-                    </ul>
-                </div>
-            </div>
+            <div class="process-bottom"><span><span class="pulse"></span> FLUXO OTIMIZADO</span><span>AH / BUILT WITH PURPOSE</span></div>
+          </div>
+          <div class="floating-label label-top"><span>↗</span> PROCESSO INTELIGENTE</div>
+          <div class="floating-label label-bottom"><span>✳</span> FOCO NO QUE IMPORTA</div>
+          <div class="vertical-caption">IDEIAS REAIS. SOLUÇÕES REAIS.</div>
         </div>
-    </section>
-    
-    <section id="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>O Que Posso Criar Para Você</h2>
-            </div>
-            <div class="services-grid">
-                <div class="card service-card">
-                    <div class="service-icon">
-                        <i class="fab fa-discord"></i>
-                    </div>
-                    <h3>Bots Discord Premium</h3>
-                    <p>Soluções completas para moderar, engajar e monetizar sua comunidade, com painel de controle web integrado.</p>
-                </div>
-                <div class="card service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <h3>Websites de Alto Impacto</h3>
-                    <p>Sites institucionais, portfólios e landing pages com design moderno e performance otimizada.</p>
-                </div>
-                <div class="card service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Sistemas Web Sob Medida</h3>
-                    <p>Dashboards administrativos, sistemas internos e ferramentas personalizadas para seu negócio.</p>
-                </div>
-                <div class="card service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3>Automações Inteligentes</h3>
-                    <p>Scripts e bots que automatizam processos repetitivos, integrando diversas plataformas.</p>
-                </div>
-            </div>
+      </section>
+
+      <div class="ticker" aria-hidden="true"><div class="ticker-inner"><span>SIMPLIFICAR É EVOLUIR</span><b>✳</b><span>TECNOLOGIA COM PROPÓSITO</span><b>✳</b><span>AUTOMAÇÃO NA PRÁTICA</span><b>✳</b><span>SIMPLIFICAR É EVOLUIR</span><b>✳</b><span>TECNOLOGIA COM PROPÓSITO</span><b>✳</b></div></div>
+
+      <section class="about-section section-space" id="sobre" aria-labelledby="about-title">
+        <div class="container about-grid">
+          <div class="section-intro"><span class="section-number">01 / SOBRE MIM</span><h2 id="about-title">ENTRE O<br><em>CÓDIGO</em> E A<br>OPERAÇÃO.</h2><span class="section-asterisk" aria-hidden="true">✳</span></div>
+          <div class="about-right">
+            <p class="about-lead">A melhor solução começa quando a gente entende o problema de verdade.</p>
+            <p>Minha trajetória combina <strong>desenvolvimento de software</strong> com a vivência do dia a dia em <strong>operações logísticas</strong>. Trabalho com rotinas que exigem atenção a dados, organização e agilidade — e transformo os desafios que encontro em oportunidades para automatizar.</p>
+            <p>Estou em formação em <strong>Tecnologia em Logística</strong> e desenvolvo projetos com JavaScript, Node.js, interfaces web e outras tecnologias. Gosto de criar ferramentas que as pessoas realmente conseguem usar, sem complicação.</p>
+            <div class="about-badges"><span>DESENVOLVIMENTO WEB</span><span>ANÁLISE DE PROCESSOS</span><span>AUTOMAÇÃO</span></div>
+          </div>
         </div>
-    </section>
-    
-    <section id="projects" style="background: radial-gradient(ellipse at top, rgba(109, 40, 217, 0.1), transparent);">
+      </section>
+
+      <section class="work-section section-space" id="projetos" aria-labelledby="projects-title">
         <div class="container">
-            <div class="section-title">
-                <h2>Projetos Recentes</h2>
+          <div class="section-head"><div><span class="section-number">02 / PROJETOS</span><h2 id="projects-title">DO PROBLEMA<br>À <em>SOLUÇÃO.</em></h2></div><p>Uma seleção de projetos que representam como penso, construo e resolvo desafios.</p></div>
+          <article class="featured-project" aria-labelledby="loghub-title">
+            <div class="featured-copy">
+              <div class="feature-meta"><span class="feature-dot"></span> PROJETO EM DESTAQUE <span class="feature-index">01 / 03</span></div>
+              <div class="featured-title-wrap"><span class="project-eyebrow">CENTRAL DE PRODUTIVIDADE LOGÍSTICA</span><h3 id="loghub-title">Log<span>Hub</span><span class="highlight-mark">↗</span></h3></div>
+              <p>Uma central criada para reduzir o retrabalho com dados operacionais: importar planilhas, organizar códigos e preparar arquivos de importação sem ajustes manuais repetitivos.</p>
+              <div class="feature-stats"><div><strong>03</strong><span>ferramentas integradas</span></div><div><strong>4.500</strong><span>caixas por arquivo CSV</span></div><div><strong>LOCAL</strong><span>processamento dos dados</span></div></div>
+              <div class="tags"><span>JavaScript</span><span>HTML / CSS</span><span>Excel & CSV</span><span>Automação</span></div>
+              <a class="project-action" href="/LogHub/">Explorar o projeto <span aria-hidden="true">↗</span></a>
             </div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image" style="background-image: url('https://i.ibb.co/6RGQ1m4S/Chat-GPT-Image-16-de-abr-de-2025-07-10-23.png');"></div>
-                    <div class="project-overlay">
-                        <h3>MineBot</h3>
-                        <p>Bot integrado para servidores Minecraft com economia persistente, sistema de tickets e painel web.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Discord.js</span>
-                            <span class="project-tag">Node.js</span>
-                            <span class="project-tag">MongoDB</span>
-                            <span class="project-tag">React</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image" style="background-image: url('https://i.ibb.co/nqTsyxtF/eternal-arcana-sky-verde.png');"></div>
-                    <div class="project-overlay">
-                        <h3>Eternal Arcana</h3>
-                        <p>Projeto de servidor Minecraft com modpack, sistema de status, tickets, histórico de bans e avisos.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">HTML/CSS</span>
-                            <span class="project-tag">JavaScript</span>
-                            <span class="project-tag">GSAP</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image" style="background-image: url('https://i.ibb.co/gMwTtZZW/image.png');"></div>
-                    <div class="project-overlay">
-                        <h3>Meu Portfólio</h3>
-                        <p>Portfólio pessoal com projetos de bots, sites e sistemas web, destacando habilidades e entregas.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">HTML</span>
-                            <span class="project-tag">CSS</span>
-                            <span class="project-tag">JavaScript</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="featured-art" aria-label="Prévia ilustrativa do LogHub">
+              <div class="preview-shell">
+                <div class="preview-topbar"><span class="preview-mark">✳</span> LogHub <span class="preview-version">CENTRAL / v1.5</span></div>
+                <div class="preview-main"><span class="preview-label">OPERATIONS / DASHBOARD</span><div class="preview-title">O trabalho<br><b>mais simples.</b></div><p>Escolha sua ferramenta e siga o fluxo.</p>
+                  <div class="preview-tiles"><div class="preview-tile active"><span class="tile-symbol">≡</span><b>CargoQuery</b><small>Consultas</small></div><div class="preview-tile"><span class="tile-symbol">↔</span><b>Separador</b><small>Formatar</small></div><div class="preview-tile"><span class="tile-symbol">⇩</span><b>Importar Caixas</b><small>CSV</small></div></div>
+                </div><div class="preview-foot"><span>● SISTEMA LOCAL</span><span>READY TO WORK <b>↗</b></span></div>
+              </div>
+              <div class="visual-corner top-left" aria-hidden="true"></div><div class="visual-corner bottom-right" aria-hidden="true"></div>
             </div>
+          </article>
+          <div class="project-grid">
+            <article class="secondary-project">
+              <div class="secondary-top"><span>02 / ANDROID</span><span class="corner-arrow">↗</span></div>
+              <div class="orbit-visual" aria-hidden="true"><div class="orbit-outer"><div class="orbit-inner"><span class="orbit-glyph">◈</span></div></div><div class="orbit-label">FILES / ORGANIZED</div><div class="orbit-line"></div></div>
+              <div class="secondary-bottom"><span class="secondary-label">APLICATIVO ANDROID</span><h3>Orbit Files</h3><p>Gerenciador de arquivos para Android desenvolvido em Kotlin, Jetpack Compose e Material 3.</p><div class="tags"><span>Kotlin</span><span>Jetpack Compose</span><span>Android</span></div><a class="text-link" href="https://github.com/Adrianhenrrique/orbit-files" target="_blank" rel="noopener noreferrer">Ver código no GitHub ↗</a></div>
+            </article>
+            <article class="secondary-project">
+              <div class="secondary-top"><span>03 / OPEN SOURCE</span><span class="corner-arrow">↗</span></div>
+              <div class="tools-visual" aria-hidden="true"><div class="tools-axis axis-x"></div><div class="tools-axis axis-y"></div><div class="tool-cube cube-a"></div><div class="tool-cube cube-b"></div><div class="tool-cube cube-c"></div><span class="toolcode">&lt;/&gt;</span></div>
+              <div class="secondary-bottom"><span class="secondary-label">ECOSSISTEMA MINECRAFT</span><h3>ExtraTools</h3><p>Projeto Java para o ecossistema Slimefun, com ferramentas e mecânicas adicionais para servidores Minecraft.</p><div class="tags"><span>Java</span><span>Slimefun</span><span>Plugin</span></div><a class="text-link" href="https://github.com/Adrianhenrrique/ExtraTools" target="_blank" rel="noopener noreferrer">Ver código no GitHub ↗</a></div>
+            </article>
+          </div>
+          <div class="more-projects"><p>Outros projetos e experimentos disponíveis no meu GitHub.</p><a href="https://github.com/Adrianhenrrique?tab=repositories" target="_blank" rel="noopener noreferrer">EXPLORAR REPOSITÓRIOS <span aria-hidden="true">↗</span></a></div>
         </div>
-    </section>
-    
-    <section id="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>Depoimentos</h2>
-            </div>
-            <div class="testimonials-grid">
-                <div class="card testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"O bot superou todas as expectativas! Adrian não só implementou tudo que pedi, como sugeriu features que elevaram o projeto a outro nível. Suporte pós-entrega impecável!"</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://via.placeholder.com/50" alt="Admin Eterium" class="author-avatar">
-                        <div>
-                            <h4>Admin do Eterium</h4>
-                            <p style="color: var(--gray);">Servidor de Minecraft</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="card testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Contratei para desenvolver nosso site institucional e o resultado foi fantástico. Profissionalismo, atenção aos detalhes e entregas antes do prazo. Já estou planejando novos projetos com ele!"</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://via.placeholder.com/50" alt="Guilda Rúnica" class="author-avatar">
-                        <div>
-                            <h4>Guilda Rúnica</h4>
-                            <p style="color: var(--gray);">Comunidade de RPG</p>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
+      </section>
+
+      <section class="skills-section section-space" id="competencias" aria-labelledby="skills-title">
+        <div class="container skills-grid"><div class="skills-intro"><span class="section-number">03 / COMPETÊNCIAS</span><h2 id="skills-title">CÓDIGO,<br>PROCESSO<br><em>E VISÃO.</em></h2><p>Uma combinação de prática em desenvolvimento com pensamento voltado à eficiência operacional.</p></div>
+          <div class="skills-list">
+            <div class="skill-line"><span class="skill-index">01</span><div><h3>Web & Interfaces</h3><p>JavaScript, HTML, CSS, React, experiência responsiva</p></div><span class="skill-mark">↗</span></div>
+            <div class="skill-line"><span class="skill-index">02</span><div><h3>Sistemas & Automações</h3><p>Node.js, Express, Discord.js, APIs e bots</p></div><span class="skill-mark">↗</span></div>
+            <div class="skill-line"><span class="skill-index">03</span><div><h3>Dados & Processos</h3><p>Excel, CSV, consultas, validação e melhoria de rotinas</p></div><span class="skill-mark">↗</span></div>
+            <div class="skill-line"><span class="skill-index">04</span><div><h3>Outros Ambientes</h3><p>Kotlin, Android, Java, Git e GitHub</p></div><span class="skill-mark">↗</span></div>
+          </div>
         </div>
-    </section>
-    
-    <section id="contact" style="background: linear-gradient(to bottom, var(--dark), var(--darker));">
-        <div class="container">
-            <div class="section-title">
-                <h2>Vamos Conversar</h2>
-            </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h3>E-mail</h3>
-                            <a href="mailto:adrianhenriquejjs290@gmail.com">adrianhenriquejjs290@gmail.com</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fab fa-discord"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h3>Discord</h3>
-                            <a href="#">@adrianhenrique_king</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fab fa-github"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h3>GitHub</h3>
-                            <a href="https://github.com/Adrianhenrrique">github.com/Adrianhenrrique</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card contact-form">
-                    <form id="contact-form" action="https://formsubmit.co/adrianhenriquejjs290@gmail.com" method="POST">
-                        <div class="form-group">
-                            <label for="name">Nome</label>
-                            <input name="name" type="text" id="name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">E-mail</label>
-                            <input name="email" name="email" type="email" id="email" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Assunto</label>
-                            <input name="subject" type="text" id="subject" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Mensagem</label>
-                            <textarea name="message" id="message" class="form-control" required></textarea>
-                        </div>
-                        <input type="hidden" name="_next" value="#contact">
-                        <button type="submit" class="btn">Enviar Mensagem</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-links">
-                    <a href="#about">Sobre</a>
-                    <a href="#skills">Habilidades</a>
-                    <a href="#projects">Projetos</a>
-                    <a href="#contact">Contato</a>
-                </div>
-                <p class="copyright">© 2023 Adrian Henrique. Todos os direitos reservados.</p>
-            </div>
-        </div>
-    </footer>
-    <script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-    </script>
-    <script type="text/javascript" src="./index.js"></script>
+      </section>
+
+      <section class="contact-section" id="contato" aria-labelledby="contact-title">
+        <div class="container contact-content"><span class="section-number">04 / CONTATO</span><h2 id="contact-title">TEM UMA<br><em>IDEIA?</em><span class="contact-star" aria-hidden="true">✳</span></h2><div class="contact-row"><p>Gosto de conversar sobre novos projetos, tecnologia e formas de tornar processos mais eficientes.</p><a class="contact-button" href="mailto:adrianhenriquejjs290@gmail.com">Vamos conversar <span aria-hidden="true">↗</span></a></div><div class="contact-links"><a href="mailto:adrianhenriquejjs290@gmail.com">E-MAIL ↗</a><a href="https://github.com/Adrianhenrrique" target="_blank" rel="noopener noreferrer">GITHUB ↗</a><a href="/LogHub/">LOGHUB ↗</a></div></div>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="container footer-inner"><a href="#topo" class="footer-logo" aria-label="Voltar ao topo">AH<span>.</span></a><span>© <span id="current-year">2026</span> Adrian Henrique. Desenvolvido com propósito.</span><a class="back-to-top" href="#topo">VOLTAR AO TOPO ↑</a></div></footer>
+  </div>
+  <script src="assets/portfolio.js?v=20261123-1" defer></script>
 </body>
 </html>
