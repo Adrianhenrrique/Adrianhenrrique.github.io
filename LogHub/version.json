@@ -1,5 +1,5 @@
 {
-  "version": "1.3.0",
-  "build": "20261123-loghub-navsync-v1-3",
-  "description": "Sincronização silenciosa; atualização pela navegação e recarga segura"
+  "version": "1.4.0",
+  "build": "20261123-loghub-importacao-planilha-v1-4",
+  "description": "Importacao direta do Excel no Importar Caixas"
 }
