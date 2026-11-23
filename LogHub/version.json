@@ -1,5 +1,5 @@
 {
-  "version": "1.6.0",
-  "build": "20261123-loghub-ajuda-contextual-v1-6",
-  "description": "Assistente de ajuda contextual local em CargoQuery, Separador e Importar Caixas"
+  "version": "1.7.0",
+  "build": "20261123-loghub-rolagem-personalizada-v1-7",
+  "description": "Barras de rolagem personalizadas para cada ferramenta e para a ajuda contextual"
 }

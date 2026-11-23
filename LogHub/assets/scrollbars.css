@@ -1,0 +1,87 @@
+/* LogHub v1.7 — barras de rolagem com identidade por ferramenta.
+   Estilos nativos: arraste, roda do mouse, teclado e toque continuam funcionando.
+   Firefox usa scrollbar-color; Chrome/Edge/Safari usam ::-webkit-scrollbar. */
+
+:root[data-lh-scroll="home"] {
+  --lh-sb-track: #0a1425;
+  --lh-sb-line: #263e5b;
+  --lh-sb-dark: #2e76bb;
+  --lh-sb-light: #89d8ff;
+  --lh-sb-hover: #c0efff;
+}
+:root[data-lh-scroll="cargo"] {
+  --lh-sb-track: #0b1527;
+  --lh-sb-line: #304f72;
+  --lh-sb-dark: #267bc5;
+  --lh-sb-light: #70e1ed;
+  --lh-sb-hover: #b3fbff;
+}
+:root[data-lh-scroll="sep"] {
+  --lh-sb-track: #121922;
+  --lh-sb-line: #54492d;
+  --lh-sb-dark: #b47724;
+  --lh-sb-light: #f5c760;
+  --lh-sb-hover: #ffe2a0;
+}
+:root[data-lh-scroll="importar"] {
+  --lh-sb-track: #0a1921;
+  --lh-sb-line: #28534f;
+  --lh-sb-dark: #168a80;
+  --lh-sb-light: #72e6bd;
+  --lh-sb-hover: #b7ffe2;
+}
+
+/* Chromium, WebKit, Safari: a alça muda de cor em cada página. */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 13px;
+  background: var(--lh-sb-track, #0a1425);
+}
+::-webkit-scrollbar-track {
+  border: 1px solid var(--lh-sb-line, #30445e);
+  background: var(--lh-sb-track, #0a1425);
+  border-radius: 100px;
+}
+::-webkit-scrollbar-thumb {
+  min-height: 46px;
+  border: 3px solid var(--lh-sb-track, #0a1425);
+  border-radius: 100px;
+  background: linear-gradient(180deg, var(--lh-sb-light, #89d8ff), var(--lh-sb-dark, #2e76bb));
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--lh-sb-hover, #c0efff), var(--lh-sb-light, #89d8ff));
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:active {
+  background: var(--lh-sb-hover, #c0efff);
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-corner { background: var(--lh-sb-track, #0a1425); }
+
+/* O chat já tinha um scrollbar-color; no Chrome ele impediria o gradiente.
+   Auto libera a personalização com os pseudos acima. */
+#lh-help-root .lh-help-conversation,
+#lh-help-root .lh-help-presets {
+  scrollbar-color: auto;
+}
+
+/* Firefox mantém o desenho nativo, mas acompanha a cor de cada ferramenta. */
+@supports (-moz-appearance: none) {
+  :root[data-lh-scroll], :root[data-lh-scroll] body,
+  :root[data-lh-scroll] textarea,
+  :root[data-lh-scroll] .tablewrap,
+  :root[data-lh-scroll] .tbl,
+  :root[data-lh-scroll] #lh-help-root .lh-help-conversation,
+  :root[data-lh-scroll] #lh-help-root .lh-help-presets {
+    scrollbar-width: thin;
+    scrollbar-color: var(--lh-sb-light) var(--lh-sb-track);
+  }
+}
+@media (forced-colors: active) {
+  :root[data-lh-scroll] { scrollbar-color: auto; }
+  ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-track {
+    background: CanvasText;
+    border-color: Canvas;
+  }
+}
