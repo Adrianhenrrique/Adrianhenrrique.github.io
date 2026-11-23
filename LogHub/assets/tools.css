@@ -1,0 +1,97 @@
+
+#logihub-nav{box-sizing:border-box;min-height:55px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:9px 22px;background:#0b1728;border-bottom:1px solid #294263;color:#dbebff;font:600 12px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif}
+#logihub-nav *{box-sizing:border-box}#logihub-nav a{color:#cadbf0;text-decoration:none;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;font:inherit;padding:8px 10px;border-radius:8px}
+#logihub-nav a:hover{color:#fff;background:#233b57}#logihub-nav a:focus-visible{outline:2px solid #9bdeff;outline-offset:2px}#logihub-nav .hub-home{color:#92dfff;font-size:13px;font-weight:800}
+#logihub-nav .hub-links{display:flex;align-items:center;gap:3px;flex-wrap:wrap}#logihub-nav a[aria-current="page"]{color:#96d2ff;background:#1b3450;border:1px solid #345676}
+@media(max-width:680px){#logihub-nav{padding:7px 12px;gap:3px}#logihub-nav .hub-links{gap:0}#logihub-nav a{padding:7px;font-size:11px}#logihub-nav .hub-home{font-size:12px}}
+
+
+body[data-loghub-style]{background:radial-gradient(ellipse 70% 35% at 50% -10%,rgba(47,111,188,.21),transparent 80%),#080d1a!important;color:#edf2ff;min-height:100vh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+body[data-loghub-style] :is(button,input,textarea){font-family:inherit}body[data-loghub-style] :is(button,a,input,textarea):focus-visible{outline:2px solid #65d6ec;outline-offset:2px}
+body[data-loghub-style] button{border-radius:9px;font-weight:650;transition:background .16s,border-color .16s,transform .16s}body[data-loghub-style] button:hover:not(:disabled){transform:translateY(-1px)}
+body[data-loghub-style] textarea{background:#0b1526;color:#e8f2ff;border-radius:11px}body[data-loghub-style] textarea::placeholder{color:#849ab9;opacity:.78}
+body[data-loghub-style] :is(.card,.lado,fieldset){background:linear-gradient(145deg,#17243a,#111b2e)!important;border:1px solid #293c58!important;border-radius:16px;box-shadow:0 15px 42px #0002}
+body[data-loghub-style] :is(h1,h2){letter-spacing:-.5px;color:#eff5ff}body[data-loghub-style] :is(.hint,.sub,.conta){color:#9badc7}body[data-loghub-style] main{max-width:1190px;margin:0 auto}
+body[data-loghub-style="separador"] .fita{height:5px;background:linear-gradient(90deg,#5fbeec,#2f8acb,#83e1df)}
+body[data-loghub-style="separador"] main{padding-top:38px}body[data-loghub-style="separador"] h1{font-size:clamp(25px,3vw,36px);margin-bottom:9px}
+body[data-loghub-style="separador"] .sub{max-width:700px;line-height:1.7}body[data-loghub-style="separador"] .lado{overflow:hidden}
+body[data-loghub-style="separador"] .topo{padding:17px 18px 5px}body[data-loghub-style="separador"] .lado textarea{background:#0b1526;min-height:300px;margin:10px 13px 12px;width:calc(100% - 26px);border:1px solid #2e4461;padding:16px}
+body[data-loghub-style="separador"] .rodape{border-color:#293d59}body[data-loghub-style="separador"] fieldset{padding:18px 22px}body[data-loghub-style="separador"] legend{color:#bcd9f7}
+body[data-loghub-style="separador"] button.principal{background:#5abef0;border-color:#5abef0;color:#082238}
+body[data-loghub-style="separador"] .opcao code{color:#a2bad6}
+body[data-loghub-style="importar"] header{background:#11253e;border-bottom:1px solid #2b4161;padding:22px 24px}
+body[data-loghub-style="importar"] header p{color:#b8cee3;opacity:1}
+body[data-loghub-style="importar"] .card h2{font-size:16px}body[data-loghub-style="importar"] label{color:#aec3dc}
+body[data-loghub-style="importar"] input{background:#0e1a2d;border:1px solid #38516f;color:#ecf4ff}
+body[data-loghub-style="importar"] textarea{border:1px solid #324b69}body[data-loghub-style="importar"] button{background:#1b314d;color:#e2effe;border:1px solid #3c5b7a}
+body[data-loghub-style="importar"] button.pri{background:#217dbb;border-color:#217dbb}
+body[data-loghub-style="importar"] .tbl{border:1px solid #35506f}body[data-loghub-style="importar"] table th{background:#1d3553;color:#eaf2ff}body[data-loghub-style="importar"] table td{background:#132238;border-bottom:1px solid #2b415c;color:#d8e7f8}
+body[data-loghub-style="importar"] tr.dup td{background:#483b21;color:#fff0b1}body[data-loghub-style="importar"] td.bad{background:#5c2b36!important;color:#ffd6dc!important}
+body[data-loghub-style="importar"] .status.ok{color:#7ce1b2}body[data-loghub-style="importar"] .status.err{color:#ff9ea5}
+@media(max-width:720px){body[data-loghub-style] main{padding:18px 14px}body[data-loghub-style="separador"] .lado textarea{min-height:180px}}
+
+
+/* LogHub UI v1.1: somente apresentacao; estilos anteriores mantidos abaixo. */
+#loghub-nav{position:relative;z-index:30;display:block!important;min-height:0!important;padding:0!important;background:#0a1323!important;border-bottom:1px solid #2b435f!important;color:#deedff!important;box-shadow:0 10px 28px #0002;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+#loghub-nav *{box-sizing:border-box}
+#loghub-nav .hub-nav-inner{max-width:1430px;min-height:76px;margin:auto;padding:12px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+#loghub-nav .hub-identity,#loghub-nav .hub-links{display:flex;align-items:center;gap:10px;min-width:0}
+#loghub-nav a{display:inline-flex;align-items:center;justify-content:center;gap:9px;color:#bdcfe4;text-decoration:none;font:650 12px/1.35 Inter,system-ui,sans-serif;border:1px solid transparent;border-radius:10px;white-space:nowrap;transition:background .18s,color .18s,border-color .18s}
+#loghub-nav .hub-brand{color:#f2f8ff;font-size:18px;font-weight:850;letter-spacing:-.6px;padding:6px 0}
+#loghub-nav .hub-brand .hub-mark{width:37px;height:37px;display:grid;place-items:center;border:1px solid #4085ad;border-radius:11px;background:linear-gradient(140deg,#286aa4,#195477);font-size:22px;color:#dcf8ff}
+#loghub-nav .hub-brand strong{color:#7dcfff;font-weight:850}
+#loghub-nav .hub-divider{height:26px;width:1px;background:#2a4562;margin:0 4px}
+#loghub-nav .hub-home{padding:9px 13px;background:#192c45;border-color:#335273;color:#c3e7ff}
+#loghub-nav .hub-home .hub-arrow{font-size:18px;line-height:1}
+#loghub-nav .hub-home:hover{background:#254b70;border-color:#5090ba;color:#fff}
+#loghub-nav .hub-switch-label{color:#8199b8;font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;margin-right:6px}
+#loghub-nav .hub-links{gap:6px;flex-wrap:nowrap}
+#loghub-nav .hub-links a{padding:10px 13px;color:#abbed8}
+#loghub-nav .hub-links a:hover{background:#1d344e;color:#effaff}
+#loghub-nav .hub-links a[aria-current="page"]{background:#193d5d;border-color:#3a7099;color:#9bdeff}
+#loghub-nav .hub-links a[aria-current="page"]::before{content:"";width:6px;height:6px;border-radius:100%;background:#6bd1ff;box-shadow:0 0 0 3px #6bd1ff22}
+#loghub-nav a:focus-visible{outline:2px solid #7adcff;outline-offset:3px}
+body[data-loghub-style="sep"]{--chao:#080e1a;--papel:#131f34;--tinta:#eef6ff;--apagado:#9eb2cd;--linha:#304660;--fita:#65c9f4;--fita-tinta:#08243b;--ok:#78e4b5;color-scheme:dark}
+body[data-loghub-style="sep"] .fita{height:4px;background:linear-gradient(90deg,#2672b5,#67c8ef,#4c9bde)}
+body[data-loghub-style="sep"] main{max-width:1180px;padding:40px 24px 60px}
+body[data-loghub-style="sep"] h1{font-size:clamp(27px,3.3vw,39px);font-weight:820;letter-spacing:-1.2px;margin-bottom:12px}
+body[data-loghub-style="sep"] .sub{max-width:780px;font-size:14px;line-height:1.75;margin-bottom:27px}
+body[data-loghub-style="sep"] .bancada{gap:19px}
+body[data-loghub-style="sep"] .lado{border-radius:16px;overflow:hidden}
+body[data-loghub-style="sep"] .topo{padding:18px 18px 4px;align-items:center}
+body[data-loghub-style="sep"] .topo label{font-size:14px;color:#dce9fa}
+body[data-loghub-style="sep"] .conta{font-size:11px}
+body[data-loghub-style="sep"] .lado textarea{border:1px solid #334962;border-radius:11px;background:#0b1627;color:#edf5ff;min-height:292px;margin:12px 16px;width:calc(100% - 32px);padding:16px;font-family:Consolas,monospace;font-size:13px}
+body[data-loghub-style="sep"] .rodape{padding:13px 16px;border-top:1px solid #29405d}
+body[data-loghub-style="sep"] button{border:1px solid #385371;background:#1c304b;color:#d7e9fb;border-radius:9px;padding:10px 16px}
+body[data-loghub-style="sep"] button.principal{background:#58bdf3;border-color:#58bdf3;color:#09243d}
+body[data-loghub-style="sep"] fieldset{padding:19px 22px 22px;gap:13px 25px}
+body[data-loghub-style="sep"] legend{color:#cbe5fb;font-size:13px}
+body[data-loghub-style="sep"] .opcao{font-size:13px;color:#d6e5f6}
+body[data-loghub-style="sep"] .opcao code{color:#94b4d2}
+body[data-loghub-style="importar"]{color-scheme:dark;--bg:#080e1a;--card:#121f33;--txt:#ecf4ff;--mut:#9cafc9;--pri:#2489cd;--ok:#7cddb2;--err:#ff9ba9;--warn:#f5cd86;--bd:#30445f}
+body[data-loghub-style="importar"]>header{background:transparent;border:0;padding:38px max(24px,calc((100vw - 1180px)/2)) 18px}
+body[data-loghub-style="importar"]>header h1{font-size:clamp(25px,3vw,36px);font-weight:820;letter-spacing:-1px}
+body[data-loghub-style="importar"]>header p{font-size:14px;line-height:1.7;color:#a9bfd8;margin-top:9px}
+body[data-loghub-style="importar"] main{max-width:1214px;padding:12px 20px 60px;gap:18px;grid-template-columns:minmax(0,1fr)}
+body[data-loghub-style="importar"] .card{padding:23px;border-radius:16px;min-width:0}
+body[data-loghub-style="importar"] .card h2{font-size:16px;letter-spacing:-.3px;margin-bottom:16px}
+body[data-loghub-style="importar"] .row{gap:16px}
+body[data-loghub-style="importar"] .row>label{flex:1 1 190px;min-width:0;color:#adbfda;font-size:12px;gap:8px}
+body[data-loghub-style="importar"] input{width:100%;max-width:none;min-height:43px;border:1px solid #3a526f;background:#0b1729;color:#ecf4ff;padding:10px 12px;border-radius:9px}
+body[data-loghub-style="importar"] textarea{min-height:180px;border:1px solid #3a526f;background:#0b1729;padding:14px;font-family:Consolas,monospace;font-size:12px;line-height:1.7;color:#e4f1ff}
+body[data-loghub-style="importar"] .hint{font-size:12px;line-height:1.65;color:#9db0cb}
+body[data-loghub-style="importar"] .btns{gap:10px;margin-top:16px}
+body[data-loghub-style="importar"] button{min-height:39px;background:#1a304c;color:#d9eafb;border:1px solid #3e5a7a;border-radius:9px;padding:10px 17px}
+body[data-loghub-style="importar"] button.pri{background:#2384c7;border-color:#2384c7;color:#fff}
+body[data-loghub-style="importar"] .tbl{width:100%;max-width:100%;overflow-x:auto;border:1px solid #344b69;border-radius:10px}
+body[data-loghub-style="importar"] th,body[data-loghub-style="importar"] td{padding:10px 13px}
+body[data-loghub-style="importar"] table th{background:#1a3452;color:#cde8ff}
+body[data-loghub-style="importar"] table td{background:#102037;color:#d9eafc;border-bottom:1px solid #28405d}
+body[data-loghub-style="importar"] tr.dup td{background:#483a1e;color:#f9dfa1}
+body[data-loghub-style="importar"] td.bad{background:#542b37!important;color:#ffc6ce!important}
+body[data-loghub-style="importar"] .status.ok{color:#7bdfb4}
+body[data-loghub-style="importar"] .status.warn{color:#ffd283}
+body[data-loghub-style="importar"] .status.err{color:#ffa8b2}
+@media(max-width:920px){#loghub-nav .hub-nav-inner{flex-wrap:wrap;gap:10px;padding:10px 18px}#loghub-nav .hub-links{width:100%;justify-content:space-between;gap:4px}#loghub-nav .hub-switch-label{display:none}#loghub-nav .hub-links a{flex:1;padding:10px 9px;text-align:center}#loghub-nav .hub-identity{width:100%;justify-content:space-between}#loghub-nav .hub-divider{display:none}}
+@media(max-width:560px){#loghub-nav .hub-nav-inner{padding:10px 12px 11px}#loghub-nav .hub-brand{font-size:16px}#loghub-nav .hub-brand .hub-mark{height:33px;width:33px;font-size:19px}#loghub-nav .hub-home{padding:8px 10px;font-size:11px}#loghub-nav .hub-links a{font-size:11px;white-space:normal;min-height:39px;line-height:1.25;padding:7px 5px}body[data-loghub-style="sep"] main{padding:29px 15px 40px}body[data-loghub-style="sep"] .bancada{grid-template-columns:1fr}body[data-loghub-style="sep"] .lado textarea{min-height:180px}body[data-loghub-style="importar"]>header{padding:28px 16px 14px}body[data-loghub-style="importar"] main{padding:8px 13px 38px}body[data-loghub-style="importar"] .card{padding:17px}body[data-loghub-style="importar"] .row>label{flex:1 1 130px}}

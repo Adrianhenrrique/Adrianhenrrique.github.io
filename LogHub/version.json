@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
-  "build": "20261123-loghub-v1",
-  "description": "LogHub - CargoQuery, Separador, Importar Caixas"
+  "version": "1.1.0",
+  "build": "20261123-loghub-ui-v1-1",
+  "description": "Estilos e navegacao responsiva corrigidos"
 }
