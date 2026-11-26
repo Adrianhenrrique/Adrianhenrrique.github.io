@@ -43,12 +43,12 @@
     'Produto: '+x.produto,
     'Lote: '+x.lote,
     'Motivo: '+x.motivo,
-    'Quantidade WMS: '+x.wms,
+    'Quantidade atual INV: '+x.wms,
     'Quantidade estoque: '+x.estoque,
     'Ação solicitada: '+x.acao,
     'Conferência: '+(x.reviewed?'Conferido':'Pendente'),
   ].join('\n')}
-  function listTSV(items){return [['RG Caixa/Palete','UdC','Produto','Lote','Motivo','Quantidade WMS','Quantidade estoque','Ação','Conferência'].join('\t'),...items.map(x=>[x.rg,x.udc,x.produto,x.lote,x.motivo,x.wms,x.estoque,x.acao,x.reviewed?'Conferido':'Pendente'].join('\t'))].join('\n')}
+  function listTSV(items){return [['RG Caixa/Palete','UdC','Produto','Lote','Motivo','Quantidade atual INV','Quantidade estoque','Ação','Conferência'].join('\t'),...items.map(x=>[x.rg,x.udc,x.produto,x.lote,x.motivo,x.wms,x.estoque,x.acao,x.reviewed?'Conferido':'Pendente'].join('\t'))].join('\n')}
   function updateReasons(){
     const select=$('aj-reason'),old=select.value;
     const unique=[...new Set(data.map(x=>x.motivo))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
@@ -83,7 +83,7 @@
     const primary=typeOf(x)==='udc'?x.udc:x.rg;
     detail.innerHTML=`<div class="aj-detail-head"><div><span class="aj-caption">DETALHES DO REGISTRO ${esc(x.id)}</span><h3>${typeOf(x)==='udc'?'Ajuste de UdC':'Ajuste de RG Caixa / Palete'}</h3><p>Conferência das informações da solicitação</p></div><span class="aj-status-pill ${x.reviewed?'reviewed':''}">${x.reviewed?'✓ Conferido':'● Pendente'}</span></div>
       <div class="aj-id-section"><span class="aj-id-label">${typeOf(x)==='udc'?'UDC PARA CONSULTAR':'RG CAIXA / PALETE'}</span><div class="aj-id-main"><code>${esc(primary)}</code><button type="button" class="aj-mini-copy" data-copy="primary">Copiar</button></div><p class="aj-id-sub">${typeOf(x)==='udc'?'RG relacionado: '+esc(x.rg):'Código de identificação preservado como texto.'}</p></div>
-      <div class="aj-detail-grid"><div class="aj-data-cell"><span>Produto</span><strong>${esc(x.produto)}</strong></div><div class="aj-data-cell"><span>Lote</span><strong>${esc(x.lote)}</strong></div><div class="aj-data-cell"><span>Quantidade atual WMS</span><strong>${esc(x.wms)}</strong></div><div class="aj-data-cell"><span>Quantidade atual estoque</span><strong>${esc(x.estoque)}</strong></div><div class="aj-data-cell full warn"><span>Motivo do ajuste</span><strong>${esc(x.motivo)}</strong></div></div>
+      <div class="aj-detail-grid"><div class="aj-data-cell"><span>Produto</span><strong>${esc(x.produto)}</strong></div><div class="aj-data-cell"><span>Lote</span><strong>${esc(x.lote)}</strong></div><div class="aj-data-cell"><span>Quantidade atual INV</span><strong>${esc(x.wms)}</strong></div><div class="aj-data-cell"><span>Quantidade atual estoque</span><strong>${esc(x.estoque)}</strong></div><div class="aj-data-cell full warn"><span>Motivo do ajuste</span><strong>${esc(x.motivo)}</strong></div></div>
       <div class="aj-action-box"><span>AÇÃO INFORMADA NA SOLICITAÇÃO</span><strong>${esc(x.acao)}</strong></div>
       <div class="aj-detail-buttons"><button class="aj-primary" type="button" data-copy="full">Copiar solicitação ↗</button><button class="aj-secondary" type="button" data-copy="rg">Copiar RG</button>${x.udc?'<button class="aj-secondary" type="button" data-copy="udc">Copiar UdC</button>':''}<button class="aj-secondary" type="button" data-toggle="review">${x.reviewed?'↺ Voltar a pendente':'✓ Marcar conferido'}</button></div><div class="aj-detail-foot">Somente consulta e organização. Nenhum comando é enviado para sistemas externos.</div>`;
   }
@@ -110,7 +110,16 @@
   $('aj-reset').addEventListener('click',()=>{$('aj-search').value='';$('aj-status').value='all';$('aj-reason').value='all';render()});
   $('aj-copy-visible').addEventListener('click',()=>{const rows=current();if(rows.length)copyText(listTSV(rows));else toast('Nenhum registro para copiar.',true)});
   $('aj-copy-codes').addEventListener('click',()=>{const rows=current();if(rows.length)copyText(rows.map(x=>view==='udc'?x.udc:x.rg).join('\n'));else toast('Nenhum código para copiar.',true)});
-  $('aj-clear-demo').addEventListener('click',()=>{const count=data.filter(x=>x.demo).length;if(!count){toast('Não há exemplos para remover.');return}data=data.filter(x=>!x.demo);updateReasons();render();toast(`${count} exemplos removidos. Seus registros manuais permanecem.`)});
+  $('aj-clear-demo').addEventListener('click',()=>{
+    if(data.some(x=>!x.demo)){
+      if(!confirm('Limpar todos os registros desta página? A operação não pode ser desfeita.'))return;
+      data=[];selectedId=null;view='all';$('aj-search').value='';$('aj-status').value='all';
+      updateReasons();render();toast('Lista limpa. Cole outra tabela para continuar.');return;
+    }
+    const count=data.filter(x=>x.demo).length;
+    if(!count){toast('Não há exemplos para remover.');return}
+    data=[];selectedId=null;updateReasons();render();toast(count+' exemplos removidos.');
+  });
   const modal=$('aj-modal'),form=$('aj-form');
   $('aj-new').addEventListener('click',()=>{form.reset();modal.showModal()});
   $('aj-close').addEventListener('click',()=>modal.close());
@@ -125,6 +134,32 @@
     data.unshift(record);view=typeOf(record);selectedId=record.id;
     $('aj-search').value='';$('aj-status').value='all';
     updateReasons();$('aj-reason').value='all';render();modal.close();toast('Registro adicionado somente nesta página.');
+  });
+  // Entrada por colagem: integracao isolada do leitor com os filtros ja existentes.
+  window.addEventListener('ajustes102:import',event=>{
+    const detail=event.detail||{}, rows=detail.records;
+    if(!Array.isArray(rows)||!rows.length)return;
+    const imported=rows.map((r,i)=>({
+      id:'COL-'+String(Date.now())+'-'+String(i+1),
+      rg:String(r.rg||'').trim(),udc:String(r.udc||'').trim(),
+      produto:String(r.produto||'').trim(),lote:String(r.lote||'').trim(),
+      motivo:String(r.motivo||'').trim(),wms:String(r.wms??'—'),
+      estoque:String(r.estoque??'—'),acao:String(r.acao||'').trim(),
+      reviewed:false,demo:false
+    }));
+    data=detail.mode==='append' ? data.filter(x=>!x.demo).concat(imported) : imported;
+    view='all';selectedId=imported[0].id;
+    $('aj-search').value='';$('aj-status').value='all';
+    updateReasons();$('aj-reason').value='all';render();
+    $('aj-clear-demo').textContent='Limpar lista';
+    const notice=document.querySelector('.aj-notice');
+    if(notice){
+      const title=notice.querySelector('b'),desc=notice.querySelector('span');
+      if(title)title.textContent='Registros importados da tabela';
+      if(desc)desc.textContent='Dados organizados somente neste navegador. Clique nas abas UdC e RG para consultar ou copiar. Nenhum ajuste foi executado no WMS.';
+    }
+    $('aj-work-title')?.scrollIntoView({behavior:'smooth',block:'start'});
+    toast(imported.length+' caso(s) organizados. Selecione uma solicitação para consultar.');
   });
   updateReasons();render();
   if(location.hostname==='localhost'||location.hostname==='127.0.0.1')window.__ajustesTest={getData:()=>data.map(x=>({...x})),setView:v=>{view=v;render()},visible:()=>current().map(x=>x.id)};

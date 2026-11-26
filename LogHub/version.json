@@ -1,5 +1,5 @@
 {
-  "version": "1.8.0",
-  "build": "20261125-loghub-ajustes-102-preview-v1-8",
-  "description": "Prévia da Central de Ajustes 102: telas UdC e RG Caixa/Palete, busca e cópia"
+  "version": "1.9.0",
+  "build": "20261125-loghub-ajustes-102-paste-v1-9",
+  "description": "Colagem direta de planilhas Excel ou tabelas do Outlook na Central de Ajustes 102"
 }
