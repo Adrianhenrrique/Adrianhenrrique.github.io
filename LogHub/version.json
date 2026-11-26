@@ -1,5 +1,5 @@
 {
-  "version": "1.9.0",
-  "build": "20261125-loghub-ajustes-102-paste-v1-9",
-  "description": "Colagem direta de planilhas Excel ou tabelas do Outlook na Central de Ajustes 102"
+  "version": "1.10.0",
+  "build": "20261125-loghub-remocao-ajustes102-v1-10",
+  "description": "Remocao da ferramenta Ajustes 102; permanecem CargoQuery, Separador e Importar Caixas"
 }

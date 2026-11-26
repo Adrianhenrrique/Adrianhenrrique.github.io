@@ -85,9 +85,3 @@
     border-color: Canvas;
   }
 }
-
-
-/* Identidade da Central de Ajustes 102 */
-:root[data-lh-scroll="ajustes"]{
- --lh-sb-track:#0a1620;--lh-sb-line:#2e5954;--lh-sb-dark:#348e82;--lh-sb-light:#8ae9cb;--lh-sb-hover:#c6ffe7;
-}
