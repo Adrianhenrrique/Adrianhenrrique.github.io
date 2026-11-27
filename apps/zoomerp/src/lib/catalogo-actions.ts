@@ -25,6 +25,7 @@ async function dono(form: FormData) {
 function erroBanco(code?: string | null, categoria = false) {
   if (code === "23505") return categoria ? "categoria_duplicada" : "duplicado";
   if (code === "23503") return "categoria";
+  if (code === "22023" || code === "23514") return "unidade_estoque";
   return "banco";
 }
 

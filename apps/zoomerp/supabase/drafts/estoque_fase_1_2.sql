@@ -65,7 +65,7 @@ create view public.estoque_catalogo with (security_invoker=true) as
 select p.id,p.empresa_id,p.nome,p.codigo,p.categoria_id,p.preco_venda_centavos,
        p.unidade,p.ativo,p.created_at,
        coalesce(s.saldo,0)::text as saldo,
-       p.estoque_minimo::text as estoque_minimo,
+       p.estoque_minimo::numeric(18,3)::text as estoque_minimo,
        (p.estoque_minimo is not null and coalesce(s.saldo,0)<=p.estoque_minimo) as reposicao
 from public.produtos p
 left join public.estoque_saldos s on s.empresa_id=p.empresa_id and s.produto_id=p.id;
@@ -158,7 +158,7 @@ begin
   end if;
   if variacao=0 then raise exception 'ESTOQUE_SEM_ALTERACAO' using errcode='22023'; end if;
   novo := atual+variacao;
-  select coalesce(config->'bloquear_estoque_negativo' <> 'false'::jsonb,true)
+  select coalesce(configuracoes->'bloquear_estoque_negativo' <> 'false'::jsonb,true)
     into bloquear from public.empresas where id=p_empresa;
   if novo<0 and coalesce(bloquear,true) then
     raise exception 'ESTOQUE_INSUFICIENTE' using errcode='22023';

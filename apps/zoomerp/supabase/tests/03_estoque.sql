@@ -15,7 +15,7 @@ begin
  insert into public.produtos(empresa_id,nome,unidade,preco_venda_centavos)
  values(e,'Produto teste','kg',100) returning id into p;
  update public.produtos set estoque_minimo=0 where id=p;
- if not exists(select 1 from public.estoque_catalogo where id=p and reposicao and saldo='0') then
+ if not exists(select 1 from public.estoque_catalogo where id=p and reposicao and saldo::numeric=0) then
    raise exception 'Falha: alerta inicial de reposição'; end if;
  update public.produtos set estoque_minimo=4 where id=p;
  insert into public.produtos(empresa_id,nome,unidade,preco_venda_centavos)
@@ -69,6 +69,7 @@ begin
    update public.produtos set unidade='un' where id=p;
    raise exception 'Falha: unidade alterada';
  exception when invalid_parameter_value then null; end;
+ perform set_config('zoomerp.produto_a',p::text,true);
  perform set_config('request.jwt.claim.sub','bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',true);
  if exists(select 1 from public.estoque_movimentos where produto_id=p)
  or exists(select 1 from public.estoque_saldos where produto_id=p)
@@ -78,5 +79,27 @@ begin
    perform public.registrar_estoque(e,p,'entrada',1,'Intruso teste',gen_random_uuid());
    raise exception 'Falha: operação cruzada';
  exception when insufficient_privilege then null; end;
-end $$;
+end $;
+
+-- B agora é funcionário de A: deve ler mas não alterar estoque ou limite.
+reset role;
+insert into public.usuarios_empresa(empresa_id,usuario_id,papel,created_by)
+ values(current_setting('zoomerp.empresa_a')::uuid,'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb','funcionario','aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa');
+set local role authenticated;
+select set_config('request.jwt.claim.sub','bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',true);
+do $
+declare
+ e uuid := current_setting('zoomerp.empresa_a')::uuid;
+ p uuid := current_setting('zoomerp.produto_a')::uuid;
+begin
+ if not exists(select 1 from public.estoque_catalogo where id=p and saldo::numeric=3.5)
+ or not exists(select 1 from public.estoque_movimentos where produto_id=p) then
+   raise exception 'Falha: funcionário não consulta o estoque'; end if;
+ begin
+   perform public.registrar_estoque(e,p,'entrada',1,'Funcionário teste',gen_random_uuid());
+   raise exception 'Falha: funcionário movimentou estoque';
+ exception when insufficient_privilege then null; end;
+ update public.produtos set estoque_minimo=99 where id=p;
+ if found then raise exception 'Falha: funcionário alterou limite'; end if;
+end $;
 rollback;

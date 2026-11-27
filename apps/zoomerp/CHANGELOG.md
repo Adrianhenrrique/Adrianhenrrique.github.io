@@ -4,8 +4,9 @@
 
 - Candidato SQL para saldo materializado, histórico por empresa, RPC transacional, idempotência, entradas, saídas, ajustes e estornos.
 - Listagem com saldo e tela de histórico por produto, paginada; formulários restritos a donos.
-- Dois testes unitários de quantidades e formatação aprovados localmente; teste SQL de integridade e isolamento criado, ainda não executado.
+- Três testes unitários de quantidades, formatação e limite aprovados localmente com Node 22 e blobs conferidos; TypeScript strict no módulo puro aprovado; teste SQL de integridade e isolamento criado, ainda não executado.
 - Limite de reposição opcional por produto, filtro global, contador e view com RLS do solicitante.
+- Corrigido nome da coluna configuracoes conferido no schema real (consulta somente leitura); preparado teste concorrente em duas sessões e teste de papel funcionário.
 - Pendentes: migration versionada e aplicada em ambiente de teste, verificação concorrente, lint, typecheck, build e validação de interface. Produção não alterada.
 
 
