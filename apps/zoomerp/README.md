@@ -103,3 +103,14 @@ supabase/
 - Dados de exemplo e venda, estoque, caixa, auditoria detalhada e cobrança entram nas fases seguintes.
 
 Veja `CHANGELOG.md` para mudanças por etapa.
+
+## Deploy Next.js na Vercel (2026-11-27)
+
+- Projeto Vercel: `zoomerp-next` (conta `adrianhenrrique's projects`).
+- URL de produção: https://zoomerp-next.vercel.app/
+- Repositório: `Adrianhenrrique/Adrianhenrrique.github.io`; **Root Directory**: `apps/zoomerp`.
+- Build remoto do Next.js 16.4.6 realizado com sucesso na Vercel no commit `ef39c7b4`; a presença da aplicação pública não significa que o banco esteja conectado.
+- Configuração da Vercel: Node.js 22, framework Next.js, acesso à página pública liberado. Não compartilhe chaves privadas.
+- Login, criação de empresas e convites dependem de um projeto Supabase ativo, da migração SQL e das variáveis de ambiente **no painel da Vercel**: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `NEXT_PUBLIC_APP_URL=https://zoomerp-next.vercel.app`.
+- Configure no Supabase Auth a URL do site e os redirecionamentos `/auth/confirm` e `/auth/callback`; valide o isolamento RLS com duas contas reais antes de habilitar clientes.
+- A apresentação estática em https://adrianhenrrique.github.io/zoomerp/ continua separada do aplicativo Next.js.

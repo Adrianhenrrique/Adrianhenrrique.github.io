@@ -1,5 +1,13 @@
 # Histórico de alterações — ZoomERP
 
+## 0.2.1 — Deploy inicial Next.js (2026-11-27)
+
+- Projeto Vercel `zoomerp-next` implantado com build do Next.js 16.4.6 aprovado.
+- Vercel configurada para build de `apps/zoomerp` com Node.js 22.
+- Link para prévia Next.js adicionado à apresentação pública do ZoomERP.
+- Banco Supabase e credenciais ainda pendentes, portanto cadastro real não foi validado.
+
+
 ## 0.2.0 — Contas, empresas e RLS (2026-11-27)
 
 ### Adicionado
