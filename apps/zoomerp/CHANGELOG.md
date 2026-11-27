@@ -1,6 +1,6 @@
 # Histórico de alterações — ZoomERP
 
-## 1.2.0-rc.1 — Estoque (homologação, não publicado)
+## 1.2.0 — Estoque (2026-11-27)
 
 - Migration SQL validada em homologação para saldo materializado, histórico por empresa, RPC transacional, idempotência, entradas, saídas, ajustes e estornos.
 - Listagem com saldo e tela de histórico por produto, paginada; formulários restritos a donos.
@@ -105,3 +105,12 @@ Projeto Supabase separado `uaaqbftvjusfhdtkhcod`, São Paulo, cotação US$ 0/m�
 - Concorrência testada por duas chamadas de SQL em paralelo, não pelo script local 04: saldo inicial 10, duas saídas de 7, uma aceita e outra rejeitada com ESTOQUE_INSUFICIENTE; duas entradas de 2 com a mesma chave aceitas sem duplicação. Saldo final 5, soma do ledger 5, três movimentos, uma ocorrência da chave repetida. Fixtures removidas e contagens de empresas, produtos, movimentos e usuários iguais a zero.
 - Advisors: três avisos de SECURITY DEFINER nas RPCs anteriores de autenticação; nenhuma nova advertência de segurança do estoque. Nove FKs sem índice de cobertura e três índices ainda não usados (INFO). Não remover índices por estatísticas de banco recém-criado.
 - Vercel preview do commit f1d83d2: 39/39 testes e build TypeScript aprovados. CI GitHub ainda falha. A prévia da branch usa exclusivamente o Supabase Homologação por variáveis específicas de Preview. O deploy 7d0b040 foi aprovado (39/39 testes). Consultas agregadas confirmaram uma conta com e-mail confirmado e login, uma empresa e um produto; nenhuma movimentação pela interface ainda comprovada. A CI GitHub, lint e testes visuais permanecem pendentes. Produção v1.1.1 intacta.
+
+
+## Liberação 1.2.0 — 2026-11-27
+
+- Homologação validada: build 5e319fb com lint, TypeScript e 39 testes aprovados; usuário confirmou testes de interface. O banco registrou entrada, saídas, estornos e alerta de reposição sem divergência entre saldo e histórico.
+- O GitHub Actions continua com falha de inicialização do runner (nenhuma etapa executada). Investigação adiada por decisão do responsável; o build Vercel exige lint, typecheck e testes, sem desativar o workflow GitHub. Lockfile ainda pendente.
+- Cópia operacional pré-release em produção, schema privado `zoomerp_backup_20261127_v12`: cinco tabelas do ERP copiadas em transação, conferidas linha a linha e com RLS e privilégios revogados para anon/authenticated/service_role. Não inclui auth, configurações nem backup externo; não equivale a recuperação de desastre. Nenhum dado de produção exportado para repositório.
+- Ordem de liberação: validar build da versão final, aplicar somente estoque, verificar RLS e dados, publicar main. O histórico da fundação difere entre projetos: não reaplicar migrations antigas. A operação de backup foi registrada separadamente no histórico remoto.
+- Recuperação: se o deploy falhar, manter ou voltar ao deploy anterior `dpl_369cJ2VdfQHwyAUQ444CwMTXMDRh`. A migration é aditiva e a versão 1.1.1 é compatível com as colunas/tabelas novas; não remover histórico de estoque nem restaurar snapshot por cima de dados posteriores. Em incidente de dados, pausar escritas, comparar as tabelas públicas com o snapshot privado e restaurar somente os registros afetados, com transação, validação de FKs e autorização do responsável. Para desastre de infraestrutura, ainda é necessário backup externo via Supabase CLI.
