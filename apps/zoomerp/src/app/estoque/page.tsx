@@ -4,6 +4,7 @@ import { ArrowRight, Boxes, FileUp, FolderOpen, PackagePlus, Pencil, Search, Sli
 import { AppShell } from "@/components/app-shell";
 import { getErpContext } from "@/lib/auth/erp-context";
 import { UUID_RE, avisosCatalogo } from "@/lib/catalogo";
+import { formatQuantidade } from "@/lib/estoque";
 import { formatBRL } from "@/lib/money";
 
 export const dynamic = "force-dynamic";
@@ -43,16 +44,19 @@ export default async function Estoque({searchParams}: {searchParams:Promise<{
     ctx.supabase.from("produtos").select("id",{count:"exact",head:true}).eq("empresa_id",company).eq("ativo",true),
     produtosQuery.order("created_at",{ascending:false}).range((pagina-1)*limit,pagina*limit-1),
   ]);
+  const ids = (produtos??[]).map(p=>p.id);
+  const {data:saldos,error:saldoError} = ids.length ? await ctx.supabase.from("estoque_saldos").select("produto_id,saldo::text").eq("empresa_id",company).in("produto_id",ids) : {data:[],error:null};
+  const saldoMap = new Map((saldos??[]).map(s=>[s.produto_id,s.saldo]));
   const categoryMap = new Map((categorias??[]).map(c=>[c.id,c.nome]));
   const pages = Math.max(1,Math.ceil((count??0)/limit));
   const imported = Number(params.importados);
-  return <AppShell title="Produtos" description="Seu catálogo organizado. Movimentações e saldos de estoque serão lançados na próxima fase." companyId={company} companyName={ctx.company.nome} role={ctx.role}>
+  return <AppShell title="Estoque" description="Consulte seus produtos, saldos e movimentações." companyId={company} companyName={ctx.company.nome} role={ctx.role}>
     {params.aviso && avisosCatalogo[params.aviso] && <div className="catalog-success" role="status">{avisosCatalogo[params.aviso]}</div>}
     {params.erro && <div className="catalog-error" role="alert">{avisosCatalogo[params.erro]??avisosCatalogo.banco}</div>}
     {Number.isInteger(imported)&&imported>0&&imported<=200&&<div className="catalog-success" role="status">{imported} produto(s) importado(s) com sucesso.</div>}
     <section className="catalog-hero">
       <div className="catalog-hero-icon"><Boxes size={28}/></div>
-      <div><span>CATÁLOGO DE PRODUTOS</span><h2>Todos os seus itens em um lugar</h2><p>Cadastre, organize e consulte preços em segundos. Sem movimentar estoque ainda.</p></div>
+      <div><span>CATÁLOGO DE PRODUTOS</span><h2>Todos os seus itens em um lugar</h2><p>Cadastre, organize e acompanhe seus produtos.</p></div>
       {ctx.role==="dono"&&<Link href={`/produtos/novo?empresa=${encodeURIComponent(company)}`} className="catalog-btn catalog-primary"><PackagePlus size={18}/> Novo produto</Link>}
     </section>
     <div className="catalog-kpis">
@@ -77,6 +81,7 @@ export default async function Estoque({searchParams}: {searchParams:Promise<{
       </label>
       <button type="submit" className="catalog-btn catalog-primary"><SlidersHorizontal size={17}/> Filtrar</button>
     </form>
+    {saldoError&&<p className="catalog-error">Não foi possível carregar os saldos.</p>}
     <div className="catalog-list-heading"><h2>Lista de produtos</h2><span>{count??0} resultado(s)</span></div>
     {error ? <p className="catalog-error">Não foi possível carregar os produtos. Tente atualizar a página.</p> :
       !produtos?.length ? <div className="catalog-empty"><Boxes size={34}/><h3>Nenhum produto encontrado</h3><p>{q||categoria||status!=="ativos"?"Tente mudar os filtros da pesquisa.":"Seu catálogo ainda está vazio. Cadastre o primeiro produto para começar."}</p>
@@ -85,6 +90,8 @@ export default async function Estoque({searchParams}: {searchParams:Promise<{
         {produtos.map(p=><article className="catalog-product" role="listitem" key={p.id}>
           <div className="catalog-product-icon"><Boxes size={22}/></div>
           <div className="catalog-product-meta"><h3>{p.nome}</h3><p>{p.codigo? `SKU: ${p.codigo}` : "Sem SKU"} <span aria-hidden="true">·</span> {p.categoria_id?categoryMap.get(p.categoria_id)??"Categoria":"Sem categoria"}</p>
+            <p>Saldo: {saldoError?"—":formatQuantidade(saldoMap.get(p.id)??"0")} {p.unidade}</p>
+            <Link className="catalog-back" href={`/produtos/${p.id}/movimentos?empresa=${encodeURIComponent(company)}`}>Movimentações →</Link>
             <span className={p.ativo?"catalog-chip":"catalog-chip archived"}>{p.ativo?"Ativo":"Arquivado"}</span>
           </div>
           <div className="catalog-product-price"><strong>{formatBRL(p.preco_venda_centavos)}</strong><span>por {p.unidade}</span></div>
@@ -96,6 +103,6 @@ export default async function Estoque({searchParams}: {searchParams:Promise<{
       <span>Página {pagina} de {pages}</span>
       {pagina<pages&&<Link className="catalog-btn catalog-secondary" href={qs({pagina:pagina+1})}>Próxima <ArrowRight size={16}/></Link>}
     </nav>}
-    <div className="catalog-footnote">Sem saldo de estoque nesta fase. Os valores de compra e venda não representam movimentações financeiras.</div>
+    <div className="catalog-footnote">Os valores de compra e venda não representam movimentações financeiras.</div>
   </AppShell>;
 }
