@@ -61,3 +61,11 @@ footer{border-top:1px solid #313653;background:#0a101d}
 @media(max-width:900px){.wrap{width:min(100% - 40px,1200px)}.hero{grid-template-columns:1fr;gap:35px;padding-block:55px 75px}.hero-art{min-height:530px}.dashboard{width:min(88%,420px)}.navlinks{display:none}.problem-grid,.module-grid,.roadmap-grid{grid-template-columns:1fr}.module{min-height:240px}.tech-grid{grid-template-columns:1fr}}
 @media(max-width:540px){.wrap{width:calc(100% - 30px)}.nav{height:70px}.logo{font-size:19px}.back{padding:9px;font-size:10px}.hero{padding-top:34px}.hero-copy h1{font-size:clamp(44px,12vw,63px);letter-spacing:-2.6px}.hero-lead{font-size:19px}.hero-body{font-size:15px}.hero-actions .btn{flex:1;min-width:145px;gap:8px}.hero-art{min-height:460px}.dashboard{width:min(95%,370px)}.dash-body{padding:18px 12px}.stat-cards>div{padding:10px 8px}.stat-cards strong{font-size:clamp(13px,4vw,17px)}.bars{height:80px}.floating-label{font-size:8px;padding:9px}.fl-one{top:28px;right:0}.fl-two{bottom:28px;left:0}.section{padding-block:72px}.section-head h2,.closing h2{font-size:clamp(39px,10.5vw,56px);letter-spacing:-2px}.problem,.module,.roadmap-step{padding:22px}.trust-grid{justify-content:center;text-align:center}.trust-grid span{flex:1 1 46%;font-size:10px}.closing{padding-block:72px}.closing>div{padding:26px 21px}.footer{padding-block:26px}.release>span:last-child{padding-left:0}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+
+/* Mobile: fundo, orbitas e etiquetas podem ultrapassar visualmente o quadro,
+   mas nunca devem permitir arrastar a pagina inteira na horizontal. */
+html,body{max-width:100%;overflow-x:hidden}
+@supports (overflow:clip){html,body{overflow-x:clip}}
+.hero,.hero-copy,.hero-art,.dashboard,.section,.wrap,.problem-grid,.module-grid,
+.roadmap-grid,.tech-grid,.stat-cards,.closing,.footer{min-width:0}
+@media(max-width:540px){.hero-art,.dashboard,.closing>div{max-width:100%}}

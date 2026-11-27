@@ -28,3 +28,7 @@ body {
   background: #6ee7b7;
   color: #09131d;
 }
+
+/* Impede que elementos decorativos e grids gerem rolagem lateral em telas pequenas. */
+html,body{max-width:100%;overflow-x:hidden}
+@supports (overflow:clip){html,body{overflow-x:clip}}
