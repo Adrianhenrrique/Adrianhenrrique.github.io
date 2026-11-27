@@ -19,7 +19,8 @@ export const contatoErros: Record<string,string> = {
   permissao: "Você não tem permissão para editar este cadastro.",
 };
 export class ContatoInvalido extends Error {
-  constructor(public codigo: string) { super(codigo); }
+  readonly codigo: string;
+  constructor(codigo: string) { super(codigo); this.codigo = codigo; }
 }
 export function validarContato(input: Record<string, unknown>) {
   const val = (key:string) => typeof input[key] === "string" ? (input[key] as string).trim() : "";
