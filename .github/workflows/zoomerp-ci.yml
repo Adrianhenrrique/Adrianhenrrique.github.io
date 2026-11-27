@@ -1,0 +1,40 @@
+name: ZoomERP · Fundação CI
+
+on:
+  push:
+    paths:
+      - 'apps/zoomerp/**'
+      - '.github/workflows/zoomerp-ci.yml'
+  pull_request:
+    paths:
+      - 'apps/zoomerp/**'
+      - '.github/workflows/zoomerp-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/zoomerp
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar pacotes (lockfile será adicionado depois da primeira instalação)
+        run: npm install --no-audit --no-fund
+      - name: ESLint
+        run: npm run lint
+      - name: Verificar TypeScript
+        run: npm run typecheck
+      - name: Testar funcionalidades da fundação
+        run: npm test
+      - name: Gerar build Next.js
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
