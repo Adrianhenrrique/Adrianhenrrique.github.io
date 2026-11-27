@@ -1,3 +1,4 @@
+import "@/app/catalogo.css";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppShell } from "@/components/app-shell";

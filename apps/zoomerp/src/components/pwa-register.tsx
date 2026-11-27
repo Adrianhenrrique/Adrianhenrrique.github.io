@@ -2,13 +2,21 @@
 
 import { useEffect } from "react";
 
-/** O SW só guarda assets públicos; nenhuma página privada ou resposta Auth é cacheada. */
+/** Aguarda tempo ocioso antes de iniciar instalação/atualização do PWA. */
 export function PwaRegister() {
   useEffect(() => {
     if (process.env.NODE_ENV !== "production" || !("serviceWorker" in navigator)) return;
-    navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch(() => {
-      // PWA opcional: falha no registro não pode impedir a navegação do ERP.
-    });
+    const register = () => {
+      navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch(() => {
+        // A atualização do PWA é opcional; não impede a navegação do ERP.
+      });
+    };
+    if ("requestIdleCallback" in window) {
+      const idle = window.requestIdleCallback(register, { timeout: 3500 });
+      return () => window.cancelIdleCallback(idle);
+    }
+    const timeout = window.setTimeout(register, 1500);
+    return () => window.clearTimeout(timeout);
   }, []);
   return null;
 }

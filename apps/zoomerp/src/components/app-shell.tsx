@@ -1,6 +1,7 @@
+import "@/app/erp.css";
 "use client";
 
-import Link from "next/link";
+import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
@@ -8,6 +9,12 @@ import {
   Moon, PackagePlus, Plus, ReceiptText, ShoppingCart, Sun,
   Wallet, X,
 } from "lucide-react";
+
+/** Indicador visível enquanto a próxima tela Next.js é solicitada. */
+function LinkPendente() {
+  const { pending } = useLinkStatus();
+  return pending ? <span className="erp-nav-spinner" aria-label="Carregando" /> : null;
+}
 
 type Role = "dono" | "funcionario";
 const items = [
@@ -50,9 +57,10 @@ export function AppShell({
       {items.map(({ label, href, icon: Icon }) => {
         const active = pathname === href || (href === "/mais" && pathname === "/equipe") || (href === "/estoque" && (pathname.startsWith("/produtos/") || pathname === "/categorias"));
         return (
-          <Link key={href} href={url(href)} aria-current={active ? "page" : undefined} className={`erp-nav-item ${active ? "is-active" : ""}`} onClick={() => setMenuOpen(false)}>
+          <Link key={href} href={url(href)} aria-current={active ? "page" : undefined} className={`erp-nav-item ${active ? "is-active" : ""}`} prefetch={false} onClick={() => setMenuOpen(false)}>
             <Icon size={context === "bottom" ? 21 : 19} strokeWidth={active ? 2.5 : 2} aria-hidden="true" />
             <span>{label}</span>
+            <LinkPendente />
           </Link>
         );
       })}

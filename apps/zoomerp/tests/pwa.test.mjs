@@ -20,9 +20,9 @@ test("manifesto PWA possui nome, escopo, início, modo standalone e ícones", ()
 
 test("SW não salva conteúdo de páginas privadas ou respostas de API", () => {
   const sw = read("public/sw.js");
-  assert.match(sw, /request\.mode === "navigate"/);
+  assert.match(sw, /request\.mode !== "navigate"/);
   assert.match(sw, /fetch\(request\)\.catch/);
-  assert.match(sw, /_next\/static\//);
+  assert.doesNotMatch(sw, /caches\.open\(CACHE_NAME\).*?put/s);
   assert.doesNotMatch(sw, /cache\.put\(request, response\.clone\(\)\)[\s\S]*?navigate/);
   assert.doesNotMatch(sw, /\/auth\/|\/rest\/v1\/|\/api\//);
 });

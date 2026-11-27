@@ -1,3 +1,4 @@
+import "@/app/catalogo.css";
 import Link from "next/link";
 import { ArrowRight, Boxes, FileUp, FolderOpen, PackagePlus, Pencil, Search, SlidersHorizontal } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
@@ -26,17 +27,22 @@ export default async function Estoque({searchParams}: {searchParams:Promise<{
     for (const [key,value] of Object.entries(next)) if (String(value) && value!=="ativos") p.set(key,String(value));
     return `/estoque?${p.toString()}`;
   };
-  const [{data:categorias,error:categoriesError},{count:totalAtivos}] = await Promise.all([
-    ctx.supabase.from("categorias_produto").select("id,nome").eq("empresa_id",company).order("nome").limit(500),
-    ctx.supabase.from("produtos").select("id",{count:"exact",head:true}).eq("empresa_id",company).eq("ativo",true),
-  ]);
   let produtosQuery = ctx.supabase.from("produtos")
-    .select("id,nome,codigo,categoria_id,preco_venda_centavos,custo_centavos,unidade,ativo,created_at",{count:"exact"})
+    .select("id,nome,codigo,categoria_id,preco_venda_centavos,unidade,ativo",{count:"exact"})
     .eq("empresa_id",company);
   if (status !== "todos") produtosQuery = produtosQuery.eq("ativo",status==="ativos");
   if (categoria) produtosQuery = produtosQuery.eq("categoria_id",categoria);
   if (q) produtosQuery = produtosQuery.or(`nome.ilike.%${q}%,codigo.ilike.%${q}%`);
-  const {data:produtos,error,count} = await produtosQuery.order("created_at",{ascending:false}).range((pagina-1)*limit,pagina*limit-1);
+  // Todas as consultas independentes são iniciadas juntas: menos espera serial.
+  const [
+    { data: categorias, error: categoriesError },
+    { count: totalAtivos },
+    { data: produtos, error, count },
+  ] = await Promise.all([
+    ctx.supabase.from("categorias_produto").select("id,nome").eq("empresa_id",company).order("nome").limit(500),
+    ctx.supabase.from("produtos").select("id",{count:"exact",head:true}).eq("empresa_id",company).eq("ativo",true),
+    produtosQuery.order("created_at",{ascending:false}).range((pagina-1)*limit,pagina*limit-1),
+  ]);
   const categoryMap = new Map((categorias??[]).map(c=>[c.id,c.nome]));
   const pages = Math.max(1,Math.ceil((count??0)/limit));
   const imported = Number(params.importados);

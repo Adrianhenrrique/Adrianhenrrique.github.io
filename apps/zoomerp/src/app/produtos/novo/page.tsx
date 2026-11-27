@@ -1,3 +1,4 @@
+import "@/app/catalogo.css";
 import { redirect } from "next/navigation";
 import { AppShell } from "@/components/app-shell";
 import { ProdutoForm } from "@/components/produto-form";

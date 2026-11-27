@@ -171,3 +171,13 @@
 .erp-app .erp-team-form .erp-invite-result{margin-top:17px;background:var(--erp-alt);border:1px solid var(--erp-border);border-radius:14px;padding:16px}
 .erp-app .erp-team-form .erp-invite-result strong{display:block;margin-bottom:10px;font-size:14px}
 .erp-app .erp-team-form .erp-invite-result .erp-action-secondary{margin-top:10px}
+
+/* Indicação de progresso ao trocar de rota, sem travar os controles. */
+.erp-app .erp-nav-item{position:relative}
+.erp-app .erp-nav-spinner{
+  position:absolute;top:2px;right:5px;width:11px;height:11px;
+  border:2px solid currentColor;border-right-color:transparent;
+  border-radius:999px;animation:erp-nav-spin .7s linear infinite;
+}
+@keyframes erp-nav-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.erp-app .erp-nav-spinner{animation:none}}

@@ -167,3 +167,15 @@ O login agora distingue `email_not_confirmed` de credenciais inválidas. A rota 
 4. Baixe o modelo CSV, cadastre até 200 produtos e importe; para categorias no CSV, cadastre-as primeiro.
 5. Confirme que outra empresa não enxerga nem edita os produtos da primeira; funcionários devem consultar sem botões de alteração.
 6. Execute os testes SQL de RLS em transação com rollback e verifique os avisos de segurança Supabase antes de produção.
+
+## Otimizações da versão 1.1.1 (2026-11-27)
+
+- A resolução da empresa do usuário continua validando `auth.getUser()` no servidor e autorização por RLS, mas agora usa `usuarios_empresa` + `empresas` em **uma consulta PostgREST com join**, em vez de duas chamadas sequenciais.
+- A listagem de produtos dispara filtros/lista, total de ativos e categorias **em paralelo**. Informações de custo que não aparecem na lista deixam de ser transmitidas.
+- O Proxy de refresh atua **somente** nas rotas privadas; telas públicas e arquivos estáticos não acionam `auth.getClaims()` desnecessariamente.
+- CSS interno separado do layout público, preservando visual de telas de login e marketing. A aba Estoque e formulários carregam `catalogo.css` apenas quando necessários.
+- `src/app/loading.tsx` apresenta estado imediato enquanto rotas dinâmicas autenticadas consultam o banco. As abas exibem indicador visual de navegação e deixam de disparar pré-buscas em massa.
+- Service Worker não intercepta mais bundles `/_next/static` (já servidos com cache HTTP imutável). Mantém apenas `/offline` no CacheStorage e não guarda requisições ou HTML privados.
+- Nenhuma tabela, preço, política RLS ou migração foi alterada. Não há cache compartilhado de dados de empresas.
+
+**Como testar:** abra /inicio e /estoque no celular, navegue entre as abas, confira a exibição imediata de carregamento e teste a troca de empresa. Teste também o PWA offline e o cadastro/edição de produto. A Vercel valida o build e `npm test`; dados reais de Web Vitals no aparelho ainda precisam ser coletados para quantificar a melhora.

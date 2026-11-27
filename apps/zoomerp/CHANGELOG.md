@@ -1,5 +1,17 @@
 # Histórico de alterações — ZoomERP
 
+## 1.1.1 — Navegação e carregamento mais leves (2026-11-27)
+
+- Uma consulta Supabase para carregar vínculos e empresas, sem remover verificação de identidade ou RLS.
+- Consultas independentes da listagem de produtos disparadas em paralelo e payload reduzido.
+- Atualização de sessão no proxy limitada às rotas privadas; páginas públicas sem validação remota desnecessária.
+- CSS do ERP e do catálogo carregado pelas áreas que realmente precisam dele, em vez de todas as páginas.
+- Novo estado visual de carregamento nas rotas e indicadores de navegação; pré-buscas desnecessárias das abas desabilitadas.
+- PWA utiliza cache nativo do navegador para bundles Next.js; Service Worker guarda somente a tela de offline, sem dados privados.
+- Registro do service worker após ocioso para não disputar recursos com a primeira renderização.
+- Testes automáticos adicionados para evitar regressões de desempenho estrutural.
+
+
 ## 1.1.0 — Catálogo de produtos (2026-11-27)
 
 - Tabelas de produtos e categorias no Supabase, preços em centavos, SKU único e RLS multiempresa.
