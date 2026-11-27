@@ -125,3 +125,10 @@ Veja `CHANGELOG.md` para mudanças por etapa.
 - **Configuração manual ainda necessária no Supabase Dashboard → Authentication → URL Configuration**: definir Site URL como `https://zoomerp-next.vercel.app` e adicionar à lista de redirects `https://zoomerp-next.vercel.app/auth/callback` (além de `http://localhost:3000/**` para desenvolvimento local). O conector atual não permite editar esta configuração.
 - O linter Supabase sinaliza as 3 RPCs públicas `SECURITY DEFINER` como avisos intencionais: estão restritas a `authenticated` e validam identidade/papel dentro da função. Revisar continuamente antes de liberar usuários reais.
 - **Teste ponta a ponta de signup, confirmação por e-mail e convites reais ainda pendente**, pois a configuração de URLs de autenticação precisa ser concluída. O build remoto do Next.js está aprovado, mas isso não substitui o teste real de autenticação.
+
+## Diagnóstico do cadastro — 2026-11-27
+
+- Foi detectado `over_email_send_rate_limit` (429) após um `signUp` anterior retornar HTTP 200 e iniciar envio de confirmação. Repetir o cadastro não substitui confirmar a conta existente.
+- A interface trata os códigos do Supabase com mensagens específicas, sem exibir dados pessoais, detalhes internos ou senhas; testes em `tests/signup-errors.test.ts`.
+- **Atenção:** as requisições de Auth registraram `referer` com `http://localhost:3000`. Confirme em Supabase → Authentication → URL Configuration que `Site URL` é `https://zoomerp-next.vercel.app` e que `https://zoomerp-next.vercel.app/auth/callback` consta nas URLs de redirecionamento. Esse ajuste não é feito pelo conector disponível.
+- Não desative a confirmação de e-mail para contornar limites de envio. Para produção, configure SMTP apropriado e monitore limites de Auth.

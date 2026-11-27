@@ -1,5 +1,12 @@
 # Histórico de alterações — ZoomERP
 
+## 0.2.3 — Mensagens de cadastro e diagnóstico (2026-11-27)
+
+- Identificado HTTP 429 de limite de envio de e-mails no Supabase Auth, após cadastro prévio aceito.
+- Mensagens amigáveis para rate limit, senha fraca, e-mail inválido e conta existente; sete testes de mapeamento.
+- Documentada a verificação de URLs de confirmação e a necessidade de SMTP apropriado em produção.
+
+
 ## 0.2.2 — Conexão Supabase (2026-11-27)
 
 - Criado o projeto Supabase ZoomERP em São Paulo, com orçamento informado de US$ 0/mês.

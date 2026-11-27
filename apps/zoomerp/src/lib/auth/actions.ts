@@ -4,6 +4,7 @@ import { destinoSeguro } from "@/lib/auth/next-path";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { cadastroSchema, conviteSchema, emailSchema, empresaSchema, loginSchema } from "./schemas";
+import { classificarErroCadastro } from "./signup-errors";
 
 function field(form: FormData, key: string): string { return String(form.get(key) ?? "").trim(); }
 
@@ -18,7 +19,10 @@ export async function cadastrar(form: FormData): Promise<void> {
     password: parsed.data.senha,
     options: { emailRedirectTo: `${origin}/auth/callback?next=${encodeURIComponent(next)}` },
   });
-  if (error) redirect("/cadastro?erro=cadastro");
+  if (error) {
+    console.warn("[ZoomERP Auth] Falha no cadastro", { codigo: error.code, status: error.status });
+    redirect(`/cadastro?erro=${classificarErroCadastro(error)}`);
+  }
   redirect(`/login?aviso=confirmacao&next=${encodeURIComponent(next)}`);
 }
 
