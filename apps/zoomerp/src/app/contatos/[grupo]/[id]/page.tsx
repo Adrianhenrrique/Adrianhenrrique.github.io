@@ -22,7 +22,7 @@ export default async function EditarContato({params,searchParams}:{params:Promis
  return <AppShell title={(novo?"Novo ":editavel?"Editar ":"Consultar ")+singular} description="Dados básicos de relacionamento comercial." companyId={empresa} companyName={ctx.company.nome} role={ctx.role}>
    <Link className="catalog-back" href={base}><ArrowLeft size={17}/> Voltar à lista</Link>
    <div className="catalog-panel">
-   {p.erro&&<p role="alert" className="catalog-error">{contatoErros[p.erro]??contatoErros.banco}</p>}
+   {p.erro&&<p role="alert" className="catalog-error">{Object.hasOwn(contatoErros,p.erro)?contatoErros[p.erro]:contatoErros.banco}</p>}
    <form action={salvarContato} className="catalog-form">
     <input type="hidden" name="empresa" value={empresa}/><input type="hidden" name="grupo" value={grupo}/>{!novo&&<input type="hidden" name="id" value={id}/>}
     <fieldset disabled={!editavel} className="catalog-grid-two">

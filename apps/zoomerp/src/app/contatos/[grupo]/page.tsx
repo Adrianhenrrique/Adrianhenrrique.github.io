@@ -1,6 +1,6 @@
 import "@/app/catalogo.css";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Users, Truck, Plus, Search, Pencil, ArrowRight } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { getErpContext } from "@/lib/auth/erp-context";
@@ -13,9 +13,10 @@ export default async function Contatos({params,searchParams}:{params:Promise<{gr
   if(!grupo) notFound();
   const p=await searchParams, ctx=await getErpContext(p.empresa), empresa=ctx.company.id;
   const cliente=grupo==="clientes", title=cliente?"Clientes":"Fornecedores", singular=cliente?"cliente":"fornecedor", Icon=cliente?Users:Truck, base="/contatos/"+grupo;
-  const {q,texto,digitos,email}=buscaContato(p.q??"");
+  if(p.empresa&&p.empresa!==empresa) redirect("/inicio");
+  const {q,texto,digitos,email}=buscaContato(typeof p.q==="string"?p.q:"");
   const status=p.status==="todos"||p.status==="arquivados"?p.status:"ativos";
-  const pagina=Math.max(1,Math.min(9999,Number.parseInt(p.pagina??"1",10)||1)), limit=20;
+  const pagina=Math.max(1,Math.min(9999,Number.parseInt(typeof p.pagina==="string"?p.pagina:"1",10)||1)), limit=20;
   const url=(overrides:Record<string,string|number>={})=>base+"?"+new URLSearchParams({empresa,q,status,...Object.fromEntries(Object.entries(overrides).map(([k,v])=>[k,String(v)]))}).toString();
   let query=ctx.supabase.from("contatos").select("id,nome,documento,telefone,email,cidade,uf,ativo",{count:"exact"}).eq("empresa_id",empresa).eq("tipo",tiposContatos[grupo]);
   if(status!=="todos") query=query.eq("ativo",status==="ativos");
