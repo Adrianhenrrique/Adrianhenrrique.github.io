@@ -1,0 +1,34 @@
+/* Experiência autoral Adrian & Kaik — cartão do projeto no portfólio. */
+.romance-feature{margin-top:26px;border:1px solid #5d5564;background:linear-gradient(120deg,#17191e 0%,#1b1824 52%,#1a2222 100%);display:grid;grid-template-columns:1.08fr .92fr;min-height:430px;overflow:hidden;position:relative;isolation:isolate}
+.romance-feature-copy{position:relative;z-index:2;display:flex;flex-direction:column;align-items:flex-start;padding:clamp(27px,4.6vw,60px)}
+.romance-kicker{color:#f2bfd5;display:flex;align-items:center;gap:10px;font:600 10px/1.5 var(--mono);letter-spacing:1px}
+.romance-kicker-dot{width:8px;height:8px;border-radius:50%;background:#f4abc9;box-shadow:0 0 0 5px #f4abc919}
+.romance-feature-copy h3{font-size:clamp(39px,4.3vw,65px);line-height:1.06;letter-spacing:-2.6px;margin:31px 0 15px;font-weight:650}
+.romance-feature-copy h3 em{font-style:normal;color:#ffb5d4}
+.romance-feature-copy p{color:#c7bac9;font-size:14px;line-height:1.85;max-width:560px;margin:0 0 22px}
+.romance-feature-copy p strong{color:#fff0f7}
+.romance-tech{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto;margin-bottom:25px}
+.romance-tech span{color:#d5c5d8;border:1px solid #594454;background:#2b2330;padding:5px 9px;font:10px/1.5 var(--mono)}
+.romance-project-link{display:inline-flex;align-items:center;gap:55px;justify-content:space-between;color:#17111c;background:#ffbad6;border:1px solid #ffbad6;padding:13px 17px;min-width:235px;font-size:12px;font-weight:750;transition:transform .22s,background .22s}
+.romance-project-link:hover{transform:translateY(-3px);background:#ffd3e5}
+.romance-project-link span{font-size:20px}
+.romance-feature-art{position:relative;min-height:380px;background:radial-gradient(circle at 50% 50%,#6d38535c,transparent 49%),radial-gradient(circle at 74% 17%,#2d4d5277,transparent 40%),#17141e;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.romance-feature-art:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#ffc7db57 .7px,transparent 1px);background-size:18px 18px;opacity:.42;mask-image:linear-gradient(135deg,transparent,#000)}
+.romance-art-halo{position:absolute;width:355px;height:355px;border:1px solid #d78ca65c;border-radius:50%;transform:rotate(18deg);animation:romance-halo 16s linear infinite}
+.romance-art-halo-two{width:270px;height:270px;border-style:dashed;border-color:#90c9bc60;animation-direction:reverse;animation-duration:21s}
+.romance-art-inner{position:relative;z-index:1;text-align:center;transform:rotate(-5deg);filter:drop-shadow(0 14px 22px #0007)}
+.romance-art-label{display:block;color:#f7d5e4;font:10px/1.4 var(--mono);letter-spacing:1.2px;margin-bottom:8px}
+.romance-art-names{font-size:clamp(95px,12vw,168px);font-weight:750;line-height:1;letter-spacing:-9px;color:#faf7f2}
+.romance-art-names span{font-size:.52em;color:#ffa8cd;margin:0 9px;display:inline-block;transform:rotate(-15deg);animation:romance-heart 2.5s ease-in-out infinite}
+.romance-art-sub{display:block;color:#bdebd4;font:600 11px/1.5 var(--mono);letter-spacing:4px;margin-top:10px}
+.romance-art-micro{display:inline-flex;gap:8px;align-items:center;color:#e8bccc;border:1px solid #8c536d88;padding:9px 12px;font:9px/1.5 var(--mono);letter-spacing:1.1px;margin-top:31px;background:#2d1b2a9c}
+.romance-art-micro b{color:#f6aacb}
+.romance-art-small{position:absolute;color:#ffbad5;z-index:2;animation:romance-twinkle 4s ease-in-out infinite;font-size:32px}
+.romance-art-star-one{top:9%;left:12%}.romance-art-star-two{top:26%;right:11%;font-size:20px;animation-delay:1.3s}.romance-art-star-three{bottom:18%;left:15%;font-size:20px;animation-delay:2.5s}
+.romance-art-corner{position:absolute;bottom:21px;right:23px;color:#9b7c91;font:9px/1.4 var(--mono);letter-spacing:.8px}
+@keyframes romance-halo{to{transform:rotate(378deg)}}
+@keyframes romance-heart{50%{transform:rotate(-15deg) scale(1.18)}}
+@keyframes romance-twinkle{50%{opacity:.35;transform:scale(.7)}}
+@media(max-width:1020px){.romance-feature{grid-template-columns:1fr}.romance-feature-art{min-height:350px}.romance-feature-copy{padding:35px}.romance-tech{margin-top:10px}.romance-art-names{font-size:140px}}
+@media(max-width:560px){.romance-feature{margin-top:18px}.romance-feature-copy{padding:25px}.romance-feature-copy h3{font-size:clamp(36px,10vw,55px);letter-spacing:-2px;margin-top:21px}.romance-feature-copy p{font-size:13px}.romance-project-link{width:100%}.romance-feature-art{min-height:310px}.romance-art-names{font-size:clamp(80px,21vw,123px);letter-spacing:-5px}.romance-art-halo{width:275px;height:275px}.romance-art-halo-two{width:205px;height:205px}.romance-art-label{font-size:8px}.romance-art-corner{right:10px;bottom:10px;font-size:7px}}
+@media(prefers-reduced-motion:reduce){.romance-art-halo,.romance-art-names span,.romance-art-small{animation:none}}

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Adrian &amp; Kaik — Uma pergunta especial" />
+  <meta name="description" content="Uma surpresa do Adrian para o Kaik: uma experiência romântica interativa, cheia de animações e de carinho." />
+  <title>Adrian & Kaik • Uma pergunta especial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+  <div class="bg-orbs" aria-hidden="true">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+  </div>
+  <div class="floating-hearts" id="floatingHearts" aria-hidden="true"></div>
+
+  <header class="topbar glass">
+    <div class="brand">
+      <span class="brand-badge">Adrian <span aria-hidden="true">♥</span> Kaik</span>
+      <strong>Um pedido especial</strong>
+    </div>
+    <nav class="mini-nav">
+      <a href="#motivos">Motivos</a>
+      <a href="#historia">História</a>
+      <a href="#pedido">Pedido</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero section">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Uma surpresa do Adrian para o Kaik</p>
+        <h1>
+          Kaik, tem uma coisa que eu <span>queria te perguntar…</span>
+        </h1>
+        <p class="lead" id="typewriter"></p>
+        <div class="cta-row">
+          <button class="btn btn-primary" data-scroll="#pedido">Tenho uma pergunta pra você ↗</button>
+          <button class="btn btn-ghost" id="openLetter">Abrir cartinha</button>
+        </div>
+        <div class="hero-stats">
+          <div><strong>01</strong><span>surpresa especial</span></div>
+          <div><strong>∞</strong><span>momentos pra viver</span></div>
+          <div><strong>02</strong><span>nomes, uma história</span></div>
+        </div>
+      </div>
+
+      <div class="hero-card glass reveal delay-1">
+        <div class="moon"></div>
+        <div class="constellation"></div>
+        <div class="card-content">
+          <span class="pill">Para Kaik, do Adrian</span>
+          <h2>Kaik, essa página é para você.</h2>
+          <p>
+            Porque às vezes um sentimento bonito merece mais do que uma mensagem.
+            Merece uma surpresa feita com carinho, do meu jeito.
+          </p>
+          <div class="heart-ring">
+            <span>❤</span>
+            <span>❤</span>
+            <span>❤</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="motivos" class="section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Pequenos motivos, grandes sentimentos</p>
+        <h2>Três motivos que poderiam virar mil, Kaik.</h2>
+      </div>
+
+      <div class="reason-grid">
+        <article class="reason-card glass reveal tilt-card">
+          <span class="reason-number">01</span>
+          <h3>O jeito que ilumina tudo</h3>
+          <p>
+            Às vezes nem precisa fazer muito. Só de chegar, o ambiente muda e fica melhor.
+          </p>
+        </article>
+        <article class="reason-card glass reveal delay-1 tilt-card">
+          <span class="reason-number">02</span>
+          <h3>Os detalhes que ficam</h3>
+          <p>
+            As conversas, as risadas, a companhia e até os pequenos momentos continuam na memória.
+          </p>
+        </article>
+        <article class="reason-card glass reveal delay-2 tilt-card">
+          <span class="reason-number">03</span>
+          <h3>A vontade de viver algo real</h3>
+          <p>
+            Quando alguém vale a pena, a gente sente vontade de construir algo bonito de verdade.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="historia" class="section story-section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">O que eu espero dessa história</p>
+        <h2>O melhor capítulo pode começar agora.</h2>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item glass reveal">
+          <span class="timeline-dot"></span>
+          <div>
+            <small>Capítulo 1</small>
+            <h3>O começo</h3>
+            <p>Tudo começa com a vontade de conhecer alguém melhor e descobrir o que torna sua companhia única.</p>
+          </div>
+        </article>
+        <article class="timeline-item glass reveal delay-1">
+          <span class="timeline-dot"></span>
+          <div>
+            <small>Capítulo 2</small>
+            <h3>A conexão</h3>
+            <p>Conversas, risadas e pequenas descobertas: um jeito leve de construir algo verdadeiro, passo a passo.</p>
+          </div>
+        </article>
+        <article class="timeline-item glass reveal delay-2">
+          <span class="timeline-dot"></span>
+          <div>
+            <small>Capítulo 3</small>
+            <h3>O agora</h3>
+            <p>E se a próxima parte dessa história fosse escrita por nós dois, no nosso tempo?</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section gallery-section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Uma surpresa feita com carinho</p>
+        <h2>Não precisava ser grandioso. Mas eu quis fazer especial.</h2>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-card glass reveal">
+          <span>✨</span>
+          <strong>Um céu só nosso</strong>
+          <p>Estrelinhas e pequenos corações para dar vida a essa surpresa.</p>
+        </div>
+        <div class="gallery-card glass reveal delay-1">
+          <span>💌</span>
+          <strong>Uma carta pra você</strong>
+          <p>Algumas palavras ficam ainda mais bonitas quando a gente lê com calma.</p>
+        </div>
+        <div class="gallery-card glass reveal delay-2">
+          <span>🎉</span>
+          <strong>Um próximo capítulo</strong>
+          <p>Se for para acontecer, que seja com carinho, respeito e muitos motivos para sorrir.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pedido" class="section proposal-section">
+      <div class="proposal-card glass reveal">
+        <span class="proposal-kicker">A grande pergunta</span>
+        <h2>Kaik, aceita namorar comigo?</h2>
+        <p>
+          Não sei todos os caminhos que a vida pode trazer, mas adoraria descobrir os próximos ao seu lado.
+          <strong>Com carinho, Adrian.</strong>
+        </p>
+        <div class="proposal-actions" id="proposalActions">
+          <button class="btn btn-primary btn-big" id="yesBtn">Sim, eu aceito 💚</button>
+          <button class="btn btn-secondary btn-big" id="noBtn">Quero pensar 💭</button>
+        </div>
+        <p class="tiny-note" id="thinkNote" role="status" aria-live="polite">Sem pressão. O importante é que sua resposta seja de coração. 💚</p>
+      </div>
+    </section>
+
+    <section class="section final-message hidden" id="successSection">
+      <div class="success-card glass reveal">
+        <span class="success-badge">Resposta registrada</span>
+        <h2>Adrian &amp; Kaik ✨</h2>
+        <p>
+          Se esse “sim” veio do coração, que seja o começo de uma história leve, verdadeira e cheia de momentos especiais.
+        </p>
+        <button class="btn btn-primary" id="replayBtn">Ver animação de novo</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="letter-modal" id="letterModal" aria-hidden="true" role="dialog" aria-labelledby="letterTitle">
+    <div class="letter-backdrop" id="closeLetter"></div>
+    <div class="letter-content glass">
+      <button class="icon-close" id="closeLetterBtn" aria-label="Fechar cartinha">×</button>
+      <p class="eyebrow">Cartinha</p>
+      <h2 id="letterTitle">Se eu pudesse resumir…</h2>
+      <p>
+        Kaik, às vezes é difícil colocar tudo em palavras. Por isso transformei essa vontade de te fazer sorrir em uma página inteira, feita especialmente para você.
+      </p>
+      <p>
+        Eu não preciso prometer um futuro perfeito. Só queria te perguntar se podemos começar algo bonito, com respeito, carinho e muitas histórias para contar.
+      </p>
+      <p class="signature">Com carinho, <strong>Adrian.</strong></p>
+    </div>
+  </div>
+
+  <template id="heartTemplate">
+    <span class="heart-particle">❤</span>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
