@@ -51,7 +51,6 @@ export async function salvarProduto(form: FormData): Promise<void> {
   const productId = field(form, "produto_id");
   if (productId && !UUID_RE.test(productId)) go(empresa, "dados");
   const payload = { ...produto };
-  let id = productId;
   if (productId) {
     const { data, error } = await ctx.supabase.from("produtos")
       .update(payload).eq("empresa_id", empresa).eq("id", productId).select("id").maybeSingle();
@@ -60,7 +59,6 @@ export async function salvarProduto(form: FormData): Promise<void> {
     const { data, error } = await ctx.supabase.from("produtos")
       .insert({ ...payload, empresa_id: empresa }).select("id").single();
     if (error || !data) go(empresa, erroBanco(error?.code), "/produtos/novo");
-    id = data.id;
   }
   revalidatePath("/estoque");
   redirect(`/estoque?empresa=${encodeURIComponent(empresa)}&aviso=${productId ? "atualizado" : "salvo"}`);
