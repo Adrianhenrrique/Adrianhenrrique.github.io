@@ -1,5 +1,13 @@
 # Histórico de alterações — ZoomERP
 
+## Em desenvolvimento — Estoque 1.2 (não publicado)
+
+- Candidato SQL para saldo materializado, histórico por empresa, RPC transacional, idempotência, entradas, saídas, ajustes e estornos.
+- Listagem com saldo e tela de histórico por produto, paginada; formulários restritos a donos.
+- Dois testes unitários de quantidades e formatação aprovados localmente; teste SQL de integridade e isolamento criado, ainda não executado.
+- Pendentes: estoque mínimo, migration versionada e aplicada em ambiente de teste, verificação concorrente, lint, typecheck, build e validação de interface. Produção não alterada.
+
+
 ## 1.1.1 — Navegação e carregamento mais leves (2026-11-27)
 
 - Uma consulta Supabase para carregar vínculos e empresas, sem remover verificação de identidade ou RLS.

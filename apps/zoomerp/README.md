@@ -179,3 +179,9 @@ O login agora distingue `email_not_confirmed` de credenciais inválidas. A rota 
 - Nenhuma tabela, preço, política RLS ou migração foi alterada. Não há cache compartilhado de dados de empresas.
 
 **Como testar:** abra /inicio e /estoque no celular, navegue entre as abas, confira a exibição imediata de carregamento e teste a troca de empresa. Teste também o PWA offline e o cadastro/edição de produto. A Vercel valida o build e `npm test`; dados reais de Web Vitals no aparelho ainda precisam ser coletados para quantificar a melhora.
+
+## Estoque 1.2 — desenvolvimento (não publicado)
+
+Nesta branch, a aba Estoque apresenta saldos e abre o histórico de cada produto. Donos registram entrada, saída, ajuste por contagem física e estorno com motivo; funcionários consultam. O banco usa saldo materializado, ledger somente de leitura direta e RPC transacional com autorização por empresa, bloqueio por produto e idempotência. Quantidades decimais são enviadas como texto; un/cx/pct exigem inteiros. Produtos arquivados aceitam apenas estorno. Não há estoque mínimo nesta entrega parcial.
+
+**Antes de publicar:** o SQL em `supabase/drafts/estoque_fase_1_2.sql` é um candidato, não uma migration aplicada. Gerar migration com Supabase CLI, validar em instância isolada, rodar `supabase/tests/03_estoque.sql`, conferir concorrência, RLS para funcionários, advisors, lint, typecheck, build e testes de interface. Não aplicar em produção até concluir essa validação. Os dois testes unitários de quantidade e formatação passaram localmente no Node 22; o CI segue bloqueado e os testes SQL ainda não foram executados. Versão publicada permanece 1.1.1.
