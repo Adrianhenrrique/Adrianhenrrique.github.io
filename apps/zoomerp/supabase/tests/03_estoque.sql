@@ -79,7 +79,7 @@ begin
    perform public.registrar_estoque(e,p,'entrada',1,'Intruso teste',gen_random_uuid());
    raise exception 'Falha: operação cruzada';
  exception when insufficient_privilege then null; end;
-end $;
+end $$;
 
 -- B agora é funcionário de A: deve ler mas não alterar estoque ou limite.
 reset role;
@@ -87,7 +87,7 @@ insert into public.usuarios_empresa(empresa_id,usuario_id,papel,created_by)
  values(current_setting('zoomerp.empresa_a')::uuid,'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb','funcionario','aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa');
 set local role authenticated;
 select set_config('request.jwt.claim.sub','bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',true);
-do $
+do $$
 declare
  e uuid := current_setting('zoomerp.empresa_a')::uuid;
  p uuid := current_setting('zoomerp.produto_a')::uuid;
@@ -101,5 +101,5 @@ begin
  exception when insufficient_privilege then null; end;
  update public.produtos set estoque_minimo=99 where id=p;
  if found then raise exception 'Falha: funcionário alterou limite'; end if;
-end $;
+end $$;
 rollback;
