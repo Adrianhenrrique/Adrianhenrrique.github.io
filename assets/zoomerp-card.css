@@ -1,0 +1,47 @@
+/* ZoomERP · vitrine do conceito no portfólio do Adrian */
+.ze-portfolio{--z-a:#9b92ff;--z-b:#86e5d3;margin-top:25px;position:relative;display:grid;grid-template-columns:1fr .98fr;min-height:540px;overflow:hidden;background:linear-gradient(133deg,#18172c 2%,#151923 55%,#101c21);border:1px solid #504f72;isolation:isolate}
+.ze-portfolio:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 73% 48%,#7368ec1a,transparent 48%);z-index:-1}
+.ze-portfolio-copy{padding:clamp(26px,4.2vw,62px);display:flex;align-items:flex-start;flex-direction:column;min-width:0}
+.ze-topline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font:600 10px/1.6 var(--mono);letter-spacing:.6px;color:#c4beff;width:100%}
+.ze-led{width:7px;height:7px;border-radius:50%;background:#ab9fff;box-shadow:0 0 0 5px #9488f424}
+.ze-phase{margin-left:auto;font:600 9px/1.3 var(--mono);padding:6px 9px;color:#d6d1ff;border:1px solid #615f93;background:#302c4e}
+.ze-logo-row{margin-top:42px;display:flex;gap:11px;align-items:center}
+.ze-logo-mark{width:47px;height:47px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(135deg,#a6a1ff,#5d60cf);color:#11152b;font:800 27px/1 var(--font);letter-spacing:-4px}
+.ze-logo-mark span{font-size:14px;margin-left:2px;align-self:start;padding-top:12px}
+.ze-wordmark{font:700 23px/1 var(--font);letter-spacing:-1px;color:#f6f3ff}.ze-wordmark span{color:#aca6ff}
+.ze-portfolio h3{font-size:clamp(45px,4.7vw,74px);letter-spacing:-3.7px;line-height:1.02;margin:22px 0 19px;font-weight:650;color:#f8f7ff}
+.ze-portfolio h3 em{font-style:normal;color:#aaa3ff}
+.ze-portfolio-copy>p{max-width:500px;color:#c0c2d4;font-size:15px;line-height:1.85;margin:0 0 25px}
+.ze-portfolio-copy>p strong{color:#f2f1ff;font-weight:650}
+.ze-services{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:29px}
+.ze-services span{padding:6px 9px;border:1px solid #514e70;background:#27253a;color:#c9c4ee;font:10px/1.3 var(--mono)}
+.ze-project-link{margin-top:auto;display:inline-flex;align-items:center;justify-content:space-between;min-width:222px;gap:28px;padding:14px 17px;background:#b1aaff;color:#17142a;font-weight:750;font-size:13px;transition:background .2s,transform .2s}
+.ze-project-link:hover{background:#d4ceff;transform:translateY(-3px)}.ze-project-link span{font-size:19px}
+.ze-portfolio-stage{position:relative;display:flex;align-items:center;justify-content:center;min-height:470px;padding:43px 42px 50px;overflow:hidden;background:radial-gradient(circle at 55% 44%,#58549c33,transparent 52%)}
+.ze-light{position:absolute;width:480px;height:480px;border:1px solid #73709e56;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.ze-light-two{width:350px;height:350px;border-style:dashed;opacity:.55}
+.ze-preview-badge{position:absolute;z-index:3;top:27px;right:24px;font:9px/1.4 var(--mono);letter-spacing:.4px;color:#bcb9dc}
+.ze-mockup{position:relative;z-index:2;width:min(100%,410px);background:#14192a;border:1px solid #6865a4;border-radius:19px;box-shadow:0 30px 90px #050610b9,0 0 0 7px #8780e00c;overflow:hidden;transform:rotate(-3deg);transition:transform .3s ease}
+.ze-portfolio:hover .ze-mockup{transform:rotate(-1deg) translateY(-5px)}
+.ze-mockup-top{height:52px;display:flex;align-items:center;justify-content:space-between;background:#171e30;border-bottom:1px solid #2d3650;padding:0 18px;font:700 13px/1 var(--font);color:#f4f1ff}
+.ze-mockup-top>span:first-child{display:flex;gap:10px;align-items:center}
+.ze-mini-logo{display:grid;place-items:center;width:26px;height:26px;border-radius:8px;background:#aaa4ff;color:#17162b;font:750 17px var(--font)}
+.ze-mockup-dots{color:#625e88;letter-spacing:2px;font-size:9px}
+.ze-mockup-body{padding:23px 22px}
+.ze-mockup-hello{color:#aeb3c6;display:flex;justify-content:space-between;font:600 9px var(--mono);letter-spacing:1px}
+.ze-mockup-hello span{color:#b4aeff}
+.ze-mockup-headline{font:650 24px/1.3 var(--font);letter-spacing:-1px;margin:9px 0 20px;color:#fafaff}.ze-mockup-headline span{color:#b9b2ff}
+.ze-mockup-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ze-mockup-metrics>div{display:flex;flex-direction:column;gap:7px;background:#1d263b;border:1px solid #35405b;padding:14px 12px;border-radius:11px}
+.ze-mockup-metrics small{font-size:10px;color:#b2bbce}.ze-mockup-metrics strong{font:700 21px/1 var(--font);color:#f7f6ff;white-space:nowrap}.ze-mockup-metrics strong i{font-style:normal;font-size:10px;color:#9fa8ba}.ze-mockup-metrics div span{color:#8edbc3;font-size:9px}
+.ze-mockup-bottom{margin-top:14px;border:1px solid #343d56;border-radius:11px;padding:12px 14px;background:#1b2436}
+.ze-chart-label{font:600 9px/1.4 var(--mono);color:#a4acc1;letter-spacing:.7px}
+.ze-mini-chart{height:60px;display:flex;gap:8px;align-items:flex-end;margin-top:12px}.ze-mini-chart i{display:block;flex:1;height:var(--bh);border-radius:4px 4px 1px 1px;background:linear-gradient(0deg,#5c60b5,#b8aeff)}
+.ze-mini-chart i:nth-child(even){background:linear-gradient(0deg,#397b8e,#83e4ce)}
+.ze-mockup-foot{display:flex;justify-content:space-around;gap:6px;padding:14px 8px;border-top:1px solid #303b52;background:#171f32}
+.ze-mockup-foot span{color:#a5abc6;font:9px/1.3 var(--mono);white-space:nowrap}
+.ze-float-chip{position:absolute;z-index:4;padding:10px 12px;font:650 9px/1.4 var(--mono);letter-spacing:.4px;white-space:nowrap;box-shadow:0 10px 35px #0008}
+.ze-float-chip-a{top:105px;left:3px;background:#c1b8ff;color:#221b3c;transform:rotate(-7deg)}.ze-float-chip-b{bottom:55px;right:-3px;background:#a6f2d9;color:#0d302a;transform:rotate(5deg)}
+@media(max-width:1100px){.ze-portfolio{grid-template-columns:1fr .92fr}.ze-portfolio-stage{padding:32px 24px}.ze-portfolio-copy{padding:32px}.ze-float-chip{font-size:8px}}
+@media(max-width:900px){.ze-portfolio{grid-template-columns:1fr}.ze-portfolio-stage{min-height:440px}.ze-portfolio h3{font-size:clamp(47px,7.6vw,70px)}.ze-portfolio-copy{padding:34px}.ze-logo-row{margin-top:29px}.ze-project-link{margin-top:3px}}
+@media(max-width:520px){.ze-portfolio{margin-top:18px}.ze-portfolio-copy{padding:25px 20px}.ze-topline{font-size:9px}.ze-phase{font-size:8px}.ze-portfolio h3{font-size:clamp(39px,11vw,53px);letter-spacing:-2.6px}.ze-portfolio-copy>p{font-size:14px;line-height:1.7}.ze-portfolio-stage{min-height:360px;padding:42px 18px 36px}.ze-preview-badge{top:14px;right:12px;font-size:7px}.ze-mockup{max-width:330px}.ze-mockup-body{padding:17px 14px}.ze-mockup-metrics strong{font-size:17px}.ze-mockup-metrics>div{padding:12px 8px}.ze-mockup-headline{font-size:21px}.ze-float-chip{display:none}.ze-mockup-foot span{font-size:8px}}
