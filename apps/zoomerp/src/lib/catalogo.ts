@@ -129,6 +129,7 @@ export function lerProdutosCsv(input: string): LinhaCsv[] {
 }
 
 export const avisosCatalogo: Record<string, string> = {
+  unidade_estoque: "Não foi possível mudar a unidade: limpe o estoque mínimo antes; produtos com histórico devem manter a unidade original.",
   salvo: "Produto salvo com sucesso.",
   atualizado: "Produto atualizado.",
   categoria_salva: "Categoria cadastrada.",

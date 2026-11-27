@@ -1,6 +1,7 @@
-name: ZoomERP · Fundação CI
+name: ZoomERP · CI
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'apps/zoomerp/**'
@@ -16,25 +17,51 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     defaults:
       run:
+        shell: bash
         working-directory: apps/zoomerp
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Instalar pacotes (lockfile será adicionado depois da primeira instalação)
-        run: npm install --no-audit --no-fund
+      - name: Resolver lockfile inicial
+        run: |
+          node --version
+          npm --version
+          if [ ! -f package-lock.json ]; then
+            npm install --package-lock-only --no-audit --no-fund 2>&1 | tee ci-lockfile.log
+          fi
+      - name: Disponibilizar lockfile para versionamento
+        uses: actions/upload-artifact@v4
+        with:
+          name: zoomerp-package-lock
+          path: apps/zoomerp/package-lock.json
+          if-no-files-found: error
+          retention-days: 7
+      - name: Instalar dependências pelo lockfile
+        run: npm ci --no-audit --no-fund 2>&1 | tee ci-install.log
       - name: ESLint
-        run: npm run lint
+        run: npm run lint 2>&1 | tee ci-lint.log
       - name: Verificar TypeScript
-        run: npm run typecheck
-      - name: Testar funcionalidades da fundação
-        run: npm test
+        run: npm run typecheck 2>&1 | tee ci-typecheck.log
+      - name: Testar funcionalidades
+        run: npm test 2>&1 | tee ci-test.log
       - name: Gerar build Next.js
-        run: npm run build
+        run: npm run build 2>&1 | tee ci-build.log
         env:
           NEXT_TELEMETRY_DISABLED: '1'
+      - name: Preservar diagnóstico
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zoomerp-ci-diagnostics
+          path: apps/zoomerp/ci-*.log
+          if-no-files-found: ignore
+          retention-days: 7

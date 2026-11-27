@@ -42,9 +42,13 @@ export function AppShell({
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    try {
-      if (window.localStorage.getItem("zoomerp-theme") === "light") setTheme("light");
-    } catch { /* Tema padrão quando armazenamento estiver indisponível. */ }
+    // A leitura do armazenamento acontece após a hidratação, sem atualização síncrona no efeito.
+    const frame = window.requestAnimationFrame(() => {
+      try {
+        setTheme(window.localStorage.getItem("zoomerp-theme") === "light" ? "light" : "dark");
+      } catch { /* Tema padrão quando armazenamento estiver indisponível. */ }
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, []);
   function changeTheme() {
     const next = theme === "dark" ? "light" : "dark";
@@ -77,7 +81,7 @@ export function AppShell({
         <div className="erp-side-section">MENU PRINCIPAL</div>
         {navigation("sidebar")}
         <div className="erp-sidebar-foot">
-          <span className="erp-dot" /> Versão 1.1 · Produtos
+          <span className="erp-dot" /> Versão 1.2 · Estoque
         </div>
       </aside>
 
@@ -104,7 +108,7 @@ export function AppShell({
         <main className="erp-main" id="conteudo">
           <div className="erp-page-heading">
             <div><p className="erp-kicker">ZOOMERP / {role === "dono" ? "PAINEL DO DONO" : "PAINEL DO FUNCIONÁRIO"}</p><h1>{title}</h1>{description && <p className="erp-subtitle">{description}</p>}</div>
-            <span className="erp-dev-label">{pathname === "/estoque" || pathname.startsWith("/produtos/") || pathname === "/categorias" ? "Catálogo ativo" : "Em desenvolvimento"}</span>
+            <span className="erp-dev-label">{pathname === "/estoque" || pathname.startsWith("/produtos/") || pathname === "/categorias" ? "Estoque ativo" : "Em desenvolvimento"}</span>
           </div>
           {children}
         </main>

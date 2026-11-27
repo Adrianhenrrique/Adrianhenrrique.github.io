@@ -4,6 +4,12 @@ import { AppShell } from "@/components/app-shell";
 import { ConviteForm } from "@/components/convite-form";
 import { createClient } from "@/lib/supabase/server";
 
+// Calculado no servidor, por requisição, antes de montar o JSX.
+function classificarConvites<T extends {aceito_em:string|null;expira_em:string}>(convites:T[]) {
+  const agora = Date.now();
+  return convites.map(convite=>({...convite,status:convite.aceito_em?"Aceito":new Date(convite.expira_em).getTime()<agora?"Expirado":"Pendente"}));
+}
+
 export const dynamic = "force-dynamic";
 export default async function Equipe({searchParams}: {searchParams:Promise<{empresa?:string}>}) {
   const {empresa}=await searchParams;
@@ -18,13 +24,14 @@ export default async function Equipe({searchParams}: {searchParams:Promise<{empr
     supabase.from("empresas").select("id,nome").eq("id",owner.empresa_id).single(),
   ]);
   if(!company) redirect("/inicio");
+  const convites=classificarConvites(invites??[]);
   return (
     <AppShell title="Sua equipe" description="Gerencie quem pode trabalhar neste negócio." companyId={company.id} companyName={company.nome} role="dono">
       <div className="erp-team-wrap">
         <Link href={`/mais?empresa=${encodeURIComponent(company.id)}`} className="erp-link">← Voltar às opções</Link>
         <ConviteForm empresaId={company.id} />
         <section className="erp-card"><h2>Quem tem acesso ({members?.length??0})</h2><div className="erp-team-list">{(members??[]).map(m=><div className="erp-team-row" key={m.usuario_id}><span>Usuário {m.usuario_id.slice(0,8)}…</span><strong>{m.papel==="dono"?"Dono":"Funcionário"}</strong></div>)}</div></section>
-        <section className="erp-card"><h2>Convites recentes</h2><div className="erp-team-list">{(invites??[]).map((i,n)=><div className="erp-team-row" key={n}><span className="erp-break">{i.email}</span><strong>{i.aceito_em?"Aceito":new Date(i.expira_em).getTime()<Date.now()?"Expirado":"Pendente"}</strong></div>)}</div></section>
+        <section className="erp-card"><h2>Convites recentes</h2><div className="erp-team-list">{convites.map((i,n)=><div className="erp-team-row" key={n}><span className="erp-break">{i.email}</span><strong>{i.status}</strong></div>)}</div></section>
       </div>
     </AppShell>
   );

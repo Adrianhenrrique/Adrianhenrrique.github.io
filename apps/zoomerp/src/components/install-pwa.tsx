@@ -13,14 +13,23 @@ export function InstallPwa() {
   const [ios, setIos] = useState(false);
   const [installed, setInstalled] = useState(false);
   useEffect(() => {
-    setIos(/iPhone|iPad|iPod/i.test(window.navigator.userAgent));
     const media = window.matchMedia("(display-mode: standalone)");
-    setInstalled(media.matches || ("standalone" in window.navigator && Boolean((window.navigator as Navigator & {standalone?: boolean}).standalone)));
+    const refresh = () => {
+      setIos(/iPhone|iPad|iPod/i.test(window.navigator.userAgent));
+      setInstalled(media.matches || Boolean((window.navigator as Navigator & {standalone?: boolean}).standalone));
+    };
+    const frame = window.requestAnimationFrame(refresh);
+    media.addEventListener("change", refresh);
     const onPrompt = (event: Event) => { event.preventDefault(); setPromptEvent(event as InstallPrompt); };
     const onInstalled = () => { setInstalled(true); setPromptEvent(null); };
     window.addEventListener("beforeinstallprompt", onPrompt);
     window.addEventListener("appinstalled", onInstalled);
-    return () => { window.removeEventListener("beforeinstallprompt", onPrompt); window.removeEventListener("appinstalled", onInstalled); };
+    return () => {
+      window.cancelAnimationFrame(frame);
+      media.removeEventListener("change", refresh);
+      window.removeEventListener("beforeinstallprompt", onPrompt);
+      window.removeEventListener("appinstalled", onInstalled);
+    };
   }, []);
   async function install() {
     if (!promptEvent) return;
