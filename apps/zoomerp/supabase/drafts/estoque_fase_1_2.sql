@@ -2,6 +2,16 @@
 begin;
 alter table public.produtos add constraint produtos_empresa_id_unique unique (empresa_id,id);
 
+-- NULL desativa o alerta; zero é um limite válido. Não arredondar entradas inválidas.
+alter table public.produtos add column estoque_minimo numeric;
+alter table public.produtos add constraint produtos_estoque_minimo_valido check (
+  estoque_minimo is null or (
+    estoque_minimo between 0 and 999999999999999.999
+    and estoque_minimo = trunc(estoque_minimo,3)
+    and (unidade not in ('un','cx','pct') or estoque_minimo=trunc(estoque_minimo))
+  )
+);
+
 create table public.estoque_saldos (
   empresa_id uuid not null,
   produto_id uuid not null,
@@ -49,10 +59,26 @@ create policy estoque_movimentos_leitura on public.estoque_movimentos for select
 revoke all on public.estoque_saldos,public.estoque_movimentos from public,anon,authenticated;
 grant select on public.estoque_saldos,public.estoque_movimentos to authenticated;
 
+-- A leitura é executada com o papel do solicitante, preservando RLS de ambas as tabelas.
+-- Saldo e limite em texto preservam precisão decimal na API.
+create view public.estoque_catalogo with (security_invoker=true) as
+select p.id,p.empresa_id,p.nome,p.codigo,p.categoria_id,p.preco_venda_centavos,
+       p.unidade,p.ativo,p.created_at,
+       coalesce(s.saldo,0)::text as saldo,
+       p.estoque_minimo::text as estoque_minimo,
+       (p.estoque_minimo is not null and coalesce(s.saldo,0)<=p.estoque_minimo) as reposicao
+from public.produtos p
+left join public.estoque_saldos s on s.empresa_id=p.empresa_id and s.produto_id=p.id;
+revoke all on public.estoque_catalogo from public,anon,authenticated;
+grant select on public.estoque_catalogo to authenticated;
+
 -- Uma unidade não pode mudar depois de existir histórico naquela unidade.
 create function private.estoque_proteger_unidade() returns trigger
 language plpgsql security invoker set search_path = '' as $$
 begin
+  if new.unidade is distinct from old.unidade and old.estoque_minimo is not null then
+    raise exception 'ESTOQUE_LIMITE_UNIDADE' using errcode='22023';
+  end if;
   if new.unidade is distinct from old.unidade and exists (
     select 1 from public.estoque_movimentos m where m.empresa_id=old.empresa_id and m.produto_id=old.id
   ) then raise exception 'ESTOQUE_UNIDADE_IMUTAVEL' using errcode='22023'; end if;
@@ -90,7 +116,7 @@ begin
     raise exception 'ESTOQUE_DADOS' using errcode='22023';
   end if;
   if p_quantidade is not null and
-    (p_quantidade < 0 or p_quantidade > 999999999999999.999 or
+    (p_quantidade::text in ('NaN','Infinity','-Infinity') or p_quantidade < 0 or p_quantidade > 999999999999999.999 or
      p_quantidade <> trunc(p_quantidade,3) or
      (p_tipo in ('entrada','saida') and p_quantidade=0)) then
     raise exception 'ESTOQUE_QUANTIDADE' using errcode='22023';

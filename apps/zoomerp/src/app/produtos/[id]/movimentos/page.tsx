@@ -6,7 +6,7 @@ import { AppShell } from "@/components/app-shell";
 import { getErpContext } from "@/lib/auth/erp-context";
 import { UUID_RE } from "@/lib/catalogo";
 import { errosEstoque, formatQuantidade, tiposEstoque } from "@/lib/estoque";
-import { registrarMovimento } from "@/lib/estoque-actions";
+import { registrarMovimento, salvarEstoqueMinimo } from "@/lib/estoque-actions";
 
 export const dynamic="force-dynamic";
 export default async function Movimentos({params,searchParams}:{
@@ -20,9 +20,8 @@ export default async function Movimentos({params,searchParams}:{
   if(query.empresa && query.empresa!==empresa) notFound();
   const pagina=Math.min(9999,Math.max(1,Number.parseInt(query.pagina??"1",10)||1));
   const size=20;
-  const [{data:produto,error:produtoError},{data:saldo,error:saldoError},{data:movimentos,error:histError,count}]=await Promise.all([
-    ctx.supabase.from("produtos").select("id,nome,unidade,ativo").eq("empresa_id",empresa).eq("id",id).maybeSingle(),
-    ctx.supabase.from("estoque_saldos").select("saldo::text").eq("empresa_id",empresa).eq("produto_id",id).maybeSingle(),
+  const [{data:produto,error:produtoError},{data:movimentos,error:histError,count}]=await Promise.all([
+    ctx.supabase.from("estoque_catalogo").select("id,nome,unidade,ativo,saldo,estoque_minimo,reposicao").eq("empresa_id",empresa).eq("id",id).maybeSingle(),
     ctx.supabase.from("estoque_movimentos").select("id,tipo,delta::text,saldo_anterior::text,saldo_posterior::text,motivo,autor_id,criado_em,estorno_de",{count:"exact"})
       .eq("empresa_id",empresa).eq("produto_id",id).order("criado_em",{ascending:false}).order("id",{ascending:false}).range((pagina-1)*size,pagina*size-1)
   ]);
@@ -31,17 +30,29 @@ export default async function Movimentos({params,searchParams}:{
   const ids=(movimentos??[]).filter(m=>m.tipo!=="estorno").map(m=>m.id);
   const {data:estornos,error:estornoError}=ids.length ? await ctx.supabase.from("estoque_movimentos").select("estorno_de").eq("empresa_id",empresa).eq("produto_id",id).in("estorno_de",ids) : {data:[],error:null};
   const estornados=new Set((estornos??[]).map(m=>m.estorno_de));
-  const erro=saldoError||histError||estornoError;
+  const erro=histError||estornoError;
   const url=`/produtos/${id}/movimentos?empresa=${encodeURIComponent(empresa)}`;
   const hidden=()=> <><input type="hidden" name="empresa" value={empresa}/><input type="hidden" name="produto" value={id}/><input type="hidden" name="requisicao" value={randomUUID()}/></>;
   return <AppShell title="Movimentações" description={produto.nome} companyId={empresa} companyName={ctx.company.nome} role={ctx.role}>
     <div className="catalog-width">
       <Link className="catalog-back" href={`/estoque?empresa=${encodeURIComponent(empresa)}`}>← Voltar ao estoque</Link>
+      {query.aviso==="minimo"&&<p className="catalog-success" role="status">Estoque mínimo atualizado.</p>}
       {query.aviso==="salvo"&&<p className="catalog-success" role="status">Movimentação registrada.</p>}
       {query.erro&&<p className="catalog-error" role="alert">{Object.hasOwn(errosEstoque,query.erro)?errosEstoque[query.erro]:errosEstoque.banco}</p>}
       {erro&&<p className="catalog-error" role="alert">Não foi possível consultar o estoque. Atualize a página antes de movimentar.</p>}
-      <section className="catalog-panel"><h2>Saldo atual</h2><strong className="text-3xl">{saldoError?"—":formatQuantidade(saldo?.saldo??"0")} {produto.unidade}</strong>
+      <section className="catalog-panel"><h2>Saldo atual</h2><strong className="text-3xl">{formatQuantidade(produto.saldo)} {produto.unidade}</strong>
+        {produto.estoque_minimo!==null&&<p className="catalog-note">Estoque mínimo: {formatQuantidade(produto.estoque_minimo)} {produto.unidade}</p>}
+        {produto.ativo&&produto.reposicao&&<p className="catalog-stock-warning">Reposição necessária</p>}
         {!produto.ativo&&<p className="catalog-note">Produto arquivado: somente estornos são permitidos.</p>}</section>
+      {ctx.role==="dono"&&<section className="catalog-panel"><h2>Estoque mínimo</h2>
+        <form action={salvarEstoqueMinimo} className="catalog-form">
+          <input type="hidden" name="empresa" value={empresa}/><input type="hidden" name="produto" value={id}/>
+          <label className="catalog-field"><span>Limite de reposição ({produto.unidade})</span>
+            <input name="estoque_minimo" inputMode="decimal" maxLength={19} defaultValue={produto.estoque_minimo??""} placeholder="Sem limite"/>
+            <small>Deixe em branco para desativar. O aviso aparece quando o saldo chega ao limite ou fica abaixo dele.</small>
+          </label><button className="catalog-btn catalog-secondary">Salvar limite</button>
+        </form>
+      </section>}
       {!erro&&ctx.role==="dono"&&produto.ativo&&<section className="catalog-panel">
         <h2>Nova movimentação</h2>
         <form action={registrarMovimento} className="catalog-form">

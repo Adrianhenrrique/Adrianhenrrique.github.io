@@ -27,3 +27,8 @@ export const errosEstoque: Record<string,string> = {
   ESTOQUE_REQUISICAO_CONFLITO:"Operação repetida com dados diferentes. Atualize a página.",
   banco:"Não foi possível registrar a movimentação. Confira o histórico antes de tentar novamente."
 };
+
+/** Campo vazio desativa o alerta; zero continua sendo um limite válido. */
+export function validarEstoqueMinimo(value: string): string | null {
+  return value.trim() === "" ? null : quantidadeEstoque(value,"ajuste");
+}

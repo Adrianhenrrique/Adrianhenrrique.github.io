@@ -105,3 +105,8 @@
   .erp-app .catalog-inline-form,.erp-app .catalog-category-row{grid-template-columns:1fr}
   .erp-app .catalog-toolbar-actions .catalog-btn{flex:1}
 }
+
+.erp-app .catalog-stock-warning{color:var(--erp-text);background:#e8a01920;border:1px solid #e8a01970;border-radius:8px;padding:6px 9px;font-size:12px;font-weight:750;overflow-wrap:anywhere}
+.erp-app .catalog-filters .catalog-check{grid-column:1/-1;align-items:center;padding:10px;min-height:44px}
+.erp-app .catalog-product-price{white-space:normal;overflow-wrap:anywhere}
+@media(max-width:650px){.erp-app .catalog-product-meta .catalog-back{display:flex;min-height:44px;align-items:center}.erp-app .catalog-form button{white-space:normal}.erp-app .catalog-panel{overflow-wrap:anywhere}}
