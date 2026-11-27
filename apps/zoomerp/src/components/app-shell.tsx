@@ -37,6 +37,8 @@ export function AppShell({
   role: Role;
 }) {
   const pathname = usePathname();
+  // Telas de catálogo e cadastros já têm ações próprias; não cobrir campos com o FAB.
+  const showQuickActions = !["/estoque","/categorias","/produtos","/contatos"].some(route=>pathname===route||pathname.startsWith(route+"/"));
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [quickOpen, setQuickOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -115,7 +117,7 @@ export function AppShell({
         <footer className="erp-main-footer">ZoomERP · Controle gerencial · Não emite nota fiscal</footer>
       </div>
       {navigation("bottom")}
-      <div className="erp-quick-wrap">
+      {showQuickActions && <div className="erp-quick-wrap">
         {quickOpen && <div className="erp-quick-panel" id="erp-quick-actions">
           <p>Ações rápidas <span>· Produtos disponíveis</span></p>
           <Link href={url("/vender")} onClick={() => setQuickOpen(false)}><ShoppingCart size={18} /> Nova venda <ArrowRight size={16} /></Link>
@@ -125,7 +127,7 @@ export function AppShell({
         <button type="button" className="erp-quick-button" aria-expanded={quickOpen} aria-controls="erp-quick-actions" aria-label={quickOpen ? "Fechar ações rápidas" : "Abrir ações rápidas"} onClick={() => setQuickOpen(!quickOpen)}>
           {quickOpen ? <X size={25} /> : <Plus size={27} />}
         </button>
-      </div>
+      </div>}
     </div>
   );
 }

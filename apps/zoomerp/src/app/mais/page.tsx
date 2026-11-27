@@ -23,7 +23,7 @@ export default async function Mais({ searchParams }: { searchParams: Promise<{em
       </div>
       <section className="erp-card erp-disclaimer">
         <strong>ZoomERP está sendo desenvolvido.</strong>
-        <p>Catálogo, estoque, clientes e fornecedores já funcionam. Vendas e lançamentos financeiros serão implementados nas próximas etapas. A aplicação não emite documentos fiscais.</p>
+        <p>Catálogo, entradas, saídas e estornos de estoque, clientes e fornecedores já funcionam. Vendas e lançamentos financeiros serão implementados nas próximas etapas. A aplicação não emite documentos fiscais.</p>
       </section>
     </AppShell>
   );

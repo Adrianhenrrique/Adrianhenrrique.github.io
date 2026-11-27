@@ -1,5 +1,13 @@
 # Histórico de alterações — ZoomERP
 
+### Revisão de QA — 1.3.0-rc.2
+
+- Teste manual em homologação rc.1 confirmou cadastro, edição, pesquisa, duplicidade e arquivamento/reativação. Mobile 375×812 ficou parcial por falha de rolagem do navegador de teste; não houve reprodução suficiente para classificá-la como bug do app.
+- Formulário de contatos usa ação com estado de erro e campos controlados: mantém dados digitados em falhas de validação e duplicidade, sem colocar informações pessoais na URL. Situação visível no início e avisos distintos de arquivo/reativação.
+- Campos do catálogo a 16px; FAB retirado de estoque, produtos, categorias e contatos para não cobrir controles. Telefone formatado e busca por cidade. Textos de Início e Mais atualizados.
+- Revalidar criação/edição com erros e a edição mobile antes da publicação. Nenhuma alteração de schema nesta revisão.
+
+
 ## Fase 1.3 — Clientes e fornecedores (homologação)
 
 - Tabela `contatos` com empresa, tipo, nome, CPF/CNPJ numérico opcional, telefone, e-mail, CEP, endereço, cidade, UF e observações. Documento único por empresa e tipo, inclusive arquivados. Mesmo documento pode ser cliente e fornecedor.

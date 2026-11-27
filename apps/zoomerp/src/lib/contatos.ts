@@ -49,3 +49,24 @@ export function buscaContato(value:string) {
   const email=q.replace(/[^\p{L}\p{N}@.+-]/gu,"");
   return {q,texto,digitos,email};
 }
+
+export type ContatoFormState = { erro: string | null };
+export const contatoAvisos: Record<string,string> = {
+  salvo: "Cadastro realizado com sucesso.",
+  atualizado: "Cadastro atualizado com sucesso.",
+  arquivado: "Cadastro arquivado com sucesso.",
+  reativado: "Cadastro reativado com sucesso.",
+};
+export function avisoContato(anterior: boolean | null, ativo: boolean) {
+  if (anterior === null) return ativo ? "salvo" : "arquivado";
+  return anterior === ativo ? "atualizado" : ativo ? "reativado" : "arquivado";
+}
+export function formatarTelefone(value: string) {
+  const d = somenteDigitos(value);
+  if(d.length === 11) return d.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+  if(d.length === 10) return d.replace(/^(\d{2})(\d{4})(\d{4})$/, "($1) $2-$3");
+  if(d.length === 13 && d.startsWith("55")) return "+55 " + formatarTelefone(d.slice(2));
+  if(d.length === 12 && d.startsWith("55")) return "+55 " + formatarTelefone(d.slice(2));
+  if(d.length === 8 || d.length === 9) return d.slice(0,-4) + "-" + d.slice(-4);
+  return value;
+}

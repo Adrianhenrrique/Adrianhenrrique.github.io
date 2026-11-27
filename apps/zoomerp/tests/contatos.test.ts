@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { validarContato, grupoContato, buscaContato } from "../src/lib/contatos.ts";
+import { validarContato, grupoContato, buscaContato, formatarTelefone, avisoContato } from "../src/lib/contatos.ts";
 
 test("normaliza campos opcionais e documento sem perder zeros",()=>{
  const contato=validarContato({nome:"  Loja  Exemplo ",documento:"529.982.247-25",telefone:"(11) 99999-9999",cep:"01234-567",email:"TESTE@exemplo.com",uf:"sp",ativo:true});
@@ -16,3 +16,6 @@ test("busca não injeta filtros e aceita CPF formatado",()=>{
  const b=buscaContato("529.982.247-25");assert.equal(b.digitos,"52998224725");
  assert.doesNotMatch(buscaContato("x%,id.eq.123").texto,/[%_,()]/);
 });
+
+test("telefones brasileiros são formatados sem modificar números externos",()=>{assert.equal(formatarTelefone("11977776666"),"(11) 97777-6666");assert.equal(formatarTelefone("1133334444"),"(11) 3333-4444");assert.equal(formatarTelefone("5511977776666"),"+55 (11) 97777-6666");assert.equal(formatarTelefone("123456789012345"),"123456789012345");});
+test("avisos distinguem arquivamento de edição e reativação",()=>{assert.equal(avisoContato(null,true),"salvo");assert.equal(avisoContato(true,false),"arquivado");assert.equal(avisoContato(false,true),"reativado");assert.equal(avisoContato(true,true),"atualizado");});

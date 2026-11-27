@@ -22,7 +22,7 @@
 .erp-app .catalog-field{display:flex;flex-direction:column;gap:7px;min-width:0}
 .erp-app .catalog-field>span:first-child{font-size:12px;font-weight:800;color:var(--erp-text)}
 .erp-app .catalog-field input:not([type="checkbox"]),.erp-app .catalog-field select,.erp-app .catalog-field textarea,
-.erp-app .catalog-input-icon{background:var(--erp-alt);color:var(--erp-text);border:1px solid var(--erp-border);padding:11px 13px;border-radius:11px;min-height:46px;width:100%;min-width:0;font:inherit;font-size:14px}
+.erp-app .catalog-input-icon{background:var(--erp-alt);color:var(--erp-text);border:1px solid var(--erp-border);padding:11px 13px;border-radius:11px;min-height:46px;width:100%;min-width:0;font:inherit;font-size:16px}
 .erp-app .catalog-field textarea{resize:vertical;line-height:1.5}
 .erp-app .catalog-field input::placeholder,.erp-app .catalog-field textarea::placeholder{color:var(--erp-muted);opacity:.86}
 .erp-app .catalog-field small{font-size:11px;color:var(--erp-muted);line-height:1.5}
@@ -110,3 +110,9 @@
 .erp-app .catalog-filters .catalog-check{grid-column:1/-1;align-items:center;padding:10px;min-height:44px}
 .erp-app .catalog-product-price{white-space:normal;overflow-wrap:anywhere}
 @media(max-width:650px){.erp-app .catalog-product-meta .catalog-back{display:flex;min-height:44px;align-items:center}.erp-app .catalog-form button{white-space:normal}.erp-app .catalog-panel{overflow-wrap:anywhere}}
+
+/* Campos em 16px evitam o zoom automático no iOS; situações têm largura própria. */
+.erp-app .contato-fields{border:0;padding:0;margin:0;min-width:0}
+.erp-app .contato-status{grid-column:1/-1}
+.erp-app .catalog-btn:disabled{opacity:.65;cursor:wait}
+.erp-app .catalog-field input[aria-invalid="true"]{border-color:#e98989}
