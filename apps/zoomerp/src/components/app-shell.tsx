@@ -1,5 +1,6 @@
-import "@/app/erp.css";
 "use client";
+
+import "@/app/erp.css";
 
 import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
