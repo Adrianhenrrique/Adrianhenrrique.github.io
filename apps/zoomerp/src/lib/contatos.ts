@@ -61,7 +61,7 @@ export function avisoContato(anterior: boolean | null, ativo: boolean) {
   if (anterior === null) return ativo ? "salvo" : "arquivado";
   return anterior === ativo ? "atualizado" : ativo ? "reativado" : "arquivado";
 }
-export function formatarTelefone(value: string) {
+export function formatarTelefone(value: string): string {
   const d = somenteDigitos(value);
   if(d.length === 11) return d.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
   if(d.length === 10) return d.replace(/^(\d{2})(\d{4})(\d{4})$/, "($1) $2-$3");
