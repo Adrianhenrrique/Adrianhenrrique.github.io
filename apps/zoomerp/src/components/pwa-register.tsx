@@ -15,8 +15,8 @@ export function PwaRegister() {
       const idle = window.requestIdleCallback(register, { timeout: 3500 });
       return () => window.cancelIdleCallback(idle);
     }
-    const timeout = window.setTimeout(register, 1500);
-    return () => window.clearTimeout(timeout);
+    const timeout = setTimeout(register, 1500);
+    return () => clearTimeout(timeout);
   }, []);
   return null;
 }

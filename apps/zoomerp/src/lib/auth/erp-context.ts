@@ -18,7 +18,15 @@ export async function getErpContext(requestedCompany?: string) {
   if (error) throw new Error("Não foi possível carregar as empresas da conta.");
   if (!memberships?.length) redirect("/configurar");
 
-  const valid = memberships.filter((m) => m.empresa !== null);
+  // A associação do PostgREST pode ser tipada como lista sem tipos gerados.
+  // Normalize ambos os formatos para uma empresa única, sem afrouxar RLS.
+  const valid = memberships
+    .map((m) => ({
+      empresa_id: m.empresa_id,
+      papel: m.papel,
+      empresa: Array.isArray(m.empresa) ? m.empresa[0] : m.empresa,
+    }))
+    .filter((m) => m.empresa != null);
   if (!valid.length) redirect("/configurar");
   const selected = valid.find((m) => m.empresa_id === requestedCompany) ?? valid[0];
   const company = selected.empresa;
@@ -28,7 +36,7 @@ export async function getErpContext(requestedCompany?: string) {
     supabase,
     user,
     company,
-    companies: valid.map((m) => m.empresa).filter((c): c is NonNullable<typeof c> => c !== null),
+    companies: valid.map((m) => m.empresa!).filter(Boolean),
     role: selected.papel === "dono" ? "dono" as const : "funcionario" as const,
   };
 }
