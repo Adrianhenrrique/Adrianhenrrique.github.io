@@ -1,26 +1,31 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { AppShell } from "@/components/app-shell";
 import { ConviteForm } from "@/components/convite-form";
+import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
-export default async function Equipe({ searchParams }: { searchParams: Promise<{ empresa?: string }> }) {
-  const { empresa } = await searchParams;
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
-  const { data: dono } = await supabase.from("usuarios_empresa").select("empresa_id").eq("usuario_id", user.id).eq("papel", "dono").eq("empresa_id", empresa ?? "").maybeSingle();
-  if (!dono) redirect("/inicio");
-  const [{ data: vinculos }, { data: convites }, { data: company }] = await Promise.all([
-    supabase.from("usuarios_empresa").select("usuario_id,papel,created_at").eq("empresa_id", dono.empresa_id),
-    supabase.from("convites_empresa").select("email,expira_em,aceito_em").eq("empresa_id", dono.empresa_id).order("created_at",{ascending:false}).limit(15),
-    supabase.from("empresas").select("nome").eq("id", dono.empresa_id).single(),
+export default async function Equipe({searchParams}: {searchParams:Promise<{empresa?:string}>}) {
+  const {empresa}=await searchParams;
+  const supabase=await createClient();
+  const {data:{user}}=await supabase.auth.getUser();
+  if(!user) redirect("/login");
+  const {data:owner}=await supabase.from("usuarios_empresa").select("empresa_id").eq("empresa_id",empresa??"").eq("usuario_id",user.id).eq("papel","dono").maybeSingle();
+  if(!owner) redirect("/inicio");
+  const [{data:members},{data:invites},{data:company}]=await Promise.all([
+    supabase.from("usuarios_empresa").select("usuario_id,papel,created_at").eq("empresa_id",owner.empresa_id),
+    supabase.from("convites_empresa").select("email,expira_em,aceito_em").eq("empresa_id",owner.empresa_id).order("created_at",{ascending:false}).limit(10),
+    supabase.from("empresas").select("id,nome").eq("id",owner.empresa_id).single(),
   ]);
-  return <main className="min-h-dvh bg-[#09131d] px-4 py-8 text-white sm:px-8"><div className="mx-auto max-w-2xl">
-    <Link href="/inicio" className="text-sm font-semibold text-emerald-300">← Voltar ao início</Link>
-    <h1 className="mt-6 text-3xl font-bold">Equipe de {company?.nome}</h1><p className="mt-3 text-slate-300">Somente o dono pode gerenciar convites. Funcionários não têm acesso a relatórios financeiros ou configurações.</p>
-    <ConviteForm empresaId={dono.empresa_id} />
-    <section className="mt-8 rounded-2xl border border-white/15 bg-slate-900 p-5"><h2 className="text-xl font-semibold">Pessoas com acesso ({vinculos?.length ?? 0})</h2><ul className="mt-3 divide-y divide-white/10">{(vinculos??[]).map((v) => <li className="flex flex-wrap justify-between gap-3 py-3 text-sm" key={v.usuario_id}><span className="break-all text-slate-300">Usuário {v.usuario_id.slice(0,8)}…</span><strong className="text-emerald-300">{v.papel === "dono" ? "Dono" : "Funcionário"}</strong></li>)}</ul></section>
-    <section className="mt-5 rounded-2xl border border-white/15 bg-slate-900 p-5"><h2 className="text-xl font-semibold">Últimos convites</h2><ul className="mt-3 divide-y divide-white/10">{(convites??[]).map((c,i)=><li className="flex flex-wrap justify-between gap-2 py-3 text-sm" key={`${c.email}-${i}`}><span className="break-all">{c.email}</span><span className="text-slate-400">{c.aceito_em ? "Aceito" : new Date(c.expira_em).getTime() < Date.now() ? "Expirado" : "Pendente"}</span></li>)}</ul></section>
-  </div></main>;
+  if(!company) redirect("/inicio");
+  return (
+    <AppShell title="Sua equipe" description="Gerencie quem pode trabalhar neste negócio." companyId={company.id} companyName={company.nome} role="dono">
+      <div className="erp-team-wrap">
+        <Link href={`/mais?empresa=${encodeURIComponent(company.id)}`} className="erp-link">← Voltar às opções</Link>
+        <ConviteForm empresaId={company.id} />
+        <section className="erp-card"><h2>Quem tem acesso ({members?.length??0})</h2><div className="erp-team-list">{(members??[]).map(m=><div className="erp-team-row" key={m.usuario_id}><span>Usuário {m.usuario_id.slice(0,8)}…</span><strong>{m.papel==="dono"?"Dono":"Funcionário"}</strong></div>)}</div></section>
+        <section className="erp-card"><h2>Convites recentes</h2><div className="erp-team-list">{(invites??[]).map((i,n)=><div className="erp-team-row" key={n}><span className="erp-break">{i.email}</span><strong>{i.aceito_em?"Aceito":new Date(i.expira_em).getTime()<Date.now()?"Expirado":"Pendente"}</strong></div>)}</div></section>
+      </div>
+    </AppShell>
+  );
 }

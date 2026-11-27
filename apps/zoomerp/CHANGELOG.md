@@ -1,5 +1,14 @@
 # Histórico de alterações — ZoomERP
 
+## 0.3.0 — Navegação e PWA (2026-11-27)
+
+- AppShell com cinco abas no celular, sidebar desktop, tema claro/escuro e atalhos rápidos.
+- Painel por empresa sem métricas inventadas e com módulo de equipe apenas para dono.
+- Prévia de Vender, Estoque, Caixa e Mais sem operações financeiras ainda.
+- Manifesto PWA, ícones Android/iOS e service worker com fallback offline público sem cache de dados privados.
+- Testes estruturais, documentação e versão atualizados.
+
+
 ## 0.2.4 — Reenvio de confirmação (2026-11-27)
 
 - Nova rota `/reenviar-confirmacao` com reenvio seguro via Supabase Auth.

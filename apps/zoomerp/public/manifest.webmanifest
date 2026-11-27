@@ -1,0 +1,46 @@
+{
+  "id": "/",
+  "name": "ZoomERP — Gestão do seu negócio",
+  "short_name": "ZoomERP",
+  "description": "Gestão simples para MEIs: estoque, caixa e venda rápida.",
+  "start_url": "/inicio",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "background_color": "#0b1422",
+  "theme_color": "#0b1422",
+  "icons": [
+    {
+      "src": "/icons/zoomerp-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/zoomerp-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/zoomerp-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Início",
+      "short_name": "Início",
+      "url": "/inicio"
+    },
+    {
+      "name": "Vender",
+      "short_name": "Vender",
+      "url": "/vender"
+    }
+  ]
+}

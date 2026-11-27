@@ -1,8 +1,8 @@
-# ZoomERP — Etapa 0.2: login, empresas e permissões
+# ZoomERP — Etapa 0.3: interface e PWA
 
 Micro-ERP SaaS voltado a MEIs e pequenos negócios, no mesmo repositório do portfólio (`apps/zoomerp/`). A página pública `/zoomerp/` do GitHub Pages **continua sendo apenas uma apresentação do produto**; o código desta pasta é uma aplicação **Next.js**, que precisa ser executada em Node/Vercel, não no GitHub Pages.
 
-**Estado real:** implementação de cadastro, login, criação de empresas, vínculo dono/funcionário, convite por link com destinatário verificado e políticas SQL RLS. Sem Supabase real configurado, não foi possível validar autenticação ponta a ponta nem executar migração ou testes SQL de isolamento. **Não usar com dados reais até realizar esses testes no projeto Supabase.** Ainda não há vendas, estoque, relatórios, PWA ou cobrança.
+**Estado real:** implementação de cadastro, login, criação de empresas, vínculo dono/funcionário, convite por link com destinatário verificado e políticas SQL RLS. Sem Supabase real configurado, não foi possível validar autenticação ponta a ponta nem executar migração ou testes SQL de isolamento. **Não usar com dados reais até realizar esses testes no projeto Supabase.** Ainda não há vendas, estoque, relatórios ou cobrança. A navegação e o PWA estão na etapa 0.3.
 
 ## 1. Pré-requisitos
 
@@ -32,7 +32,7 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 No Supabase **SQL Editor**, execute a migração `supabase/migrations/202611270001_auth_multiempresa.sql` **uma única vez** (ou use `supabase db push` após conectar seu projeto). Ela cria `empresas`, `usuarios_empresa`, `convites_empresa`, políticas RLS e três funções RPC transacionais. Revise a migração antes de aplicar em qualquer banco já existente.
 
-**Auth / URL Configuration:** adicione `http://localhost:3000/auth/confirm` à lista de URLs permitidas (e sua URL futura da Vercel). Ajuste o template **Confirm signup** para utilizar a URL de confirmação com token hash gerada pelo Supabase, preservando o redirecionamento de convite:
+**Auth / URL Configuration (histórico anterior à conexão real):** adicione `http://localhost:3000/auth/confirm` à lista de URLs permitidas (e sua URL futura da Vercel). Ajuste o template **Confirm signup** para utilizar a URL de confirmação com token hash gerada pelo Supabase, preservando o redirecionamento de convite:
 
 ```html
 <a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email">Confirmar meu e-mail</a>
@@ -72,7 +72,7 @@ npm run build       # requer npm install
 npm run check       # lint + types + tests
 ```
 
-Sem acesso ao npm nesta sessão, o build do Next.js e o typecheck completo ficaram **pendentes**. Os testes Node independentes executam sem dependências externas. A CI do GitHub Actions tenta instalar e executar validações, mas a execução deve ser confirmada no histórico de Actions.
+A Vercel verifica builds Next.js na publicação. Lint, typecheck e testes Node são comandos separados; veja o estado da CI e rode npm run check quando possível.
 
 ## 6. Estrutura da etapa
 
@@ -99,7 +99,7 @@ supabase/
 - A partir de Next.js 16, o refresh de sessão é feito no `src/proxy.ts`. Cada página sensível consulta `auth.getUser()` **e** o banco com RLS; o proxy sozinho não é controle de autorização.
 - A tela inicial do ERP é uma prévia técnica, não um sistema de produção. O portfólio estático continua preservado.
 - Convites por e-mail são **links criados pelo dono**, sem envio automático. Integração de entrega de e-mails fica para etapa posterior.
-- A implementação **0.3** (navegação e PWA) depende de autenticação, RLS e testes ponta a ponta realmente funcionando num Supabase configurado.
+- A implementação **0.3** entrega interface e PWA, sem armazenar dados privados offline. RLS permanece obrigatório.
 - Dados de exemplo e venda, estoque, caixa, auditoria detalhada e cobrança entram nas fases seguintes.
 
 Veja `CHANGELOG.md` para mudanças por etapa.
@@ -136,3 +136,14 @@ Veja `CHANGELOG.md` para mudanças por etapa.
 ## Recuperar uma conta ainda sem confirmação
 
 O login agora distingue `email_not_confirmed` de credenciais inválidas. A rota `/reenviar-confirmacao` chama `supabase.auth.resend({ type: 'signup' })`, com redirecionamento HTTPS para `/auth/callback`. O resultado é genérico para evitar revelar a existência de contas. Se o provedor responder HTTP 429, exibimos um aviso de limite, sem tentar enviar repetidamente. Antes de reenviar, configure os Redirect URLs corretos no Supabase Auth.
+
+## Etapa 0.3 — interface mobile-first e PWA
+
+- Acesse https://zoomerp-next.vercel.app/login, entre e abra /inicio. A tela mostra somente as empresas vinculadas ao usuário autenticado por RLS.
+- Com 360px: cinco abas (Início, Vender, Estoque, Caixa e Mais) e botão flutuante + com atalhos. Os módulos comerciais são PRÉVIAS, sem escrita de dados e sem saldos fictícios.
+- Com largura de 900px ou mais: navegação lateral. Alterne o tema com o botão sol/lua; a preferência local é guardada no navegador, sem dados pessoais.
+- Android: Chrome > Instalar aplicativo ou Adicionar à tela inicial. iPhone: Safari > Compartilhar > Adicionar à Tela de Início. Verifique em aparelho real.
+- O manifesto e ícones 192/512/180 estão em public/. O service worker utiliza cache restrito: só ícones, código estático versionado e uma página offline pública.
+- O app continua dependendo da rede para login, conta, estoque, vendas e caixa. HTML autenticado, API, cookies e respostas Supabase NÃO são armazenados no cache offline.
+- Use npm test, npm run lint, npm run typecheck e npm run build após npm install; tests/pwa.test.mjs verifica a estrutura PWA. Instalação e usabilidade de 360px exigem testes nos dispositivos reais.
+- No Supabase Auth, Site URL deve apontar para https://zoomerp-next.vercel.app e os Redirect URLs devem incluir https://zoomerp-next.vercel.app/auth/callback. Se apontar para localhost, o link de verificação falhará no celular.

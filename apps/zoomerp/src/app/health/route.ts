@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-/** Somente integridade técnica; não retorna dados de clientes ou ambiente. */
+/** Estado técnico; não expõe dados de clientes ou informações de ambiente. */
 export function GET() {
-  return NextResponse.json({ status: "ok", app: "zoomerp", phase: "0.2" });
+  return NextResponse.json({ status: "ok", app: "zoomerp", phase: "0.3" });
 }
