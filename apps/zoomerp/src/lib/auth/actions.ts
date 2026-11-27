@@ -16,7 +16,7 @@ export async function cadastrar(form: FormData): Promise<void> {
   const { error } = await supabase.auth.signUp({
     email: parsed.data.email,
     password: parsed.data.senha,
-    options: { emailRedirectTo: `${origin}/auth/confirm?next=${encodeURIComponent(next)}` },
+    options: { emailRedirectTo: `${origin}/auth/callback?next=${encodeURIComponent(next)}` },
   });
   if (error) redirect("/cadastro?erro=cadastro");
   redirect(`/login?aviso=confirmacao&next=${encodeURIComponent(next)}`);
