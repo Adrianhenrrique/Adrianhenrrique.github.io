@@ -1,8 +1,8 @@
-# ZoomERP — Etapa 0.3: interface e PWA
+# ZoomERP — Fase 1.2 (candidata em homologação)
 
 Micro-ERP SaaS voltado a MEIs e pequenos negócios, no mesmo repositório do portfólio (`apps/zoomerp/`). A página pública `/zoomerp/` do GitHub Pages **continua sendo apenas uma apresentação do produto**; o código desta pasta é uma aplicação **Next.js**, que precisa ser executada em Node/Vercel, não no GitHub Pages.
 
-**Estado real:** implementação de cadastro, login, criação de empresas, vínculo dono/funcionário, convite por link com destinatário verificado e políticas SQL RLS. Sem Supabase real configurado, não foi possível validar autenticação ponta a ponta nem executar migração ou testes SQL de isolamento. **Não usar com dados reais até realizar esses testes no projeto Supabase.** Ainda não há vendas, estoque, relatórios ou cobrança. A navegação e o PWA estão na etapa 0.3.
+**Estado atual:** produção v1.1.1 com autenticação, empresas e catálogo; estoque v1.2.0-rc.1 em homologação com banco separado. Consulte o relatório de homologação no fim deste documento. Vendas, caixa operacional e cobrança ainda não implementados.
 
 ## 1. Pré-requisitos
 
@@ -32,13 +32,7 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 No Supabase **SQL Editor**, execute a migração `supabase/migrations/202611270001_auth_multiempresa.sql` **uma única vez** (ou use `supabase db push` após conectar seu projeto). Ela cria `empresas`, `usuarios_empresa`, `convites_empresa`, políticas RLS e três funções RPC transacionais. Revise a migração antes de aplicar em qualquer banco já existente.
 
-**Auth / URL Configuration (histórico anterior à conexão real):** adicione `http://localhost:3000/auth/confirm` à lista de URLs permitidas (e sua URL futura da Vercel). Ajuste o template **Confirm signup** para utilizar a URL de confirmação com token hash gerada pelo Supabase, preservando o redirecionamento de convite:
-
-```html
-<a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email">Confirmar meu e-mail</a>
-```
-
-O `emailRedirectTo` do cadastro aponta para `/auth/confirm?next=/inicio` ou `/auth/confirm?next=/convite/<token>`. O template requer `RedirectTo` configurado e confiável (restrito pelo allowlist do Supabase); teste o fluxo na sua instância. `/auth/callback` mantém suporte a fluxos de código PKCE, mas o cadastro atual usa `/auth/confirm` com `verifyOtp`.
+**Auth / URL Configuration:** o cadastro atual usa `/auth/callback` com PKCE. No Supabase de cada ambiente, configure Site URL com o domínio correspondente e inclua `/auth/callback` na lista de redirects. O fluxo alternativo `/auth/confirm` só deve ser usado com template de token hash correspondente. Não desative a confirmação de e-mail.
 
 ## 3. Como verificar a Etapa 0.2
 
@@ -184,7 +178,7 @@ O login agora distingue `email_not_confirmed` de credenciais inválidas. A rota 
 
 Nesta branch, a aba Estoque apresenta saldos e abre o histórico de cada produto. Donos registram entrada, saída, ajuste por contagem física e estorno com motivo; funcionários consultam. O banco usa saldo materializado, ledger somente de leitura direta e RPC transacional com autorização por empresa, bloqueio por produto e idempotência. Quantidades decimais são enviadas como texto; un/cx/pct exigem inteiros. Produtos arquivados aceitam apenas estorno. Estoque mínimo opcional por produto, com aviso de reposição ao atingir ou ficar abaixo do limite, filtro e contador global de produtos ativos. O limite vazio desativa o aviso. A consulta de catálogo usa view com security_invoker e comparação exata no banco.
 
-**Antes de publicar:** o SQL em `supabase/drafts/estoque_fase_1_2.sql` é um candidato, não uma migration aplicada. Gerar migration com Supabase CLI, validar em instância isolada (realizado), rodar `supabase/tests/03_estoque.sql`, conferir concorrência, RLS para funcionários, advisors, lint, typecheck, build e testes de interface. Não aplicar em produção até concluir essa validação. Os três testes unitários de quantidade, formatação e limite passaram no Node 22, com blobs conferidos contra o GitHub; o módulo puro também passou em TypeScript strict. Testes de concorrência e de funcionário foram preparados em `supabase/tests/04_estoque_concorrencia.sh` e `03_estoque.sql`, executados por consultas SQL via MCP na homologação (ver relatório abaixo); o CI segue bloqueado e os testes SQL foram executados na homologação. Versão publicada permanece 1.1.1.
+**Antes de publicar:** migration `supabase/migrations/20261127062304_estoque_fase_1_2.sql` reproduz o SQL aplicado e testado em homologação, usando a versão registrada pelo Supabase. Não reaplicar no ambiente que já possui a migration. Verificar os históricos antigos de migrations (a fundação tem versões diferentes nos projetos) antes de usar db push; não reaplicar a fundação na produção. Validar lint, CI e interface antes de liberar a versão.
 
 ## Homologação — 2026-11-27
 
@@ -193,4 +187,4 @@ Projeto Supabase separado `uaaqbftvjusfhdtkhcod`, São Paulo, cotação US$ 0/m�
 - Testes SQL 01_isolamento e 03_estoque executados com sucesso via MCP; corrigido delimitador dollar-quoted no teste 03. RLS, permissões de funcionário, saldo, estorno, ajuste, idempotência, limite e isolamento da view validados; rollback confirmado.
 - Concorrência testada por duas chamadas de SQL em paralelo, não pelo script local 04: saldo inicial 10, duas saídas de 7, uma aceita e outra rejeitada com ESTOQUE_INSUFICIENTE; duas entradas de 2 com a mesma chave aceitas sem duplicação. Saldo final 5, soma do ledger 5, três movimentos, uma ocorrência da chave repetida. Fixtures removidas e contagens de empresas, produtos, movimentos e usuários iguais a zero.
 - Advisors: três avisos de SECURITY DEFINER nas RPCs anteriores de autenticação; nenhuma nova advertência de segurança do estoque. Nove FKs sem índice de cobertura e três índices ainda não usados (INFO). Não remover índices por estatísticas de banco recém-criado.
-- Vercel preview do commit f1d83d2: 39/39 testes e build TypeScript aprovados. CI GitHub ainda falha. Preview ainda não vinculado ao banco de homologação; não testar movimentos com credenciais de produção. Validação mobile/autenticação ponta a ponta e publicação permanecem pendentes.
+- Vercel preview do commit f1d83d2: 39/39 testes e build TypeScript aprovados. CI GitHub ainda falha. A prévia da branch usa exclusivamente o Supabase Homologação por variáveis específicas de Preview. O deploy 7d0b040 foi aprovado (39/39 testes). Consultas agregadas confirmaram uma conta com e-mail confirmado e login, uma empresa e um produto; nenhuma movimentação pela interface ainda comprovada. A CI GitHub, lint e testes visuais permanecem pendentes. Produção v1.1.1 intacta.

@@ -1,13 +1,13 @@
 # Histórico de alterações — ZoomERP
 
-## Em desenvolvimento — Estoque 1.2 (não publicado)
+## 1.2.0-rc.1 — Estoque (homologação, não publicado)
 
-- Candidato SQL para saldo materializado, histórico por empresa, RPC transacional, idempotência, entradas, saídas, ajustes e estornos.
+- Migration SQL validada em homologação para saldo materializado, histórico por empresa, RPC transacional, idempotência, entradas, saídas, ajustes e estornos.
 - Listagem com saldo e tela de histórico por produto, paginada; formulários restritos a donos.
 - Três testes unitários de quantidades, formatação e limite aprovados localmente com Node 22 e blobs conferidos; TypeScript strict no módulo puro aprovado; teste SQL de integridade e isolamento aprovado em homologação.
 - Limite de reposição opcional por produto, filtro global, contador e view com RLS do solicitante.
 - Corrigido nome da coluna configuracoes conferido no schema real (consulta somente leitura); preparado teste concorrente em duas sessões e teste de papel funcionário.
-- Pendentes: migration versionada no GitHub, lint, CI GitHub e validação de interface; banco de homologação, concorrência, typecheck e build anterior aprovados. Produção não alterada.
+- Pendentes: lint, CI GitHub e validação de interface; banco de homologação, concorrência, typecheck e build anterior aprovados. Produção não alterada.
 
 
 ## 1.1.1 — Navegação e carregamento mais leves (2026-11-27)
@@ -104,4 +104,4 @@ Projeto Supabase separado `uaaqbftvjusfhdtkhcod`, São Paulo, cotação US$ 0/m�
 - Testes SQL 01_isolamento e 03_estoque executados com sucesso via MCP; corrigido delimitador dollar-quoted no teste 03. RLS, permissões de funcionário, saldo, estorno, ajuste, idempotência, limite e isolamento da view validados; rollback confirmado.
 - Concorrência testada por duas chamadas de SQL em paralelo, não pelo script local 04: saldo inicial 10, duas saídas de 7, uma aceita e outra rejeitada com ESTOQUE_INSUFICIENTE; duas entradas de 2 com a mesma chave aceitas sem duplicação. Saldo final 5, soma do ledger 5, três movimentos, uma ocorrência da chave repetida. Fixtures removidas e contagens de empresas, produtos, movimentos e usuários iguais a zero.
 - Advisors: três avisos de SECURITY DEFINER nas RPCs anteriores de autenticação; nenhuma nova advertência de segurança do estoque. Nove FKs sem índice de cobertura e três índices ainda não usados (INFO). Não remover índices por estatísticas de banco recém-criado.
-- Vercel preview do commit f1d83d2: 39/39 testes e build TypeScript aprovados. CI GitHub ainda falha. Preview ainda não vinculado ao banco de homologação; não testar movimentos com credenciais de produção. Validação mobile/autenticação ponta a ponta e publicação permanecem pendentes.
+- Vercel preview do commit f1d83d2: 39/39 testes e build TypeScript aprovados. CI GitHub ainda falha. A prévia da branch usa exclusivamente o Supabase Homologação por variáveis específicas de Preview. O deploy 7d0b040 foi aprovado (39/39 testes). Consultas agregadas confirmaram uma conta com e-mail confirmado e login, uma empresa e um produto; nenhuma movimentação pela interface ainda comprovada. A CI GitHub, lint e testes visuais permanecem pendentes. Produção v1.1.1 intacta.
