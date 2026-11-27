@@ -132,3 +132,7 @@ Veja `CHANGELOG.md` para mudanças por etapa.
 - A interface trata os códigos do Supabase com mensagens específicas, sem exibir dados pessoais, detalhes internos ou senhas; testes em `tests/signup-errors.test.ts`.
 - **Atenção:** as requisições de Auth registraram `referer` com `http://localhost:3000`. Confirme em Supabase → Authentication → URL Configuration que `Site URL` é `https://zoomerp-next.vercel.app` e que `https://zoomerp-next.vercel.app/auth/callback` consta nas URLs de redirecionamento. Esse ajuste não é feito pelo conector disponível.
 - Não desative a confirmação de e-mail para contornar limites de envio. Para produção, configure SMTP apropriado e monitore limites de Auth.
+
+## Recuperar uma conta ainda sem confirmação
+
+O login agora distingue `email_not_confirmed` de credenciais inválidas. A rota `/reenviar-confirmacao` chama `supabase.auth.resend({ type: 'signup' })`, com redirecionamento HTTPS para `/auth/callback`. O resultado é genérico para evitar revelar a existência de contas. Se o provedor responder HTTP 429, exibimos um aviso de limite, sem tentar enviar repetidamente. Antes de reenviar, configure os Redirect URLs corretos no Supabase Auth.

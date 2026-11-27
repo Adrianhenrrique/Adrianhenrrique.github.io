@@ -31,8 +31,27 @@ export async function entrar(form: FormData): Promise<void> {
   if (!parsed.success) redirect("/login?erro=credenciais");
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email: parsed.data.email, password: parsed.data.senha });
-  if (error) redirect("/login?erro=credenciais");
+  if (error) redirect(error.code === "email_not_confirmed" ? "/login?erro=nao-confirmado" : "/login?erro=credenciais");
   redirect(destinoSeguro(field(form,"next")));
+}
+
+
+/** A confirmação pode ser reenviada sem recriar a conta nem revelar se o e-mail existe. */
+export async function reenviarConfirmacao(form: FormData): Promise<void> {
+  const parsed = emailSchema.safeParse(field(form, "email"));
+  if (!parsed.success) redirect("/reenviar-confirmacao?erro=dados");
+  const supabase = await createClient();
+  const origin = (process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000").replace(/\/$/, "");
+  const { error } = await supabase.auth.resend({
+    type: "signup",
+    email: parsed.data,
+    options: { emailRedirectTo: `${origin}/auth/callback` },
+  });
+  if (error) {
+    console.warn("[ZoomERP Auth] Falha no reenvio da confirmação", { codigo: error.code, status: error.status });
+    redirect(`/reenviar-confirmacao?erro=${classificarErroCadastro(error)}`);
+  }
+  redirect("/reenviar-confirmacao?aviso=enviado");
 }
 
 export async function sair(): Promise<void> {

@@ -1,5 +1,11 @@
 # Histórico de alterações — ZoomERP
 
+## 0.2.4 — Reenvio de confirmação (2026-11-27)
+
+- Nova rota `/reenviar-confirmacao` com reenvio seguro via Supabase Auth.
+- Login identifica `email_not_confirmed` e oferece caminho para recuperar a confirmação.
+- Mensagens de rate limit reaproveitadas, evitando novas contas e tentativas excessivas.
+
 ## 0.2.3 — Mensagens de cadastro e diagnóstico (2026-11-27)
 
 - Identificado HTTP 429 de limite de envio de e-mails no Supabase Auth, após cadastro prévio aceito.

@@ -17,6 +17,7 @@ export default async function Cadastro({ searchParams }: { searchParams: Promise
         <button className={primaryClass} type="submit">Criar conta grátis</button>
       </form>
       <p className="mt-5 text-sm leading-6 text-slate-300">Já se cadastrou? Confira o e-mail de confirmação, inclusive no spam, antes de tentar novamente.</p>
+      <p className="mt-3 text-sm text-slate-300">Não chegou? <Link href="/reenviar-confirmacao" className="font-semibold text-emerald-300 hover:underline">Reenviar confirmação</Link></p>
       <p className="mt-3 text-sm text-slate-400">14 dias de experiência planejada. Esta versão está em desenvolvimento e ainda não realiza vendas.</p>
       <p className="mt-6 text-center text-sm text-slate-300">Já tem conta? <Link href="/login" className="font-semibold text-emerald-300 hover:underline">Entrar</Link></p>
     </AuthFrame>
