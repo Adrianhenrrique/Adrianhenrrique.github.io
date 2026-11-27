@@ -31,7 +31,7 @@ export default function Home() {
             <div className="grid size-11 place-items-center rounded-2xl bg-emerald-400 font-black text-slate-950">Z</div>
             <span className="text-xl font-extrabold tracking-tight">Zoom<span className="text-emerald-400">ERP</span></span>
           </div>
-          <span className="rounded-full border border-emerald-400/25 bg-emerald-400/10 px-3 py-2 text-xs font-bold uppercase tracking-wider text-emerald-300">Etapa 0.1 · Fundação</span>
+          <span className="rounded-full border border-emerald-400/25 bg-emerald-400/10 px-3 py-2 text-xs font-bold uppercase tracking-wider text-emerald-300">Etapa 0.2 · Contas e empresas</span>
         </header>
 
         <section className="grid items-center gap-12 pb-20 pt-20 lg:grid-cols-[1.1fr_.9fr] lg:pt-28">
@@ -39,9 +39,11 @@ export default function Home() {
             <p className="mb-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.23em] text-emerald-300"><span className="size-2 rounded-full bg-emerald-400" /> Para pequenos negócios</p>
             <h1 className="max-w-3xl text-5xl font-extrabold leading-[1.08] tracking-[-.06em] sm:text-6xl md:text-7xl">Seu negócio. <span className="text-emerald-400">Sob controle.</span></h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-300">Registre uma venda em 3 toques. Saiba quanto você lucrou hoje.</p>
-            <p className="mt-4 max-w-xl text-sm leading-7 text-slate-400">Estamos construindo uma gestão simples de vendas, estoque e dinheiro para microempresas e MEIs. Esta é a fundação técnica, ainda sem acesso de clientes ou funcionalidades de ERP ativas.</p>
+            <p className="mt-4 max-w-xl text-sm leading-7 text-slate-400">Estamos construindo uma gestão simples de vendas, estoque e dinheiro para microempresas e MEIs. A fundação de contas, empresas e permissões está em desenvolvimento. O cadastro requer um projeto Supabase configurado; vendas e estoque ainda não funcionam.</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg"><Link href="https://adrianhenrrique.github.io/zoomerp/" target="_blank" rel="noopener noreferrer">Conhecer o conceito <ArrowUpRight className="size-4" /></Link></Button>
+              <Button asChild size="lg"><Link href="/cadastro">Criar conta <ArrowUpRight className="size-4" /></Link></Button>
+              <Button asChild variant="outline" size="lg"><Link href="/login">Entrar</Link></Button>
+              <Button asChild variant="outline" size="lg"><Link href="https://adrianhenrrique.github.io/zoomerp/" target="_blank" rel="noopener noreferrer">Conhecer o conceito <ArrowUpRight className="size-4" /></Link></Button>
               <Button asChild variant="outline" size="lg"><Link href="https://github.com/Adrianhenrrique/Adrianhenrrique.github.io/tree/main/apps/zoomerp" target="_blank" rel="noopener noreferrer">Acompanhar o código <ArrowUpRight className="size-4" /></Link></Button>
             </div>
           </div>
@@ -49,7 +51,7 @@ export default function Home() {
             <div className="flex items-center justify-between border-b border-white/10 pb-5"><strong className="text-base">Visão do produto</strong><span className="text-xs text-emerald-300">CONCEITO</span></div>
             <div className="mt-7 grid grid-cols-2 gap-3"><div className="rounded-2xl border border-white/10 bg-white/[.04] p-4"><p className="text-xs text-slate-400">Vendas hoje</p><p className="mt-4 text-2xl font-bold">R$ 1.280,00</p><p className="mt-2 text-xs text-emerald-300">Exemplo ilustrativo</p></div><div className="rounded-2xl border border-white/10 bg-white/[.04] p-4"><p className="text-xs text-slate-400">Produtos</p><p className="mt-4 text-2xl font-bold">128</p><p className="mt-2 text-xs text-sky-300">Dados fictícios</p></div></div>
             <div className="mt-4 rounded-2xl border border-white/10 bg-[#101f2b] p-5"><div className="flex items-center gap-2 text-sm font-semibold"><ChartNoAxesCombined className="size-4 text-emerald-300" /> Visão futura do painel</div><div className="mt-7 flex h-28 items-end gap-3">{[36,54,45,76,60,89,70].map((h,i)=><div key={i} className="flex-1 rounded-t-lg bg-gradient-to-t from-emerald-600 to-emerald-300/80" style={{height:`${h}%`}} />)}</div></div>
-            <p className="mt-4 flex items-center gap-2 text-xs text-slate-400"><LockKeyhole className="size-4" /> Nenhum dado real. A autenticação virá na etapa 0.2.</p>
+            <p className="mt-4 flex items-center gap-2 text-xs text-slate-400"><LockKeyhole className="size-4" /> Dados ilustrativos. Login e empresas na etapa 0.2.</p>
           </div>
         </section>
 

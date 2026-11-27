@@ -1,73 +1,105 @@
-# ZoomERP — Fundação 0.1
+# ZoomERP — Etapa 0.2: login, empresas e permissões
 
-Micro-ERP SaaS para microempresas e MEIs. O objetivo do produto é registrar uma venda em poucos toques e manter estoque e dinheiro organizados. **Esta etapa é apenas o scaffold técnico**: não existe login, banco conectado, venda real, instalação PWA ou cobrança de assinaturas.
+Micro-ERP SaaS voltado a MEIs e pequenos negócios, no mesmo repositório do portfólio (`apps/zoomerp/`). A página pública `/zoomerp/` do GitHub Pages **continua sendo apenas uma apresentação do produto**; o código desta pasta é uma aplicação **Next.js**, que precisa ser executada em Node/Vercel, não no GitHub Pages.
 
-Este projeto mora no mesmo repositório do portfólio, em `apps/zoomerp/`. A página pública de conceito está em `/zoomerp/` e é independente do aplicativo Next.js. **GitHub Pages não executa o backend Next.js**; no futuro, configure o projeto Vercel com *Root Directory* `apps/zoomerp`.
+**Estado real:** implementação de cadastro, login, criação de empresas, vínculo dono/funcionário, convite por link com destinatário verificado e políticas SQL RLS. Sem Supabase real configurado, não foi possível validar autenticação ponta a ponta nem executar migração ou testes SQL de isolamento. **Não usar com dados reais até realizar esses testes no projeto Supabase.** Ainda não há vendas, estoque, relatórios, PWA ou cobrança.
 
-## Stack da fundação
+## 1. Pré-requisitos
 
-- Next.js 16 com App Router, React 19 e TypeScript strict.
-- Tailwind CSS 4 e configuração shadcn/ui (`components.json`, `button` reutilizável). Sem biblioteca de ícones customizada; Lucide.
-- Supabase JS + SSR com clientes browser/server preparados para a etapa 0.2. **Nenhum usuário, conexão ou política RLS está ativo ainda.**
-- Zod para verificar variáveis de ambiente quando o cliente Supabase for utilizado.
-- ESLint (Next.js), Prettier e testes nativos do Node para a base.
-- Dinheiro representado em **centavos inteiros** (`src/lib/money.ts`) com testes.
+- Node.js 22+ e npm; PostgreSQL/Supabase (projeto próprio do ZoomERP).
+- Nunca coloque uma `service_role`, `sb_secret` ou chave de banco em `NEXT_PUBLIC_*` nem no repositório.
+- Ative confirmação de e-mail em Supabase Auth. Os convites só funcionam com e-mail **confirmado**.
 
-## Requisitos
-
-- Node.js 22 ou superior e npm.
-- Acesso à internet para instalar os pacotes do npm.
-
-## Rodando localmente
+## 2. Instalar e rodar
 
 ```bash
 cd apps/zoomerp
 npm install
 cp .env.example .env.local
+# Preencha URL + publishable key do projeto Supabase e a URL da aplicação Next.js
 npm run dev
 ```
 
-Abra `http://localhost:3000` e a verificação de saúde `http://localhost:3000/health`, que retorna `{ "status": "ok", "app": "zoomerp", "phase": "0.1" }`.
+Abra `http://localhost:3000`. A página pública pode abrir sem `.env.local`, mas login e páginas privadas só funcionam com Supabase configurado e migração aplicada.
 
-**Na Etapa 0.1, o Supabase é opcional**: a página inicial não consulta o banco e pode ser aberta com `.env.local` vazio. Quando iniciar autenticação, crie o projeto Supabase e preencha apenas as variáveis públicas fornecidas pelo painel. Nunca use `service_role` no navegador.
+O `.env.local` deve conter:
 
-## Testes e qualidade
-
-```bash
-npm test             # funções monetárias, estrutura e env; não precisa de servidor
-npm run lint         # ESLint Next.js
-npm run typecheck    # TypeScript strict
-npm run build        # build de produção
-npm run check        # lint + typecheck + testes
-npm run format:check # padrão Prettier
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
-Os testes independentes de pacotes externos podem rodar apenas com Node.js 22:
+No Supabase **SQL Editor**, execute a migração `supabase/migrations/202611270001_auth_multiempresa.sql` **uma única vez** (ou use `supabase db push` após conectar seu projeto). Ela cria `empresas`, `usuarios_empresa`, `convites_empresa`, políticas RLS e três funções RPC transacionais. Revise a migração antes de aplicar em qualquer banco já existente.
 
-```bash
-node --experimental-strip-types --test tests/*.test.ts tests/*.test.mjs
+**Auth / URL Configuration:** adicione `http://localhost:3000/auth/confirm` à lista de URLs permitidas (e sua URL futura da Vercel). Ajuste o template **Confirm signup** para utilizar a URL de confirmação com token hash gerada pelo Supabase, preservando o redirecionamento de convite:
+
+```html
+<a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email">Confirmar meu e-mail</a>
 ```
 
-### Estado das verificações
+O `emailRedirectTo` do cadastro aponta para `/auth/confirm?next=/inicio` ou `/auth/confirm?next=/convite/<token>`. O template requer `RedirectTo` configurado e confiável (restrito pelo allowlist do Supabase); teste o fluxo na sua instância. `/auth/callback` mantém suporte a fluxos de código PKCE, mas o cadastro atual usa `/auth/confirm` com `verifyOtp`.
 
-- O *scaffold* e os testes nativos podem ser validados com Node localmente.
-- Caso o ambiente não alcance `registry.npmjs.org`, `npm install`, o build Next.js, o ESLint e o typecheck com tipos React ficam **pendentes**. Não confundir esse limite com aprovação de build.
-- O workflow `.github/workflows/zoomerp-ci.yml` está preparado para executar instalação, lint, tipagem, testes e build no GitHub Actions.
-- Ainda **não existe** lockfile: a instalação inicial gera `package-lock.json`. Versionar esse arquivo após a primeira instalação bem-sucedida para builds reprodutíveis.
+## 3. Como verificar a Etapa 0.2
 
-## Próximas etapas (não implementadas)
+1. Abra `/cadastro`, cadastre um e-mail e senha com pelo menos 8 caracteres, e confirme pelo link enviado pelo Supabase.
+2. Faça login em `/login` e preencha somente o nome da empresa em `/configurar` (ramo e CPF/CNPJ opcionais).
+3. Confira `/inicio`: a empresa aparece com papel **Dono**. Crie uma segunda empresa, se desejar, para testar multiempresa.
+4. Clique **Gerenciar equipe**, informe um e-mail de funcionário e use **Gerar link de convite**. Copie o link e envie manualmente ao destinatário — **a aplicação ainda NÃO envia e-mails de convite**.
+5. Abra o link com o e-mail correto, confirme a conta e aceite. O acesso de funcionário será mostrado em `/inicio`, sem menu de gerência. Não existe relatório financeiro nesta etapa.
+6. Tente aceitar com outro e-mail: o banco deve recusar. Um token usado ou vencido também deve falhar.
+7. Em um banco **local isolado**, execute o teste SQL de separação entre empresas (próxima seção). **Não execute o teste SQL em produção.**
 
-- **0.2:** autenticação, multiempresa, papéis e RLS com testes de isolamento.
-- **0.3:** interface do sistema, navegação responsiva e PWA instalável.
-- **1.x:** produtos, movimentações imutáveis, PDV com transação única, caixa, dashboard e relatórios.
-- Assinaturas e pagamentos ficam em fase posterior.
+## 4. Segurança / RLS
 
-## Segurança e decisões
+- Cada empresa nasce com seu dono na **mesma transação** (`public.criar_empresa`).
+- Todas as tabelas de negócio da etapa 0.2 têm RLS habilitado. `SELECT` retorna só vínculos autorizados e convites visíveis ao dono. **INSERT/UPDATE/DELETE diretos são negados** para `anon` e `authenticated`; só RPCs restritas executam criação da empresa e fluxo de convites.
+- Funções de autorização usam `auth.uid()` e `SECURITY DEFINER` com `search_path` fixo. Nunca recebem identidade de usuário do navegador.
+- Convites têm validade de 7 dias, token aleatório de 64 caracteres e **apenas o hash SHA-256 fica no banco**. O destinatário deve autenticar e confirmar o e-mail exato do convite.
+- O redirecionamento de login aceita apenas `/inicio` ou `/convite/<token>`; outras URLs são rejeitadas.
+- Documento opcional validado por dígitos verificadores de CPF/CNPJ na UI e no banco. Neste MVP a validação contempla apenas CNPJ **numérico**.
+- Não há papel de administrador global, chave privilegiada no frontend ou acesso público às empresas.
 
-- `src/lib/supabase/env.ts` valida variáveis somente quando o cliente Supabase é criado. A página inicial não depende delas.
-- O cliente SSR usa cookies; o proxy de atualização de sessão será adicionado na etapa 0.2.
-- Nenhuma chave secreta deve entrar em `NEXT_PUBLIC_*` ou em commits.
-- O projeto não emite documentos fiscais.
-- PWA, gráficos, PDF e Recharts não foram adicionados para evitar dependências prematuras.
+**Isolamento real:** a verificação automática JS de RLS é **estrutural**, não substitui um teste com PostgreSQL. Execute em Supabase local: `psql "$SUPABASE_TEST_DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/tests/01_isolamento.sql`. Requer banco local com Supabase Auth e migração aplicada; cria usuários sintéticos e faz `ROLLBACK`. Confirme o resultado e repita com os fluxos de convite antes de liberar dados reais. *O teste ainda não foi executado nesta sessão.*
 
-O `CHANGELOG.md` documenta cada etapa e o objetivo é manter commits pequenos e testáveis.
+## 5. Qualidade
+
+```bash
+npm test            # funções puras: documento, URL, centavos e checagens estruturais
+npm run lint        # requer npm install
+npm run typecheck   # requer npm install
+npm run build       # requer npm install
+npm run check       # lint + types + tests
+```
+
+Sem acesso ao npm nesta sessão, o build do Next.js e o typecheck completo ficaram **pendentes**. Os testes Node independentes executam sem dependências externas. A CI do GitHub Actions tenta instalar e executar validações, mas a execução deve ser confirmada no histórico de Actions.
+
+## 6. Estrutura da etapa
+
+```text
+src/
+├── proxy.ts                    # refresh de sessão (Next 16)
+├── app/
+│   ├── cadastro/               # registro
+│   ├── login/                  # login por senha
+│   ├── auth/{callback,confirm}/ # confirmação de e-mail
+│   ├── configurar/             # criação de empresa
+│   ├── inicio/                 # empresas vinculadas
+│   ├── equipe/                 # somente dono
+│   └── convite/[token]/        # aceitar convite
+├── components/{auth-frame,convite-form}.tsx
+└── lib/{auth,supabase,documento.ts}
+supabase/
+├── migrations/202611270001_auth_multiempresa.sql
+└── tests/01_isolamento.sql
+```
+
+## Decisões e próximos passos
+
+- A partir de Next.js 16, o refresh de sessão é feito no `src/proxy.ts`. Cada página sensível consulta `auth.getUser()` **e** o banco com RLS; o proxy sozinho não é controle de autorização.
+- A tela inicial do ERP é uma prévia técnica, não um sistema de produção. O portfólio estático continua preservado.
+- Convites por e-mail são **links criados pelo dono**, sem envio automático. Integração de entrega de e-mails fica para etapa posterior.
+- A implementação **0.3** (navegação e PWA) depende de autenticação, RLS e testes ponta a ponta realmente funcionando num Supabase configurado.
+- Dados de exemplo e venda, estoque, caixa, auditoria detalhada e cobrança entram nas fases seguintes.
+
+Veja `CHANGELOG.md` para mudanças por etapa.
