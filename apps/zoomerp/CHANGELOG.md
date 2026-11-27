@@ -1,5 +1,15 @@
 # Histórico de alterações — ZoomERP
 
+## 1.1.0 — Catálogo de produtos (2026-11-27)
+
+- Tabelas de produtos e categorias no Supabase, preços em centavos, SKU único e RLS multiempresa.
+- Cadastro e edição de produtos, status ativo/arquivado e categorias com renomeação.
+- Listagem responsiva, busca por nome/SKU, filtros e paginação na aba Estoque.
+- Importação de CSV validado (200 linhas/150 KB) em lote atômico; modelo para baixar.
+- Testes de validação monetária, CSV e isolamento de empresa; `prebuild` executa testes antes do build.
+- Sem estoque quantitativo, venda, caixa ou emissão fiscal nesta fase.
+
+
 ## 0.3.0 — Navegação e PWA (2026-11-27)
 
 - AppShell com cinco abas no celular, sidebar desktop, tema claro/escuro e atalhos rápidos.

@@ -48,7 +48,7 @@ export function AppShell({
   const navigation = (context: "bottom" | "sidebar") => (
     <nav aria-label={context === "bottom" ? "Navegação inferior" : "Navegação principal"} className={context === "bottom" ? "erp-tabs" : "erp-side-nav"}>
       {items.map(({ label, href, icon: Icon }) => {
-        const active = pathname === href || (href === "/mais" && pathname === "/equipe");
+        const active = pathname === href || (href === "/mais" && pathname === "/equipe") || (href === "/estoque" && (pathname.startsWith("/produtos/") || pathname === "/categorias"));
         return (
           <Link key={href} href={url(href)} aria-current={active ? "page" : undefined} className={`erp-nav-item ${active ? "is-active" : ""}`} onClick={() => setMenuOpen(false)}>
             <Icon size={context === "bottom" ? 21 : 19} strokeWidth={active ? 2.5 : 2} aria-hidden="true" />
@@ -68,7 +68,7 @@ export function AppShell({
         <div className="erp-side-section">MENU PRINCIPAL</div>
         {navigation("sidebar")}
         <div className="erp-sidebar-foot">
-          <span className="erp-dot" /> Versão 0.3 · Fundação
+          <span className="erp-dot" /> Versão 1.1 · Produtos
         </div>
       </aside>
 
@@ -95,7 +95,7 @@ export function AppShell({
         <main className="erp-main" id="conteudo">
           <div className="erp-page-heading">
             <div><p className="erp-kicker">ZOOMERP / {role === "dono" ? "PAINEL DO DONO" : "PAINEL DO FUNCIONÁRIO"}</p><h1>{title}</h1>{description && <p className="erp-subtitle">{description}</p>}</div>
-            <span className="erp-dev-label">Em desenvolvimento</span>
+            <span className="erp-dev-label">{pathname === "/estoque" || pathname.startsWith("/produtos/") || pathname === "/categorias" ? "Catálogo ativo" : "Em desenvolvimento"}</span>
           </div>
           {children}
         </main>
@@ -104,9 +104,9 @@ export function AppShell({
       {navigation("bottom")}
       <div className="erp-quick-wrap">
         {quickOpen && <div className="erp-quick-panel" id="erp-quick-actions">
-          <p>Ações rápidas <span>· Disponíveis na Fase 1</span></p>
+          <p>Ações rápidas <span>· Produtos disponíveis</span></p>
           <Link href={url("/vender")} onClick={() => setQuickOpen(false)}><ShoppingCart size={18} /> Nova venda <ArrowRight size={16} /></Link>
-          <Link href={url("/estoque")} onClick={() => setQuickOpen(false)}><PackagePlus size={18} /> Entrada de estoque <ArrowRight size={16} /></Link>
+          {role === "dono" && <Link href={url("/produtos/novo")} onClick={() => setQuickOpen(false)}><PackagePlus size={18} /> Novo produto <ArrowRight size={16} /></Link>}
           <Link href={url("/caixa")} onClick={() => setQuickOpen(false)}><ReceiptText size={18} /> Lançar despesa <ArrowRight size={16} /></Link>
         </div>}
         <button type="button" className="erp-quick-button" aria-expanded={quickOpen} aria-controls="erp-quick-actions" aria-label={quickOpen ? "Fechar ações rápidas" : "Abrir ações rápidas"} onClick={() => setQuickOpen(!quickOpen)}>

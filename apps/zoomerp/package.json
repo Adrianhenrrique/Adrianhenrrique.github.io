@@ -1,6 +1,6 @@
 {
   "name": "zoomerp",
-  "version": "0.3.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm test",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",

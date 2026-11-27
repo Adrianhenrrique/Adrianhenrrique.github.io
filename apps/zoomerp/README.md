@@ -147,3 +147,23 @@ O login agora distingue `email_not_confirmed` de credenciais inválidas. A rota 
 - O app continua dependendo da rede para login, conta, estoque, vendas e caixa. HTML autenticado, API, cookies e respostas Supabase NÃO são armazenados no cache offline.
 - Use npm test, npm run lint, npm run typecheck e npm run build após npm install; tests/pwa.test.mjs verifica a estrutura PWA. Instalação e usabilidade de 360px exigem testes nos dispositivos reais.
 - No Supabase Auth, Site URL deve apontar para https://zoomerp-next.vercel.app e os Redirect URLs devem incluir https://zoomerp-next.vercel.app/auth/callback. Se apontar para localhost, o link de verificação falhará no celular.
+
+## Fase 1.1 — Catálogo de produtos (2026-11-27)
+
+- Rotas novas: `/estoque` (lista, busca por nome/SKU, filtros e paginação), `/produtos/novo`, `/produtos/[id]/editar`, `/categorias`, `/produtos/importar`.
+- Supabase: migração `20261127035246_catalogo_produtos_fase_1_1.sql` aplicada. Tabelas `produtos` e `categorias_produto` com RLS por `empresa_id`. Membros leem, somente o dono cadastra e altera. Não há permissão de DELETE. `ativo=false` arquiva.
+- SKU único por empresa (ignorando diferenças entre maiúsculas/minúsculas), categoria obrigada a pertencer à mesma empresa por chave estrangeira composta e empresa de registros imutável por gatilho.
+- `preco_venda_centavos` e `custo_centavos` são inteiros de centavos com limites e sem floats. CPF/CNPJ, contas, convites e demais tabelas não foram alterados.
+- CSV: modelo em `/modelos/produtos.csv`, cabeçalho `nome;sku;categoria;preco_venda;custo;unidade;descricao`; separador vírgula (com decimais entre aspas) ou ponto e vírgula; limite 150 KB/200 linhas; todas as linhas validadas, sem SKUs duplicados; um único INSERT atômico. Categorias da planilha devem existir previamente.
+- A importação **não atualiza** itens existentes; SKU duplicado rejeita o lote inteiro. Não há importação parcial, nem sincronização offline.
+- O cadastro **não representa estoque disponível**. Saldos e movimentos de entrada/saída ficam para Fase 1.2, vendas e caixa para fases seguintes. Nada foi lançado como compra, estoque ou venda nesta etapa.
+- `npm run build` agora executa testes Node via `prebuild`, além da compilação Next.js. Não use senhas/chaves secretas no código público.
+
+### Validação do catálogo
+
+1. Entre com a conta dona, escolha sua empresa e abra Estoque.
+2. Crie uma categoria e um produto com SKU, venda e custo; filtre e edite o produto.
+3. Arquive e reative o produto usando o campo Produto ativo.
+4. Baixe o modelo CSV, cadastre até 200 produtos e importe; para categorias no CSV, cadastre-as primeiro.
+5. Confirme que outra empresa não enxerga nem edita os produtos da primeira; funcionários devem consultar sem botões de alteração.
+6. Execute os testes SQL de RLS em transação com rollback e verifique os avisos de segurança Supabase antes de produção.

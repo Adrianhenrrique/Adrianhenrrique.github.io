@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { PwaRegister } from "@/components/pwa-register";
 import "./globals.css";
 import "./erp.css";
+import "./catalogo.css";
 
 export const metadata: Metadata = {
   title: "ZoomERP | Gestão simples para quem empreende",

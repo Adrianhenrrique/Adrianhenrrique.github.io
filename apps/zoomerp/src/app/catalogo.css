@@ -1,0 +1,107 @@
+/* ZoomERP Catálogo 1.1 — telas responsivas, estilizadas pelos tokens do AppShell. */
+.erp-app .catalog-hero{
+ display:flex;align-items:center;gap:17px;min-width:0;padding:23px 25px;
+ background:linear-gradient(110deg,#153947 0%,#175c53 100%);border-radius:22px;color:white;
+ border:1px solid rgba(100,240,197,.16);
+}
+.erp-app .catalog-hero-icon{width:62px;height:62px;flex:0 0 62px;display:grid;place-items:center;border-radius:18px;background:#ffffff1c;color:#b9ffe5}
+.erp-app .catalog-hero>div:nth-child(2){flex:1;min-width:0}
+.erp-app .catalog-hero span{font-size:10px;letter-spacing:.17em;font-weight:800;color:#abf5d9}
+.erp-app .catalog-hero h2{font-size:clamp(20px,2.6vw,27px);font-weight:850;letter-spacing:-.04em;margin:5px 0 7px;line-height:1.25}
+.erp-app .catalog-hero p{font-size:13px;line-height:1.6;color:#dbf2ef}
+.erp-app .catalog-btn{min-height:45px;display:inline-flex;align-items:center;justify-content:center;gap:9px;font-size:13px;font-weight:800;padding:11px 17px;border:1px solid transparent;border-radius:12px;transition:filter .15s ease;white-space:nowrap;text-align:center;cursor:pointer;line-height:1.4}
+.erp-app .catalog-btn:hover{filter:brightness(1.1)}
+.erp-app .catalog-primary{background:var(--erp-green);color:var(--erp-green-text);border-color:var(--erp-green)}
+.erp-app .catalog-secondary{background:var(--erp-surface);color:var(--erp-text);border-color:var(--erp-border)}
+.erp-app .catalog-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:17px}
+.erp-app .catalog-kpis>div{border:1px solid var(--erp-border);background:var(--erp-surface);padding:18px;border-radius:16px;min-width:0;box-shadow:var(--erp-shadow)}
+.erp-app .catalog-kpis span{display:block;color:var(--erp-muted);font-size:12px;font-weight:650;line-height:1.4}
+.erp-app .catalog-kpis strong{font-size:30px;font-weight:850;letter-spacing:-.05em;display:block;margin-top:7px}
+.erp-app .catalog-toolbar-actions{display:flex;flex-wrap:wrap;gap:9px;margin:20px 0}
+.erp-app .catalog-filters{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr) auto;gap:13px;align-items:end;padding:19px;background:var(--erp-surface);border-radius:18px;border:1px solid var(--erp-border);margin-top:18px}
+.erp-app .catalog-field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.erp-app .catalog-field>span:first-child{font-size:12px;font-weight:800;color:var(--erp-text)}
+.erp-app .catalog-field input:not([type="checkbox"]),.erp-app .catalog-field select,.erp-app .catalog-field textarea,
+.erp-app .catalog-input-icon{background:var(--erp-alt);color:var(--erp-text);border:1px solid var(--erp-border);padding:11px 13px;border-radius:11px;min-height:46px;width:100%;min-width:0;font:inherit;font-size:14px}
+.erp-app .catalog-field textarea{resize:vertical;line-height:1.5}
+.erp-app .catalog-field input::placeholder,.erp-app .catalog-field textarea::placeholder{color:var(--erp-muted);opacity:.86}
+.erp-app .catalog-field small{font-size:11px;color:var(--erp-muted);line-height:1.5}
+.erp-app .catalog-field small a{color:var(--erp-green);text-decoration:underline}
+.erp-app .catalog-input-icon{display:flex;align-items:center;gap:9px;padding:0 12px}
+.erp-app .catalog-input-icon svg{color:var(--erp-green);flex-shrink:0}
+.erp-app .catalog-input-icon input{border:none!important;background:transparent!important;min-height:43px!important;padding:0!important;outline:none!important;flex:1}
+.erp-app .catalog-list-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:28px 0 13px}
+.erp-app .catalog-list-heading h2{font-size:19px;font-weight:850;letter-spacing:-.02em}
+.erp-app .catalog-list-heading span{color:var(--erp-muted);font-size:12px}
+.erp-app .catalog-products{display:grid;gap:11px}
+.erp-app .catalog-product{min-width:0;display:grid;grid-template-columns:50px minmax(0,1fr) auto auto;align-items:center;gap:15px;padding:15px 18px;border-radius:17px;border:1px solid var(--erp-border);background:var(--erp-surface)}
+.erp-app .catalog-product-icon{width:50px;height:50px;border-radius:14px;background:var(--erp-alt);color:var(--erp-green);display:grid;place-items:center}
+.erp-app .catalog-product-meta{min-width:0}
+.erp-app .catalog-product-meta h3{font-size:15px;font-weight:800;overflow-wrap:anywhere;line-height:1.5}
+.erp-app .catalog-product-meta p{font-size:12px;line-height:1.5;color:var(--erp-muted);overflow-wrap:anywhere;margin:4px 0 7px}
+.erp-app .catalog-chip{display:inline-block;padding:4px 8px;font-size:10px;border-radius:7px;background:var(--erp-alt);color:var(--erp-green);font-weight:800}
+.erp-app .catalog-chip.archived{color:var(--erp-muted)}
+.erp-app .catalog-product-price{text-align:right;white-space:nowrap}
+.erp-app .catalog-product-price strong{font-size:16px;letter-spacing:-.03em;font-weight:850;display:block}
+.erp-app .catalog-product-price span{font-size:11px;color:var(--erp-muted)}
+.erp-app .catalog-edit{min-height:44px;display:inline-flex;gap:7px;align-items:center;padding:10px;border-radius:10px;color:var(--erp-green);font-size:13px;font-weight:750;border:1px solid var(--erp-border)}
+.erp-app .catalog-pagination{display:flex;align-items:center;justify-content:center;gap:17px;margin:22px 0;flex-wrap:wrap}
+.erp-app .catalog-pagination span{font-size:12px;color:var(--erp-muted)}
+.erp-app .catalog-empty{min-height:235px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:13px;text-align:center;padding:28px;border:1px dashed var(--erp-border);border-radius:19px;background:var(--erp-surface)}
+.erp-app .catalog-empty>svg{color:var(--erp-green)}
+.erp-app .catalog-empty h3{font-size:18px;font-weight:800}
+.erp-app .catalog-empty p{color:var(--erp-muted);font-size:13px;max-width:340px;line-height:1.6}
+.erp-app .catalog-footnote,.erp-app .catalog-note{font-size:12px;color:var(--erp-muted);line-height:1.65;margin:18px 0}
+.erp-app .catalog-width{max-width:850px;min-width:0}
+.erp-app .catalog-panel{border:1px solid var(--erp-border);border-radius:19px;background:var(--erp-surface);padding:24px;margin:17px 0}
+.erp-app .catalog-panel h2{font-size:18px;display:flex;align-items:center;gap:10px;margin-bottom:17px;font-weight:850;letter-spacing:-.025em}
+.erp-app .catalog-panel h2 svg{color:var(--erp-green)}
+.erp-app .catalog-form{display:grid;gap:19px}
+.erp-app .catalog-grid-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+.erp-app .catalog-check{display:flex;align-items:flex-start;gap:11px;padding:16px;background:var(--erp-alt);border:1px solid var(--erp-border);border-radius:14px}
+.erp-app .catalog-check input{height:20px;width:20px;accent-color:var(--erp-green);flex:0 0 auto}
+.erp-app .catalog-check span{display:flex;flex-direction:column;gap:5px;min-width:0}
+.erp-app .catalog-check strong{font-size:14px}
+.erp-app .catalog-check small{color:var(--erp-muted);font-size:12px;line-height:1.5}
+.erp-app .catalog-form-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:5px}
+.erp-app .catalog-error,.erp-app .catalog-success{padding:14px 16px;border-radius:12px;font-size:13px;line-height:1.6;margin:13px 0}
+.erp-app .catalog-error{border:1px solid #e9898970;background:#c22a2a16;color:var(--erp-text)}
+.erp-app .catalog-success{border:1px solid #55cc9c60;background:#36ba8314;color:var(--erp-text)}
+.erp-app .catalog-back{display:inline-flex;align-items:center;gap:9px;color:var(--erp-green);font-size:13px;font-weight:800;padding:8px 0}
+.erp-app .catalog-inline-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end}
+.erp-app .catalog-category-list{display:grid;gap:10px}
+.erp-app .catalog-category-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:11px;align-items:end;padding:12px 0;border-top:1px solid var(--erp-border)}
+.erp-app .catalog-muted{font-size:13px;line-height:1.7;color:var(--erp-muted)}
+.erp-app .catalog-download{margin:15px 0}
+.erp-app .catalog-import-form{margin-top:7px}
+.erp-app .catalog-import-form .catalog-field input[type="file"]{height:auto;min-height:52px;padding:14px 12px}
+.erp-app .catalog-steps{display:grid;gap:12px;list-style:decimal;padding-left:23px;color:var(--erp-muted);font-size:13px;line-height:1.6}
+.erp-app .catalog-steps a{color:var(--erp-green);text-decoration:underline}
+.erp-app .catalog-note code{font:12px/1.6 ui-monospace,monospace;white-space:normal;overflow-wrap:anywhere;padding:2px}
+@media(max-width:890px){
+  .erp-app .catalog-filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .erp-app .catalog-search-field{grid-column:1/-1}
+}
+@media(max-width:650px){
+  .erp-app .catalog-hero{flex-wrap:wrap;padding:18px;gap:13px}
+  .erp-app .catalog-hero-icon{height:48px;width:48px;flex-basis:48px}
+  .erp-app .catalog-hero>div:nth-child(2){flex:1 1 calc(100% - 70px)}
+  .erp-app .catalog-hero .catalog-btn{width:100%;margin-top:3px}
+  .erp-app .catalog-kpis{gap:9px}
+  .erp-app .catalog-kpis>div{padding:13px}
+  .erp-app .catalog-kpis strong{font-size:23px}
+  .erp-app .catalog-kpis span{font-size:10px}
+  .erp-app .catalog-filters{padding:13px;gap:10px}
+  .erp-app .catalog-filters .catalog-btn{width:100%;grid-column:1/-1}
+  .erp-app .catalog-product{grid-template-columns:40px minmax(0,1fr) auto;gap:9px;padding:14px 12px}
+  .erp-app .catalog-product-icon{width:40px;height:40px}
+  .erp-app .catalog-product-price{grid-column:2;text-align:left;white-space:normal}
+  .erp-app .catalog-edit{grid-column:3;grid-row:2;justify-self:end}
+  .erp-app .catalog-product-meta{grid-column:2/-1}
+  .erp-app .catalog-grid-two{grid-template-columns:1fr;gap:15px}
+  .erp-app .catalog-panel{padding:18px}
+}
+@media(max-width:380px){
+  .erp-app .catalog-inline-form,.erp-app .catalog-category-row{grid-template-columns:1fr}
+  .erp-app .catalog-toolbar-actions .catalog-btn{flex:1}
+}

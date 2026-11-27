@@ -9,7 +9,7 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
   const ctx = await getErpContext(empresa);
   const links = [
     {label:"Nova venda",description:"Venda em poucos toques",path:"/vender",icon:ShoppingCart},
-    {label:"Entrada de estoque",description:"Receba seus produtos",path:"/estoque",icon:PackagePlus},
+    {label:"Produtos",description:"Cadastre e consulte seus itens",path:"/estoque",icon:PackagePlus},
     {label:"Lançar despesa",description:"Registre uma saída",path:"/caixa",icon:Wallet},
   ];
   const money = [
@@ -35,7 +35,7 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
       <section className="erp-actions" aria-label="Ações planejadas">
         {links.map(({label,description,path,icon:Icon})=><Link className="erp-action-card" key={path} href={`${path}?empresa=${encodeURIComponent(ctx.company.id)}`}><span className="erp-icon-frame"><Icon size={23}/></span><strong>{label}</strong><small>{description}</small><ArrowUpRight className="erp-action-arrow" size={19}/></Link>)}
       </section>
-      <section className="erp-info"><CircleHelp size={21}/><p><strong>Esta é uma prévia funcional da navegação.</strong> Ainda não existem dados de vendas ou estoque. O controle gerencial será construído na Fase 1, com lançamentos e estornos auditáveis.</p></section>
+      <section className="erp-info"><CircleHelp size={21}/><p><strong>Esta é uma prévia funcional da navegação.</strong> O cadastro de produtos está disponível. Saldos de estoque e vendas ainda não são registrados. O controle gerencial será ampliado na Fase 1, com lançamentos e estornos auditáveis.</p></section>
       <Link className="erp-link" href="/configurar"><Boxes size={17}/> Cadastrar outra empresa</Link>
     </AppShell>
   );

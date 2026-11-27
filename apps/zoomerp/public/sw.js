@@ -1,5 +1,5 @@
 /* ZoomERP PWA 0.3 — offline shell somente. Nunca armazenar respostas privadas, RPC ou navegação. */
-const CACHE_NAME = "zoomerp-public-v0.3.0";
+const CACHE_NAME = "zoomerp-public-v1.1.0";
 const PREFIX = "zoomerp-public-";
 const PRECACHE = [
   "/offline",
