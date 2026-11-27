@@ -114,3 +114,14 @@ Veja `CHANGELOG.md` para mudanças por etapa.
 - Login, criação de empresas e convites dependem de um projeto Supabase ativo, da migração SQL e das variáveis de ambiente **no painel da Vercel**: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `NEXT_PUBLIC_APP_URL=https://zoomerp-next.vercel.app`.
 - Configure no Supabase Auth a URL do site e os redirecionamentos `/auth/confirm` e `/auth/callback`; valide o isolamento RLS com duas contas reais antes de habilitar clientes.
 - A apresentação estática em https://adrianhenrrique.github.io/zoomerp/ continua separada do aplicativo Next.js.
+
+## Supabase conectado — 2026-11-27
+
+- Projeto Supabase **ZoomERP** em `sa-east-1`, ref `xietagebczbytejyqbkp`. Projeto separado de Atlas Vendas e ThunderBot.
+- Migração `auth_multiempresa` aplicada no banco (versão registrada `20261127031809`): `empresas`, `usuarios_empresa`, `convites_empresa`, RPCs e RLS.
+- As três tabelas têm RLS habilitado e política de consulta por associação/papel. Teste SQL transacional de isolamento entre duas empresas executado sem erros; dados de teste revertidos.
+- Vercel `zoomerp-next` recebeu `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` e `NEXT_PUBLIC_APP_URL` para os ambientes de desenvolvimento, preview e produção (sem `service_role`).
+- Corrigido `signUp.emailRedirectTo` para apontar a `/auth/callback` (fluxo PKCE).
+- **Configuração manual ainda necessária no Supabase Dashboard → Authentication → URL Configuration**: definir Site URL como `https://zoomerp-next.vercel.app` e adicionar à lista de redirects `https://zoomerp-next.vercel.app/auth/callback` (além de `http://localhost:3000/**` para desenvolvimento local). O conector atual não permite editar esta configuração.
+- O linter Supabase sinaliza as 3 RPCs públicas `SECURITY DEFINER` como avisos intencionais: estão restritas a `authenticated` e validam identidade/papel dentro da função. Revisar continuamente antes de liberar usuários reais.
+- **Teste ponta a ponta de signup, confirmação por e-mail e convites reais ainda pendente**, pois a configuração de URLs de autenticação precisa ser concluída. O build remoto do Next.js está aprovado, mas isso não substitui o teste real de autenticação.

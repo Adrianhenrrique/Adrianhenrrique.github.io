@@ -1,5 +1,14 @@
 # Histórico de alterações — ZoomERP
 
+## 0.2.2 — Conexão Supabase (2026-11-27)
+
+- Criado o projeto Supabase ZoomERP em São Paulo, com orçamento informado de US$ 0/mês.
+- Migração multiempresa aplicada, RLS verificado nas três tabelas.
+- Teste transacional de isolamento A/B executado sem erro; dados revertidos.
+- Variáveis públicas de conexão configuradas na Vercel; confirmação via callback PKCE corrigida.
+- Pendente ajustar Site URL/Redirect URLs no painel do Supabase e validar autenticação com e-mail real.
+
+
 ## 0.2.1 — Deploy inicial Next.js (2026-11-27)
 
 - Projeto Vercel `zoomerp-next` implantado com build do Next.js 16.4.6 aprovado.
