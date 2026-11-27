@@ -37,6 +37,8 @@ export function AppShell({
   role: Role;
 }) {
   const pathname = usePathname();
+  // Telas de catálogo e cadastros já têm ações próprias; não cobrir campos com o FAB.
+  const showQuickActions = !["/estoque","/categorias","/produtos","/contatos"].some(route=>pathname===route||pathname.startsWith(route+"/"));
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [quickOpen, setQuickOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -60,7 +62,7 @@ export function AppShell({
   const navigation = (context: "bottom" | "sidebar") => (
     <nav aria-label={context === "bottom" ? "Navegação inferior" : "Navegação principal"} className={context === "bottom" ? "erp-tabs" : "erp-side-nav"}>
       {items.map(({ label, href, icon: Icon }) => {
-        const active = pathname === href || (href === "/mais" && pathname === "/equipe") || (href === "/estoque" && (pathname.startsWith("/produtos/") || pathname === "/categorias"));
+        const active = pathname === href || (href === "/mais" && (pathname === "/equipe" || pathname.startsWith("/contatos/"))) || (href === "/estoque" && (pathname.startsWith("/produtos/") || pathname === "/categorias"));
         return (
           <Link key={href} href={url(href)} aria-current={active ? "page" : undefined} className={`erp-nav-item ${active ? "is-active" : ""}`} prefetch={false} onClick={() => setMenuOpen(false)}>
             <Icon size={context === "bottom" ? 21 : 19} strokeWidth={active ? 2.5 : 2} aria-hidden="true" />
@@ -81,7 +83,7 @@ export function AppShell({
         <div className="erp-side-section">MENU PRINCIPAL</div>
         {navigation("sidebar")}
         <div className="erp-sidebar-foot">
-          <span className="erp-dot" /> Versão 1.2 · Estoque
+          <span className="erp-dot" /> Versão 1.3 · Cadastros
         </div>
       </aside>
 
@@ -108,14 +110,14 @@ export function AppShell({
         <main className="erp-main" id="conteudo">
           <div className="erp-page-heading">
             <div><p className="erp-kicker">ZOOMERP / {role === "dono" ? "PAINEL DO DONO" : "PAINEL DO FUNCIONÁRIO"}</p><h1>{title}</h1>{description && <p className="erp-subtitle">{description}</p>}</div>
-            <span className="erp-dev-label">{pathname === "/estoque" || pathname.startsWith("/produtos/") || pathname === "/categorias" ? "Estoque ativo" : "Em desenvolvimento"}</span>
+            <span className="erp-dev-label">{pathname === "/estoque" || pathname.startsWith("/produtos/") || pathname === "/categorias" ? "Estoque ativo" : pathname.startsWith("/contatos/") ? "Cadastros ativos" : "Em desenvolvimento"}</span>
           </div>
           {children}
         </main>
         <footer className="erp-main-footer">ZoomERP · Controle gerencial · Não emite nota fiscal</footer>
       </div>
       {navigation("bottom")}
-      <div className="erp-quick-wrap">
+      {showQuickActions && <div className="erp-quick-wrap">
         {quickOpen && <div className="erp-quick-panel" id="erp-quick-actions">
           <p>Ações rápidas <span>· Produtos disponíveis</span></p>
           <Link href={url("/vender")} onClick={() => setQuickOpen(false)}><ShoppingCart size={18} /> Nova venda <ArrowRight size={16} /></Link>
@@ -125,7 +127,7 @@ export function AppShell({
         <button type="button" className="erp-quick-button" aria-expanded={quickOpen} aria-controls="erp-quick-actions" aria-label={quickOpen ? "Fechar ações rápidas" : "Abrir ações rápidas"} onClick={() => setQuickOpen(!quickOpen)}>
           {quickOpen ? <X size={25} /> : <Plus size={27} />}
         </button>
-      </div>
+      </div>}
     </div>
   );
 }

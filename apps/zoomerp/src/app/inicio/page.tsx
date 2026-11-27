@@ -31,11 +31,11 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
       <section className="erp-stats" aria-label="Indicadores ainda indisponíveis">
         {money.map((m)=><article className="erp-stat" key={m.label}><p>{m.label}</p><strong aria-label="Ainda sem dados">—</strong><span>{m.note}</span></article>)}
       </section>
-      <div className="erp-section-title"><h2>Atalhos rápidos</h2><span>Prévias da próxima fase</span></div>
+      <div className="erp-section-title"><h2>Atalhos rápidos</h2><span>Recursos atuais e próximos módulos</span></div>
       <section className="erp-actions" aria-label="Ações planejadas">
         {links.map(({label,description,path,icon:Icon})=><Link className="erp-action-card" key={path} href={`${path}?empresa=${encodeURIComponent(ctx.company.id)}`}><span className="erp-icon-frame"><Icon size={23}/></span><strong>{label}</strong><small>{description}</small><ArrowUpRight className="erp-action-arrow" size={19}/></Link>)}
       </section>
-      <section className="erp-info"><CircleHelp size={21}/><p><strong>Esta é uma prévia funcional da navegação.</strong> O cadastro de produtos está disponível. Saldos de estoque e vendas ainda não são registrados. O controle gerencial será ampliado na Fase 1, com lançamentos e estornos auditáveis.</p></section>
+      <section className="erp-info"><CircleHelp size={21}/><p><strong>Seu ERP está evoluindo.</strong> O catálogo, os saldos de estoque, os lançamentos auditáveis e os cadastros de clientes e fornecedores estão disponíveis. Vendas e caixa serão liberados nas próximas etapas.</p></section>
       <Link className="erp-link" href="/configurar"><Boxes size={17}/> Cadastrar outra empresa</Link>
     </AppShell>
   );

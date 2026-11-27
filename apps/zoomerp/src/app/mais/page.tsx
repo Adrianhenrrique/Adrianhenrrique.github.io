@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, ShieldCheck, Users } from "lucide-react";
+import { ArrowUpRight, ShieldCheck, Users, Truck } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { InstallPwa } from "@/components/install-pwa";
 import { sair } from "@/lib/auth/actions";
@@ -12,7 +12,7 @@ export default async function Mais({ searchParams }: { searchParams: Promise<{em
   return (
     <AppShell title="Mais opções" description="Seu negócio e seu aplicativo, em um só lugar." companyId={ctx.company.id} companyName={ctx.company.nome} role={ctx.role}>
       <div className="erp-more-grid">
-        <InstallPwa />
+        <section className="erp-card"><div className="erp-icon-frame"><Users size={22}/></div><h2>Cadastros</h2><p>Gerencie clientes e fornecedores do seu negócio.</p><Link className="erp-link erp-more-link" href={`/contatos/clientes?empresa=${encodeURIComponent(ctx.company.id)}`}><Users size={18}/> Clientes <ArrowUpRight size={17}/></Link><Link className="erp-link erp-more-link" href={`/contatos/fornecedores?empresa=${encodeURIComponent(ctx.company.id)}`}><Truck size={18}/> Fornecedores <ArrowUpRight size={17}/></Link></section><InstallPwa />
         <section className="erp-card">
           <div className="erp-icon-frame"><ShieldCheck size={22}/></div>
           <h2>Seu acesso</h2>
@@ -23,7 +23,7 @@ export default async function Mais({ searchParams }: { searchParams: Promise<{em
       </div>
       <section className="erp-card erp-disclaimer">
         <strong>ZoomERP está sendo desenvolvido.</strong>
-        <p>O catálogo de produtos já funciona. Este MVP ainda não registra vendas, movimentações de estoque nem lançamentos de dinheiro. A aplicação não emite documentos fiscais.</p>
+        <p>Catálogo, entradas, saídas e estornos de estoque, clientes e fornecedores já funcionam. Vendas e lançamentos financeiros serão implementados nas próximas etapas. A aplicação não emite documentos fiscais.</p>
       </section>
     </AppShell>
   );

@@ -196,3 +196,17 @@ Projeto Supabase separado `uaaqbftvjusfhdtkhcod`, São Paulo, cotação US$ 0/m�
 - Cópia operacional pré-release em produção, schema privado `zoomerp_backup_20261127_v12`: cinco tabelas do ERP copiadas em transação, conferidas linha a linha e com RLS e privilégios revogados para anon/authenticated/service_role. Não inclui auth, configurações nem backup externo; não equivale a recuperação de desastre. Nenhum dado de produção exportado para repositório.
 - Ordem de liberação: validar build da versão final, aplicar somente estoque, verificar RLS e dados, publicar main. O histórico da fundação difere entre projetos: não reaplicar migrations antigas. A operação de backup foi registrada separadamente no histórico remoto.
 - Recuperação: se o deploy falhar, manter ou voltar ao deploy anterior `dpl_369cJ2VdfQHwyAUQ444CwMTXMDRh`. A migration é aditiva e a versão 1.1.1 é compatível com as colunas/tabelas novas; não remover histórico de estoque nem restaurar snapshot por cima de dados posteriores. Em incidente de dados, pausar escritas, comparar as tabelas públicas com o snapshot privado e restaurar somente os registros afetados, com transação, validação de FKs e autorização do responsável. Para desastre de infraestrutura, ainda é necessário backup externo via Supabase CLI.
+
+## Fase 1.3 — Clientes e fornecedores (homologação)
+
+- Tabela `contatos` com empresa, tipo, nome, CPF/CNPJ numérico opcional, telefone, e-mail, CEP, endereço, cidade, UF e observações. Documento único por empresa e tipo, inclusive arquivados. Mesmo documento pode ser cliente e fornecedor.
+- Rotas `/contatos/clientes` e `/contatos/fornecedores`; edição/consulta em `/[id]`, novo em `/novo`. Busca, situação, paginação e arquivamento/reativação. Menu Mais. Donos escrevem e membros consultam; RLS, empresa/tipo/identidade imutáveis, autoria e sem DELETE.
+- Documentos alfanuméricos não suportados nesta candidata; não inserir valor inválido. Sem compras, contas ou vendas nesta etapa. Minimizar dados pessoais e restringir acesso.
+- Migration aplicada exclusivamente na homologação; teste transacional de isolamento aprovado após conceder acesso à função privada imutável de validação de documento. Produção permanece 1.2.0. CI GitHub adiada, prebuild Vercel exige lint/typecheck/test.
+
+### Revisão de QA — 1.3.0-rc.2
+
+- Teste manual em homologação rc.1 confirmou cadastro, edição, pesquisa, duplicidade e arquivamento/reativação. Mobile 375×812 ficou parcial por falha de rolagem do navegador de teste; não houve reprodução suficiente para classificá-la como bug do app.
+- Formulário de contatos usa ação com estado de erro e campos controlados: mantém dados digitados em falhas de validação e duplicidade, sem colocar informações pessoais na URL. Situação visível no início e avisos distintos de arquivo/reativação.
+- Campos do catálogo a 16px; FAB retirado de estoque, produtos, categorias e contatos para não cobrir controles. Telefone formatado e busca por cidade. Textos de Início e Mais atualizados.
+- Revalidar criação/edição com erros e a edição mobile antes da publicação. Nenhuma alteração de schema nesta revisão.
