@@ -33,6 +33,6 @@ test("CSS do ERP não é descarregado no login e existe skeleton de navegação"
   assert.doesNotMatch(root, /import "\.\/erp\.css"/);
   assert.doesNotMatch(root, /import "\.\/catalogo\.css"/);
   assert.match(read("src/components/app-shell.tsx"), /import "@\/app\/erp\.css"/);
-  assert.match(read("src/app/estoque/page.tsx"), /import "@\\/app\\/catalogo\\.css"/);
+  assert.ok(read("src/app/estoque/page.tsx").includes('import "@/app/catalogo.css";'));
   assert.match(read("src/app/loading.tsx"), /aria-busy="true"/);
 });
