@@ -1,5 +1,13 @@
 # Histórico de alterações — ZoomERP
 
+## Fase 1.3 — Clientes e fornecedores (homologação)
+
+- Tabela `contatos` com empresa, tipo, nome, CPF/CNPJ numérico opcional, telefone, e-mail, CEP, endereço, cidade, UF e observações. Documento único por empresa e tipo, inclusive arquivados. Mesmo documento pode ser cliente e fornecedor.
+- Rotas `/contatos/clientes` e `/contatos/fornecedores`; edição/consulta em `/[id]`, novo em `/novo`. Busca, situação, paginação e arquivamento/reativação. Menu Mais. Donos escrevem e membros consultam; RLS, empresa/tipo/identidade imutáveis, autoria e sem DELETE.
+- Documentos alfanuméricos não suportados nesta candidata; não inserir valor inválido. Sem compras, contas ou vendas nesta etapa. Minimizar dados pessoais e restringir acesso.
+- Migration aplicada exclusivamente na homologação; teste transacional de isolamento aprovado após conceder acesso à função privada imutável de validação de documento. Produção permanece 1.2.0. CI GitHub adiada, prebuild Vercel exige lint/typecheck/test.
+
+
 ## 1.2.0 — Estoque (2026-11-27)
 
 - Migration SQL validada em homologação para saldo materializado, histórico por empresa, RPC transacional, idempotência, entradas, saídas, ajustes e estornos.

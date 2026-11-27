@@ -60,7 +60,7 @@ export function AppShell({
   const navigation = (context: "bottom" | "sidebar") => (
     <nav aria-label={context === "bottom" ? "Navegação inferior" : "Navegação principal"} className={context === "bottom" ? "erp-tabs" : "erp-side-nav"}>
       {items.map(({ label, href, icon: Icon }) => {
-        const active = pathname === href || (href === "/mais" && pathname === "/equipe") || (href === "/estoque" && (pathname.startsWith("/produtos/") || pathname === "/categorias"));
+        const active = pathname === href || (href === "/mais" && (pathname === "/equipe" || pathname.startsWith("/contatos/"))) || (href === "/estoque" && (pathname.startsWith("/produtos/") || pathname === "/categorias"));
         return (
           <Link key={href} href={url(href)} aria-current={active ? "page" : undefined} className={`erp-nav-item ${active ? "is-active" : ""}`} prefetch={false} onClick={() => setMenuOpen(false)}>
             <Icon size={context === "bottom" ? 21 : 19} strokeWidth={active ? 2.5 : 2} aria-hidden="true" />
@@ -81,7 +81,7 @@ export function AppShell({
         <div className="erp-side-section">MENU PRINCIPAL</div>
         {navigation("sidebar")}
         <div className="erp-sidebar-foot">
-          <span className="erp-dot" /> Versão 1.2 · Estoque
+          <span className="erp-dot" /> Versão 1.3 · Cadastros
         </div>
       </aside>
 
@@ -108,7 +108,7 @@ export function AppShell({
         <main className="erp-main" id="conteudo">
           <div className="erp-page-heading">
             <div><p className="erp-kicker">ZOOMERP / {role === "dono" ? "PAINEL DO DONO" : "PAINEL DO FUNCIONÁRIO"}</p><h1>{title}</h1>{description && <p className="erp-subtitle">{description}</p>}</div>
-            <span className="erp-dev-label">{pathname === "/estoque" || pathname.startsWith("/produtos/") || pathname === "/categorias" ? "Estoque ativo" : "Em desenvolvimento"}</span>
+            <span className="erp-dev-label">{pathname === "/estoque" || pathname.startsWith("/produtos/") || pathname === "/categorias" ? "Estoque ativo" : pathname.startsWith("/contatos/") ? "Cadastros ativos" : "Em desenvolvimento"}</span>
           </div>
           {children}
         </main>
